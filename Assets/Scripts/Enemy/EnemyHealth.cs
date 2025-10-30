@@ -47,15 +47,18 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         Debug.Log($"{gameObject.name} ha muerto");
-        
-        // Desactivar componentes
+
+        // Sumar puntaje al ScoreManager
+        if (ScoreManager.instance != null)
+            ScoreManager.instance.AddScore(5);
+
         if (col != null) col.enabled = false;
         if (sr != null) sr.enabled = false;
         if (enemyAI != null) enemyAI.Die();
 
-        // Iniciar corrutina de respawn
         StartCoroutine(RespawnCoroutine());
     }
+
 
     IEnumerator RespawnCoroutine()
     {
