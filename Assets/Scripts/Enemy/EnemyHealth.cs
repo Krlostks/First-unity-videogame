@@ -66,20 +66,24 @@ public class EnemyHealth : MonoBehaviour
     }
 
     void Respawn()
-    {
-        Debug.Log($"{gameObject.name} ha respawneado");
-        
-        // Restaurar vida
-        currentHealth = maxHealth;
-        
-        // Mover a posición inicial
-        transform.position = spawnPosition;
-        
-        // Reactivar componentes
-        if (col != null) col.enabled = true;
-        if (sr != null) sr.enabled = true;
-        if (enemyAI != null) enemyAI.Revive();
-    }
+        {
+            Debug.Log($"{gameObject.name} ha respawneado");
+
+            currentHealth = maxHealth;
+            transform.position = spawnPosition;
+
+            // Reiniciar el Rigidbody2D si existe
+            var rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+
+            if (col != null) col.enabled = true;
+            if (sr != null) sr.enabled = true;
+            if (enemyAI != null) enemyAI.Revive();
+        }
 
     // Método público para obtener la vida actual
     public int GetCurrentHealth()
