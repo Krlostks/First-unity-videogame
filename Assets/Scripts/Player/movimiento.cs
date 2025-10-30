@@ -25,6 +25,7 @@ public class movimiento : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+    public int attackDamage = 1;
     public float attackRate = 2f; // ataques por segundo
     private float nextAttackTime = 0f;
 
@@ -54,13 +55,19 @@ public class movimiento : MonoBehaviour
         ataqueInput = Input.GetAxisRaw("Submit");
         Debug.Log("el valor del input" + ataqueInput);
 
-        if (ataqueInput > 0.01f)
+        // Sistema de ataque
+        if (Time.time >= nextAttackTime)
         {
-            animator.SetFloat("ataque", ataqueInput);
-        }
-        else
-        {
-            animator.SetFloat("ataque", 0);
+            if (ataqueInput > 0.01f)
+            {
+                Attack();
+                nextAttackTime = Time.time + 1f / attackRate;
+                animator.SetFloat("ataque", ataqueInput);
+            }
+            else
+            {
+                animator.SetFloat("ataque", 0);
+            }
         }
         // Entrada horizontal (teclas A/D o flechas), usa Input System viejo
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -68,22 +75,21 @@ public class movimiento : MonoBehaviour
         if (animator != null)
             animator.SetFloat("speed", Mathf.Abs(moveInput));
 
-        // Voltear sprite con flipX (evita voltear transform y afectar GroundCheck)
+
         if (moveInput > 0.01f) sr.flipX = false;
         else if (moveInput < -0.01f) sr.flipX = true;
 
-        // Ground Check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        // coyote time
+
         if (isGrounded) coyoteCounter = coyoteTime;
         else coyoteCounter -= Time.deltaTime;
 
-        // jump buffer
+
         if (Input.GetButtonDown("Jump")) jumpBufferCounter = jumpBufferTime;
         else jumpBufferCounter -= Time.deltaTime;
 
-        // Si hay buffer y hay coyote time -> saltar
+
         if (jumpBufferCounter > 0f && coyoteCounter > 0f && isGrounded)
         {
             Jump();
@@ -91,19 +97,34 @@ public class movimiento : MonoBehaviour
             coyoteCounter = 0f;
         }
 
-        // Variable jump height: si suelta el bot�n y va hacia arriba reduce velocidad
+ 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
-        Debug.Log("isGrounded: " + isGrounded);
+    }
 
+    void Attack()
+    {
+        // Detectar enemigos en rango de ataque
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        // Hacer daño a cada enemigo detectado
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Golpeamos a " + enemy.name);
+            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(attackDamage);
+            }
+        }
     }
 
     void FixedUpdate()
     {
-        // Movimiento horizontal
+    
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }
 
@@ -113,12 +134,20 @@ public class movimiento : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
-    // dibujar el ground check en el editor para debug
+    // dibujar el ground check y attack point en el editor para debug
     void OnDrawGizmosSelected()
     {
-        if (groundCheck == null) return;
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+        }
+
+        if (attackPoint != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
     }
 
     
