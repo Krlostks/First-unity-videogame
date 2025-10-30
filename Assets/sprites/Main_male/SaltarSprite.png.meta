@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3114a97fe9a5cf4e9db94c717a6eb82
+guid: baa1806053e7d419396fa7c7bb80b519
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,190 +110,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tierrapallete_0
+      name: SaltarSprite_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 449
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 400
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4706355, y: 0.465036}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6484718bd1443894e9f840df69021554
-      internalID: -295580093
+      spriteID: 125c0a192fea04b349202aed9320b1f0
+      internalID: 515997986
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_1
+      name: SaltarSprite_1
       rect:
         serializedVersion: 2
-        x: 164
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 200
+        y: 400
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4706355, y: 0.465036}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e4d108c011bcd44c93fa7f316804c59
-      internalID: 307026549
+      spriteID: 2dd30ece9a9b54c638b51895ea6fced0
+      internalID: -669172358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_2
+      name: SaltarSprite_2
       rect:
         serializedVersion: 2
-        x: 312
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 200
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4706355, y: 0.465036}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5edc348ab75a649449d84b6a515ad74e
-      internalID: -713050277
+      spriteID: d976d1339f66b4b86a95c32fa28f5a22
+      internalID: 2012085700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_3
+      name: SaltarSprite_3
       rect:
         serializedVersion: 2
-        x: 461
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 200
+        y: 200
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4706355, y: 0.465036}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a73f384811e6b7e4c89b2744e6fa708c
-      internalID: -141985631
+      spriteID: d41a066acbe5f4abb898d5f79521e93a
+      internalID: -646360757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_4
+      name: SaltarSprite_4
       rect:
         serializedVersion: 2
-        x: 607
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 0
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4706355, y: 0.465036}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9cf0532017aba8469cc30205620b714
-      internalID: 1505085625
+      spriteID: e6dfb23c4d2a1400e948a12a7ac5d52f
+      internalID: -160364973
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_5
+      name: SaltarSprite_5
       rect:
         serializedVersion: 2
-        x: 753
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 200
+        y: 0
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4706355, y: 0.465036}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fdcf4b2449eb6f45aa8d3b0eb125839
-      internalID: 1775783866
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tierrapallete_6
-      rect:
-        serializedVersion: 2
-        x: 899
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3cb0f4c5feb581c4b9fce450bee60200
-      internalID: -491791428
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tierrapallete_7
-      rect:
-        serializedVersion: 2
-        x: 1046
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5597dbe840e8544db7c5765a5ccede9
-      internalID: 2024012495
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tierrapallete_8
-      rect:
-        serializedVersion: 2
-        x: 1193
-        y: 449
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df2ef0792487255498bc34ec6da2a2d1
-      internalID: -965804152
+      spriteID: c1bed437a3bbd48778ccb45aa2a80c63
+      internalID: 1495547055
       vertices: []
       indices: 
       edges: []
@@ -309,15 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tierrapallete_0: -295580093
-      tierrapallete_1: 307026549
-      tierrapallete_2: -713050277
-      tierrapallete_3: -141985631
-      tierrapallete_4: 1505085625
-      tierrapallete_5: 1775783866
-      tierrapallete_6: -491791428
-      tierrapallete_7: 2024012495
-      tierrapallete_8: -965804152
+      SaltarSprite_0: 515997986
+      SaltarSprite_1: -669172358
+      SaltarSprite_2: 2012085700
+      SaltarSprite_3: -646360757
+      SaltarSprite_4: -160364973
+      SaltarSprite_5: 1495547055
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

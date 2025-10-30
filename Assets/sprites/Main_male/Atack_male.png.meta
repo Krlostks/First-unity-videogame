@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3114a97fe9a5cf4e9db94c717a6eb82
+guid: 16ce7ba5bea134d33938f22691febd10
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,190 +110,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tierrapallete_0
+      name: Atack_male_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 449
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 400
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6484718bd1443894e9f840df69021554
-      internalID: -295580093
+      spriteID: de68fa2a3148c49ba94a00adc6afac9f
+      internalID: 130613444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_1
+      name: Atack_male_1
       rect:
         serializedVersion: 2
-        x: 164
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 200
+        y: 400
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e4d108c011bcd44c93fa7f316804c59
-      internalID: 307026549
+      spriteID: d0006060e003d446da2db2b3c44268d9
+      internalID: -2045509230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_2
+      name: Atack_male_2
       rect:
         serializedVersion: 2
-        x: 312
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 400
+        y: 400
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5edc348ab75a649449d84b6a515ad74e
-      internalID: -713050277
+      spriteID: b32a799cacb43449a827ec9a61b4197c
+      internalID: -545661847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_3
+      name: Atack_male_3
       rect:
         serializedVersion: 2
-        x: 461
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 200
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a73f384811e6b7e4c89b2744e6fa708c
-      internalID: -141985631
+      spriteID: 8299e0d36c1fd49cb823966e32448149
+      internalID: 185746298
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_4
+      name: Atack_male_4
       rect:
         serializedVersion: 2
-        x: 607
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 200
+        y: 200
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9cf0532017aba8469cc30205620b714
-      internalID: 1505085625
+      spriteID: 9a523d4738fa741c486d9557a5229e6a
+      internalID: 1409684488
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_5
+      name: Atack_male_5
       rect:
         serializedVersion: 2
-        x: 753
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 400
+        y: 200
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fdcf4b2449eb6f45aa8d3b0eb125839
-      internalID: 1775783866
+      spriteID: 9603c3b750f8f434e94cb1f9d725b387
+      internalID: 2083216075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_6
+      name: Atack_male_6
       rect:
         serializedVersion: 2
-        x: 899
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 0
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cb0f4c5feb581c4b9fce450bee60200
-      internalID: -491791428
+      spriteID: 3111818266f3c43139e20697ee9bb445
+      internalID: -25441896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tierrapallete_7
+      name: Atack_male_7
       rect:
         serializedVersion: 2
-        x: 1046
-        y: 450
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 200
+        y: 0
+        width: 200
+        height: 200
+      alignment: 9
+      pivot: {x: 0.3350423, y: 0.4480869}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5597dbe840e8544db7c5765a5ccede9
-      internalID: 2024012495
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tierrapallete_8
-      rect:
-        serializedVersion: 2
-        x: 1193
-        y: 449
-        width: 119
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df2ef0792487255498bc34ec6da2a2d1
-      internalID: -965804152
+      spriteID: 7b0bec9ad46a24602ad2eff4c7a65eb0
+      internalID: -1289047552
       vertices: []
       indices: 
       edges: []
@@ -309,15 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tierrapallete_0: -295580093
-      tierrapallete_1: 307026549
-      tierrapallete_2: -713050277
-      tierrapallete_3: -141985631
-      tierrapallete_4: 1505085625
-      tierrapallete_5: 1775783866
-      tierrapallete_6: -491791428
-      tierrapallete_7: 2024012495
-      tierrapallete_8: -965804152
+      Atack_male_0: 130613444
+      Atack_male_1: -2045509230
+      Atack_male_2: -545661847
+      Atack_male_3: 185746298
+      Atack_male_4: 1409684488
+      Atack_male_5: 2083216075
+      Atack_male_6: -25441896
+      Atack_male_7: -1289047552
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
