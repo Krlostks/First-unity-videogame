@@ -1,0 +1,1456 @@
+fileFormatVersion: 2
+guid: d424806b46ccc174487dd63b22d74d81
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_0
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d98981d730ba2d43bdfdced1d68cd37
+      internalID: -1889654516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_1
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0591db9cde9e6f46b58d0cef936faee
+      internalID: -1469196802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_2
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dccc487896ea7942874fab2aecfc1ce
+      internalID: 1316499285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_3
+      rect:
+        serializedVersion: 2
+        x: 6388
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6037b517057fa3d4283e656a62e452b8
+      internalID: 625358354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_4
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0da3e96c2af2620409d78e10fc72b2be
+      internalID: -1142037859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_5
+      rect:
+        serializedVersion: 2
+        x: 10484
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6cffe56a5e3dda448d5de931f439c2f
+      internalID: -1601860122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_6
+      rect:
+        serializedVersion: 2
+        x: 12532
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c7670f02ad11d84ca636278625088d1
+      internalID: -1062737847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_7
+      rect:
+        serializedVersion: 2
+        x: 14580
+        y: 15284
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c127e66f2ac564546b5c3a20905e06df
+      internalID: 257352649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_8
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55f78a90a07a5b3499e2fc00e8f22600
+      internalID: 1243209920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_9
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e2d42c1715e16a429fabb5cd2e6fc67
+      internalID: 259874972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_10
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bba3582a46a319044928ff74c4d97f58
+      internalID: -1570928509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_11
+      rect:
+        serializedVersion: 2
+        x: 6388
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c4cfe1a3bc916a4a9c1cfdbd2a6ba74
+      internalID: 200591626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_12
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2be10bf6c21d39644a943a2850937e26
+      internalID: 530975687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_13
+      rect:
+        serializedVersion: 2
+        x: 10484
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6808ab566c70f814a861b598bdaabd34
+      internalID: -442420575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_14
+      rect:
+        serializedVersion: 2
+        x: 12532
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdb791a166dd9a44f9a737079b3978d0
+      internalID: -432930613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_15
+      rect:
+        serializedVersion: 2
+        x: 14580
+        y: 13236
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 491586cf6d5342a4182d184b1806642e
+      internalID: 1490133422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_16
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 11188
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e493d323c6e68044aca7c60678177d6
+      internalID: 1613717636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_17
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 11188
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf27379dc41efc042b8eb4af8a225af5
+      internalID: -1127326174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_18
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 11188
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efbc53ca25669014f995c0ca1d2931b1
+      internalID: 1314039598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_19
+      rect:
+        serializedVersion: 2
+        x: 6388
+        y: 11188
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0396ee33e176cc648a26d0dfdccdcfe4
+      internalID: 370826475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_20
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 11188
+        width: 1560
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4af55121e97797346974189bacc2fc89
+      internalID: -22805490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_21
+      rect:
+        serializedVersion: 2
+        x: 10484
+        y: 11188
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 977ba82664358ef448921560065393b2
+      internalID: -1382173113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_22
+      rect:
+        serializedVersion: 2
+        x: 12532
+        y: 11188
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e941c916bb70a044fb066c00e8d20b27
+      internalID: -1604526624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_23
+      rect:
+        serializedVersion: 2
+        x: 14580
+        y: 11188
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc4bead97d4e4c24f8607cc0365452d6
+      internalID: -677876180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_24
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ffb86364d24a0f46a5682ee4f56b140
+      internalID: 71723129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_25
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0001326010224b44ab40c96d3672dc62
+      internalID: -631111896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_26
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24f44b65a7dddd24985f76a81bddf894
+      internalID: -1462894044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_27
+      rect:
+        serializedVersion: 2
+        x: 6388
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e6a6f17d2834184783bf97b1a78afb3
+      internalID: -773645248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_28
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c47e769e98b126f40b8763c55362cbad
+      internalID: 1274805848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_29
+      rect:
+        serializedVersion: 2
+        x: 10484
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaa4d308b66e0c341a24637306876513
+      internalID: -1014042780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_30
+      rect:
+        serializedVersion: 2
+        x: 12532
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14dbb1f39a5653a4d81d6be2bc880127
+      internalID: -1181184114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_31
+      rect:
+        serializedVersion: 2
+        x: 14580
+        y: 9140
+        width: 344
+        height: 312
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c816b3f682ae2374f8f10fb945787242
+      internalID: -64536837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_32
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5a732abcdd548d43bf124363756178e
+      internalID: -999879468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_33
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0b1ad8f12792440bebcd75ac36d604
+      internalID: 2108508953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_34
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcab64959f440574b9495392b15471d6
+      internalID: -1729840774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_35
+      rect:
+        serializedVersion: 2
+        x: 6388
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2edea84573acfec46bad745499e8395d
+      internalID: 891004234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_36
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3335d9597afc98542add186dde24764f
+      internalID: -2017659449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_37
+      rect:
+        serializedVersion: 2
+        x: 10484
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47bd723e094fd0246b5a069eb41d926b
+      internalID: 946922081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_38
+      rect:
+        serializedVersion: 2
+        x: 12532
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19a7eabb6854cea40b26603f20fa34ba
+      internalID: 1882050145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_39
+      rect:
+        serializedVersion: 2
+        x: 14580
+        y: 6996
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 035627c6f4f1ec843b48558548801db3
+      internalID: -1046559356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_40
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f17591e21c0e3bf4cb4ca7fccb949dbb
+      internalID: -346870878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_41
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c498b46b418c27d47be45eb9dd81a497
+      internalID: -1757903794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_42
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6041b24f3bbb6114180ce49ac6adac3d
+      internalID: -1719056748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_43
+      rect:
+        serializedVersion: 2
+        x: 6388
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0c9ba27fa83412468baa8a16b460c63
+      internalID: -1238183976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_44
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5b9ac92d68b3b6469c034d8cc20eb97
+      internalID: 1729193020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_45
+      rect:
+        serializedVersion: 2
+        x: 10484
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f68e4feb1e50d6c46a089e824549a837
+      internalID: -1274773224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_46
+      rect:
+        serializedVersion: 2
+        x: 12532
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac9e3d27cc74b3a45ba78ace11d2c4f2
+      internalID: -1611983050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_47
+      rect:
+        serializedVersion: 2
+        x: 14580
+        y: 4948
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8d685e5f3e8b4640b54d8922d6552c0
+      internalID: 1762778329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_48
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 2900
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6b88cb99f6cf644cadd6718ac2137c2
+      internalID: 1635550144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_49
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 2900
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ff24eee5cb947f4d95b8b4c818ee473
+      internalID: 1304724605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_50
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 2900
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d2cb4cee4c0404888b31cdb80a6b1b
+      internalID: -658020418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_51
+      rect:
+        serializedVersion: 2
+        x: 6388
+        y: 2900
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3114c24e80882a744827c49d7b6497c9
+      internalID: -1839574468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_52
+      rect:
+        serializedVersion: 2
+        x: 8436
+        y: 2900
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68357343fce41549ad32bd132e55d1f
+      internalID: -965930677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_53
+      rect:
+        serializedVersion: 2
+        x: 10484
+        y: 2900
+        width: 1560
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2bdb155de9a49043ae5aecd5dfb4dc3
+      internalID: -1610612871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_54
+      rect:
+        serializedVersion: 2
+        x: 12500
+        y: 2708
+        width: 1592
+        height: 728
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5976b4a78de20b4ca8315a65051975c
+      internalID: -938737560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_55
+      rect:
+        serializedVersion: 2
+        x: 14580
+        y: 2708
+        width: 1592
+        height: 728
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c401d130d0ded49408c04a0bb4fc36de
+      internalID: 1301642290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_56
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 660
+        width: 888
+        height: 728
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40c29713519ac1c41aeb3f9d14a24610
+      internalID: -412717219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_57
+      rect:
+        serializedVersion: 2
+        x: 2644
+        y: 660
+        width: 888
+        height: 728
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c205af5352639b34dba7dc744922a533
+      internalID: -904368500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_58
+      rect:
+        serializedVersion: 2
+        x: 4308
+        y: 820
+        width: 1624
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b252fa281057dca45abfd0f608caa434
+      internalID: 15150807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_59
+      rect:
+        serializedVersion: 2
+        x: 6356
+        y: 820
+        width: 1624
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ad3b31ffaac6340a4599914b5a73f3
+      internalID: -767665849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HUD_ANIMO (2)_60
+      rect:
+        serializedVersion: 2
+        x: 8404
+        y: 820
+        width: 1624
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1c7f363d4f68d45ba073ea9b8ffdf7
+      internalID: -420246605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HUD_ANIMO (2)_0: -1889654516
+      HUD_ANIMO (2)_1: -1469196802
+      HUD_ANIMO (2)_10: -1570928509
+      HUD_ANIMO (2)_11: 200591626
+      HUD_ANIMO (2)_12: 530975687
+      HUD_ANIMO (2)_13: -442420575
+      HUD_ANIMO (2)_14: -432930613
+      HUD_ANIMO (2)_15: 1490133422
+      HUD_ANIMO (2)_16: 1613717636
+      HUD_ANIMO (2)_17: -1127326174
+      HUD_ANIMO (2)_18: 1314039598
+      HUD_ANIMO (2)_19: 370826475
+      HUD_ANIMO (2)_2: 1316499285
+      HUD_ANIMO (2)_20: -22805490
+      HUD_ANIMO (2)_21: -1382173113
+      HUD_ANIMO (2)_22: -1604526624
+      HUD_ANIMO (2)_23: -677876180
+      HUD_ANIMO (2)_24: 71723129
+      HUD_ANIMO (2)_25: -631111896
+      HUD_ANIMO (2)_26: -1462894044
+      HUD_ANIMO (2)_27: -773645248
+      HUD_ANIMO (2)_28: 1274805848
+      HUD_ANIMO (2)_29: -1014042780
+      HUD_ANIMO (2)_3: 625358354
+      HUD_ANIMO (2)_30: -1181184114
+      HUD_ANIMO (2)_31: -64536837
+      HUD_ANIMO (2)_32: -999879468
+      HUD_ANIMO (2)_33: 2108508953
+      HUD_ANIMO (2)_34: -1729840774
+      HUD_ANIMO (2)_35: 891004234
+      HUD_ANIMO (2)_36: -2017659449
+      HUD_ANIMO (2)_37: 946922081
+      HUD_ANIMO (2)_38: 1882050145
+      HUD_ANIMO (2)_39: -1046559356
+      HUD_ANIMO (2)_4: -1142037859
+      HUD_ANIMO (2)_40: -346870878
+      HUD_ANIMO (2)_41: -1757903794
+      HUD_ANIMO (2)_42: -1719056748
+      HUD_ANIMO (2)_43: -1238183976
+      HUD_ANIMO (2)_44: 1729193020
+      HUD_ANIMO (2)_45: -1274773224
+      HUD_ANIMO (2)_46: -1611983050
+      HUD_ANIMO (2)_47: 1762778329
+      HUD_ANIMO (2)_48: 1635550144
+      HUD_ANIMO (2)_49: 1304724605
+      HUD_ANIMO (2)_5: -1601860122
+      HUD_ANIMO (2)_50: -658020418
+      HUD_ANIMO (2)_51: -1839574468
+      HUD_ANIMO (2)_52: -965930677
+      HUD_ANIMO (2)_53: -1610612871
+      HUD_ANIMO (2)_54: -938737560
+      HUD_ANIMO (2)_55: 1301642290
+      HUD_ANIMO (2)_56: -412717219
+      HUD_ANIMO (2)_57: -904368500
+      HUD_ANIMO (2)_58: 15150807
+      HUD_ANIMO (2)_59: -767665849
+      HUD_ANIMO (2)_6: -1062737847
+      HUD_ANIMO (2)_60: -420246605
+      HUD_ANIMO (2)_7: 257352649
+      HUD_ANIMO (2)_8: 1243209920
+      HUD_ANIMO (2)_9: 259874972
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

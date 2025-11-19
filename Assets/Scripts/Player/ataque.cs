@@ -18,7 +18,6 @@ public class ataque : MonoBehaviour
     void Update()
     {
         ataqueInput = Input.GetAxisRaw("Submit");
-        Debug.Log("el valor del input" + ataqueInput);
 
         if(ataqueInput > 0.01f){
             animator.SetFloat ("ataque", ataqueInput);

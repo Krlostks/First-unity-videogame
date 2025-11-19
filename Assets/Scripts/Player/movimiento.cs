@@ -75,43 +75,44 @@ public class movimiento : MonoBehaviour, IPausable
         if (GamePauseManager.Instance != null && GamePauseManager.Instance.IsPaused())
             return;
 
-        ataqueInput = Input.GetAxisRaw("Submit");
-        Debug.Log("el valor del input" + ataqueInput);
+        float ataqueInput = Input.GetKey(KeyCode.E) ? 1f : 0f;
 
-        // Sistema de ataque
         if (Time.time >= nextAttackTime)
         {
             if (ataqueInput > 0.01f)
             {
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
-                animator.SetFloat("ataque", ataqueInput);
-            }
-            else
-            {
-                animator.SetFloat("ataque", 0);
             }
         }
-        // Entrada horizontal (teclas A/D o flechas), usa Input System viejo
+
+        animator.SetFloat("ataque", ataqueInput);
+
+        // Resto del movimiento continúa igual
         moveInput = Input.GetAxisRaw("Horizontal");
 
         if (animator != null)
             animator.SetFloat("speed", Mathf.Abs(moveInput));
 
-
         if (moveInput > 0.01f) sr.flipX = false;
         else if (moveInput < -0.01f) sr.flipX = true;
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        if (sr.flipX)
+        {
+            attackPoint.localPosition = new Vector3(-Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
+        }
+        else
+        {
+            attackPoint.localPosition = new Vector3(Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
+        }
 
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
         if (isGrounded) coyoteCounter = coyoteTime;
         else coyoteCounter -= Time.deltaTime;
 
-
         if (Input.GetButtonDown("Jump")) jumpBufferCounter = jumpBufferTime;
         else jumpBufferCounter -= Time.deltaTime;
-
 
         if (jumpBufferCounter > 0f && coyoteCounter > 0f && isGrounded)
         {
@@ -120,12 +121,10 @@ public class movimiento : MonoBehaviour, IPausable
             coyoteCounter = 0f;
         }
 
- 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-
     }
 
     void Attack()
