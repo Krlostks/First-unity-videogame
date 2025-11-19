@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: atacar
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7127975823884421651}
@@ -41,7 +41,7 @@ AnimatorStateMachine:
     m_Position: {x: 150, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9046399510282148078}
-    m_Position: {x: 425.59998, y: 166.40001, z: 0}
+    m_Position: {x: 430, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7930345236319454788}
     m_Position: {x: 350, y: 360, z: 0}
@@ -94,7 +94,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: idleJugador
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3014121661683108818}
@@ -289,7 +289,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: runJugador
-  m_Speed: 1
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -860990776066800214}
