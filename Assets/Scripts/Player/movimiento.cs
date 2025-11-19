@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
-public class movimiento : MonoBehaviour
+public class movimiento : MonoBehaviour, IPausable
 {
     [Header("Movimiento")]
     public float moveSpeed = 5f;
@@ -49,8 +49,31 @@ public class movimiento : MonoBehaviour
         rb.gravityScale = gravityScale;
     }
 
+    void OnEnable()
+    {
+        GamePauseManager.Instance?.RegisterPausable(this);
+    }
+
+    void OnDisable()
+    {
+        GamePauseManager.Instance?.UnregisterPausable(this);
+    }
+
+    public void OnPause()
+    {
+        rb.velocity = Vector2.zero;
+        animator.speed = 0f; // pausa animaciones
+    }
+
+    public void OnResume()
+    {
+        animator.speed = 1f; // reanuda animaciones
+    }
+
     void Update()
     {
+        if (GamePauseManager.Instance != null && GamePauseManager.Instance.IsPaused())
+            return;
 
         ataqueInput = Input.GetAxisRaw("Submit");
         Debug.Log("el valor del input" + ataqueInput);
@@ -124,6 +147,8 @@ public class movimiento : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GamePauseManager.Instance != null && GamePauseManager.Instance.IsPaused())
+            return;
     
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IPausable
 {
     [Header("Configuración de Seguimiento")]
     [Tooltip("Velocidad de movimiento del enemigo")]
@@ -45,8 +45,30 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        GamePauseManager.Instance?.RegisterPausable(this);
+    }
+
+    void OnDisable()
+    {
+        GamePauseManager.Instance?.UnregisterPausable(this);
+    }
+
+    public void OnPause()
+    {
+        rb.velocity = Vector2.zero;
+    }
+
+    public void OnResume()
+    {
+    }
+
     void FixedUpdate()
     {
+        if (GamePauseManager.Instance != null && GamePauseManager.Instance.IsPaused())
+            return;
+        
         if (isDead || player == null) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
