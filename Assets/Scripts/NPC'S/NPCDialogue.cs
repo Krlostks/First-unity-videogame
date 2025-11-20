@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 
 
-public class NPCDialogue2D : MonoBehaviour
+public class NPCDialogue : MonoBehaviour
 {
     public GameObject dialogueCanvas;
     public string dialogueText = "¡Hola viajero!";
@@ -23,9 +23,16 @@ public class NPCDialogue2D : MonoBehaviour
     void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
+    {
+        bool isActive = dialogueCanvas.activeSelf;
+        dialogueCanvas.SetActive(!isActive);
+
+        if (isActive)  // si estaba activo y se cerró
         {
-            dialogueCanvas.SetActive(!dialogueCanvas.activeSelf);
+            // Llamamos al Fade
+
         }
+    }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -42,6 +49,8 @@ public class NPCDialogue2D : MonoBehaviour
         {
             playerInRange = false;
             dialogueCanvas.SetActive(false);
+            FindObjectOfType<SceneFader>().FadeToScene("seccion2");
+            Debug.Log("se cerró");
         }
     }
 }
