@@ -23,10 +23,10 @@ public class MenuSystem : MonoBehaviour
             audioManager.AddComponent<AudioManager>();
         }
 
-        // Cargar el último nivel jugado al iniciar
+        // Cargar el ï¿½ltimo nivel jugado al iniciar
         GameManager.Instance.CargarUltimoNivel();
 
-        // Reproducir música de menú
+        // Reproducir mï¿½sica de menï¿½
         if (AudioManager.Instance != null && musicaMenu != null)
         {
             AudioManager.Instance.ReproducirMusica(musicaMenu);
@@ -37,7 +37,7 @@ public class MenuSystem : MonoBehaviour
     {
         string ultimoNivel = GameManager.Instance.CargarUltimoNivel();
 
-        // Opcional: Detener música al ir a niveles (si quieres música diferente en niveles)
+        // Opcional: Detener mï¿½sica al ir a niveles (si quieres mï¿½sica diferente en niveles)
         // AudioManager.Instance.DetenerMusica();
 
         SceneManager.LoadScene(ultimoNivel);
@@ -57,8 +57,9 @@ public class MenuSystem : MonoBehaviour
     {
         // Reiniciar progreso y empezar desde Level1
         GameManager.Instance.GuardarUltimoNivel("Level1");
+        GamePauseManager.Instance.ResumeGame();
 
-        // Opcional: Detener música al ir a niveles
+        // Opcional: Detener mï¿½sica al ir a niveles
         // AudioManager.Instance.DetenerMusica();
 
         SceneManager.LoadScene("Level1");

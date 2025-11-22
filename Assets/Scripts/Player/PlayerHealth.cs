@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,6 +9,9 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("Vida máxima del jugador")]
     public int maxHealth = 3;
     private int currentHealth;
+
+    public GameObject[] vidas;
+    public Animator[] vidaAnimators; // Asignar en inspector paralelo a vidas[]
 
     [Header("Invencibilidad Temporal")]
     [Tooltip("Tiempo de invencibilidad después de recibir daño")]
@@ -19,33 +24,54 @@ public class PlayerHealth : MonoBehaviour
     public float blinkInterval = 0.1f;
     private SpriteRenderer sr;
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        currentHealth = maxHealth;
+        ResetVidasVisuales();
+        isInvincible = false;
+        invincibilityTimer = 0f;
+        if (sr != null)
+            sr.color = Color.white;
+    }
+
     void Start()
     {
         currentHealth = maxHealth;
         sr = GetComponent<SpriteRenderer>();
+        ResetVidasVisuales();
     }
 
     void Update()
     {
-        // Actualizar timer de invencibilidad
         if (isInvincible)
         {
             invincibilityTimer -= Time.deltaTime;
             if (invincibilityTimer <= 0f)
             {
                 isInvincible = false;
-                if (sr != null) sr.color = Color.white; // Restaurar color normal
+                if (sr != null) sr.color = Color.white;
             }
         }
     }
 
     public void TakeDamage(int damage)
     {
-        // No recibir daño si es invencible
         if (isInvincible) return;
 
         currentHealth -= damage;
         Debug.Log($"Player recibió {damage} de daño. Vida restante: {currentHealth}/{maxHealth}");
+
+        ActualizarVidasVisualesConAnimacion();
 
         if (currentHealth <= 0)
         {
@@ -53,11 +79,8 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            // Activar invencibilidad temporal
             isInvincible = true;
             invincibilityTimer = invincibilityTime;
-            
-            // Efecto visual de daño
             StartCoroutine(BlinkEffect());
         }
     }
@@ -69,33 +92,31 @@ public class PlayerHealth : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < invincibilityTime)
         {
-            sr.color = new Color(1f, 1f, 1f, 0.5f); // Semi-transparente
+            sr.color = new Color(1f, 1f, 1f, 0.5f);
             yield return new WaitForSeconds(blinkInterval);
-            sr.color = Color.white; // Normal
+            sr.color = Color.white;
             yield return new WaitForSeconds(blinkInterval);
             elapsed += blinkInterval * 2;
         }
-        
-        sr.color = Color.white; // Asegurar que termine visible
+
+        sr.color = Color.white;
     }
 
     void Die()
     {
         Debug.Log("Player ha muerto - Game Over");
-        
-        // Aquí puedes agregar lógica de Game Over
-        // Por ahora, reiniciamos la escena
+        currentHealth = maxHealth;
+        ResetVidasVisuales();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // Método para curar al jugador
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         Debug.Log($"Player curado. Vida actual: {currentHealth}/{maxHealth}");
+        ActualizarVidasVisualesConAnimacion();
     }
 
-    // Getters públicos
     public int GetCurrentHealth()
     {
         return currentHealth;
@@ -109,5 +130,70 @@ public class PlayerHealth : MonoBehaviour
     public bool IsInvincible()
     {
         return isInvincible;
+    }
+
+    private void DesactivarVida(int index)
+    {
+        if (index >= 0 && index < vidas.Length && vidas[index] != null)
+            vidas[index].SetActive(false);
+    }
+
+    private void ActivarVida(int index)
+    {
+        if (index >= 0 && index < vidas.Length && vidas[index] != null)
+            vidas[index].SetActive(true);
+    }
+
+    private void ActualizarVidasVisualesConAnimacion()
+    {
+        for (int i = 0; i < vidas.Length; i++)
+        {
+            if (vidas[i] == null) continue;
+
+            if (i < currentHealth)
+            {
+                ActivarVida(i);
+                if (vidaAnimators != null && vidaAnimators.Length > i && vidaAnimators[i] != null)
+                {
+                    vidaAnimators[i].ResetTrigger("Broke");
+                    // Solo pon en Idle cuando curas, no cuando pierdes vida
+                    vidaAnimators[i].Play("IdleVida" + i, -1, 0f);
+                }
+            }
+            else
+            {
+                if (vidaAnimators != null && vidaAnimators.Length > i && vidaAnimators[i] != null)
+                {
+                    vidaAnimators[i].SetTrigger("Broke");
+                    // Desactiva la vida después de la animación
+                    StartCoroutine(DesactivarVidaDespuesAnimacion(vidas[i], 0.5f)); // Pon la duración real aquí
+                }
+                else
+                {
+                    DesactivarVida(i);
+                }
+            }
+        }
+    }
+
+    private IEnumerator DesactivarVidaDespuesAnimacion(GameObject vida, float duracion)
+    {
+        yield return new WaitForSeconds(duracion);
+        vida.SetActive(false);
+    }
+
+    private void ResetVidasVisuales()
+    {
+        for (int i = 0; i < vidas.Length; i++)
+        {
+            if (vidas[i] == null) continue;
+
+            ActivarVida(i);
+            if (vidaAnimators != null && vidaAnimators.Length > i && vidaAnimators[i] != null)
+            {
+                vidaAnimators[i].ResetTrigger("Broke");
+                vidaAnimators[i].Play("IdleVida" + i, -1, 0f);
+            }
+        }
     }
 }

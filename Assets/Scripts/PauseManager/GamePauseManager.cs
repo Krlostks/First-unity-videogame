@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public interface IPausable
 {
@@ -10,6 +11,9 @@ public interface IPausable
 public class GamePauseManager : MonoBehaviour
 {
     public static GamePauseManager Instance { get; private set; }
+
+    public GameObject InGameObjects;   // Asignar desde el inspector
+    public GameObject PauseObjects;    // Asignar desde el inspector
 
     private bool isPaused = false;
     private List<IPausable> pausables = new List<IPausable>();
@@ -23,11 +27,32 @@ public class GamePauseManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Scenes/Levels/Level1")
+        {
+            ResumeGame();
+            Debug.Log("[GamePauseManager] ResumeGame ejecutado al cargar escena " + scene.name);
+        }
+    }
+
+    void Start()
+    {
+        SetPauseObjectsActive(false);
+    }
+
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))  // Cambiado a tecla ESC
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
@@ -35,21 +60,45 @@ public class GamePauseManager : MonoBehaviour
 
     public void TogglePause()
     {
-        isPaused = !isPaused;
-        Time.timeScale = isPaused ? 0f : 1f;
         if (isPaused)
-        {
-            foreach (var p in pausables)
-                p.OnPause();
-        }
+            ResumeGame();
         else
-        {
-            foreach (var p in pausables)
-                p.OnResume();
-        }
+            PauseGame();
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        SetPauseObjectsActive(true);
+        foreach (var p in pausables)
+            p.OnPause();
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        SetPauseObjectsActive(false);
+        foreach (var p in pausables)
+            p.OnResume();
+    }
+
+    public void ExitToMenu()
+    {
+        Time.timeScale = 1f; // Asegúrate de restaurar el tiempo por si sales en pausa
+        SceneManager.LoadScene("Scenes/Menu/Menu"); // Usa el path/nombre exacto de tu escena
     }
 
     public bool IsPaused() => isPaused;
+
+    private void SetPauseObjectsActive(bool paused)
+    {
+        if (InGameObjects != null)
+            InGameObjects.SetActive(!paused);
+        if (PauseObjects != null)
+            PauseObjects.SetActive(paused);
+    }
 
     public void RegisterPausable(IPausable pausable)
     {
