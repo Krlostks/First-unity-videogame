@@ -98,8 +98,6 @@ public class BossProjectile : MonoBehaviour
 
         hasBeenParried = true;
 
-        Debug.Log("¡Proyectil del jefe parriado! Regresando al owner");
-
         // Cambiar apariencia
         if (parriedSprite != null && sr != null)
         {
@@ -136,7 +134,7 @@ public class BossProjectile : MonoBehaviour
         if (hasBeenParried)
         {
             // Proyectil parriado: daña al jefe
-            if (collision.gameObject == owner?.gameObject)
+            if (collision.gameObject.GetComponent<BossController>() != null)
             {
                 BossController boss = collision.GetComponent<BossController>();
                 if (boss != null)

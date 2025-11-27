@@ -1,94 +1,74 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Controlador del jefe volador del nivel 4.
-/// Vuela aleatoriamente y dispara proyectiles instakill parriables.
-/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class BossController : MonoBehaviour
 {
     [Header("Vida del Jefe")]
-    [Tooltip("Vida máxima del jefe")]
-    public int maxHealth = 10;
+    public int maxHealth = 5;
     private int currentHealth;
 
     [Header("Movimiento Aleatorio")]
-    [Tooltip("Velocidad de vuelo")]
     public float moveSpeed = 3f;
-    
-    [Tooltip("Tiempo mínimo antes de cambiar de dirección")]
     public float minChangeDirectionTime = 2f;
-    
-    [Tooltip("Tiempo máximo antes de cambiar de dirección")]
     public float maxChangeDirectionTime = 5f;
-    
-    [Tooltip("Área de vuelo (límites de la pantalla)")]
     public Bounds flyingArea = new Bounds(Vector3.zero, new Vector3(20f, 10f, 0f));
 
     [Header("Sistema de Disparos")]
-    [Tooltip("Prefab del proyectil")]
     public GameObject projectilePrefab;
-    
-    [Tooltip("Punto de spawn del proyectil")]
     public Transform firePoint;
-    
-    [Tooltip("Tiempo mínimo entre disparos")]
     public float minShootInterval = 2f;
-    
-    [Tooltip("Tiempo máximo entre disparos")]
     public float maxShootInterval = 4f;
-    
-    [Tooltip("Velocidad del proyectil")]
     public float projectileSpeed = 8f;
 
+    [Header("Ataque Cuerpo a Cuerpo")]
+    public float pursueInterval = 10f;
+    public float pursueDuration = 3f;
+    public float stoppingDistance = 1.5f;
+    public int damageToPlayer = 2;
+    public float attackCooldown = 1f;
+
     [Header("Fases del Jefe")]
-    [Tooltip("Vida para entrar en fase 2 (dispara más rápido)")]
     public int phase2HealthThreshold = 6;
-    
-    [Tooltip("Vida para entrar en fase 3 (dispara mucho más rápido)")]
     public int phase3HealthThreshold = 3;
-    
     private int currentPhase = 1;
 
     [Header("Visual")]
-    [Tooltip("Color de fase 1")]
     public Color phase1Color = Color.red;
-    
-    [Tooltip("Color de fase 2")]
-    public Color phase2Color = new Color(1f, 0.5f, 0f); // Naranja
-    
-    [Tooltip("Color de fase 3")]
-    public Color phase3Color = new Color(0.5f, 0f, 0.5f); // Púrpura
+    public Color phase2Color = new Color(1f, 0.5f, 0f);
+    public Color phase3Color = new Color(0.5f, 0f, 0.5f);
 
     [Header("Audio")]
-    [Tooltip("Sonido al disparar")]
     public AudioClip shootSound;
-    
-    [Tooltip("Sonido al recibir daño")]
     public AudioClip hurtSound;
-    
-    [Tooltip("Sonido al morir")]
     public AudioClip deathSound;
 
     [Header("Efectos")]
-    [Tooltip("Efecto al recibir daño")]
     public GameObject hitEffectPrefab;
-    
-    [Tooltip("Efecto al morir")]
     public GameObject deathEffectPrefab;
 
-    // Referencias
+    [Header("Death Settings")]
+    public float deathFallY = -8.4f;
+    public float fallSpeed = 2f;
+    public float waitTimeBeforeCredits = 15f;
+
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private AudioSource audioSource;
     private GameObject player;
     
-    // Estado del jefe
     private Vector2 currentDirection;
     private float nextDirectionChangeTime;
     private float nextShootTime;
     private bool isDead = false;
+    private bool canShoot = true;
+    private bool isStunned = false;
+
+    private float nextPursueTime = 0f;
+    private float pursueTimer = 0f;
+    private bool isPursuing = false;
+    private float lastAttackTime = 0f;
 
     void Start()
     {
@@ -97,17 +77,14 @@ public class BossController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         
         currentHealth = maxHealth;
-        
-        // Buscar player
         player = GameObject.FindGameObjectWithTag("Player");
         
-        // Configurar Rigidbody2D
-        rb.gravityScale = 0; // Sin gravedad, vuela libremente
-        rb.drag = 0.5f; // Un poco de resistencia para movimiento suave
+        rb.gravityScale = 0;
+        rb.drag = 0.5f;
         
-        // Iniciar comportamiento
         ChangeDirection();
         ScheduleNextShoot();
+        ScheduleNextPursue();
         UpdatePhase();
         
         Debug.Log($"Jefe iniciado con {maxHealth} de vida");
@@ -117,60 +94,100 @@ public class BossController : MonoBehaviour
     {
         if (isDead) return;
 
-        // Cambiar dirección aleatoriamente
-        if (Time.time >= nextDirectionChangeTime)
+        if (!isStunned && !isPursuing)
         {
-            ChangeDirection();
+            if (Time.time >= nextDirectionChangeTime)
+                ChangeDirection();
         }
 
-        // Disparar proyectiles
-        if (Time.time >= nextShootTime)
+        if (canShoot && !isStunned && !isPursuing && Time.time >= nextShootTime)
         {
             ShootProjectile();
             ScheduleNextShoot();
         }
 
-        // Mantener al jefe dentro del área
+        HandlePursue();
         KeepInBounds();
     }
 
     void FixedUpdate()
     {
-        if (isDead) return;
+        if (isDead || isStunned) return;
 
-        // Mover al jefe
-        rb.velocity = currentDirection * moveSpeed;
+        if (!isPursuing)
+            rb.velocity = currentDirection * moveSpeed;
     }
 
-    /// <summary>
-    /// Cambiar a una dirección aleatoria de vuelo
-    /// </summary>
+    void HandlePursue()
+    {
+        if (isDead || isStunned || player == null) return;
+
+        if (isPursuing)
+        {
+            pursueTimer -= Time.deltaTime;
+
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+            
+            if (distanceToPlayer > stoppingDistance)
+            {
+                Vector2 dir = (player.transform.position - transform.position).normalized;
+                rb.velocity = dir * moveSpeed * 1.5f;
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+
+                if (Time.time >= lastAttackTime + attackCooldown)
+                {
+                    PlayerHealth ph = player.GetComponent<PlayerHealth>();
+                    if (ph != null)
+                    {
+                        ph.TakeDamage(damageToPlayer);
+                        lastAttackTime = Time.time;
+                    }
+                }
+            }
+
+            if (pursueTimer <= 0)
+            {
+                isPursuing = false;
+                ChangeDirection();
+                ScheduleNextPursue();
+            }
+        }
+        else
+        {
+            if (Time.time >= nextPursueTime)
+            {
+                isPursuing = true;
+                pursueTimer = pursueDuration;
+            }
+        }
+    }
+
+    void ScheduleNextPursue()
+    {
+        nextPursueTime = Time.time + pursueInterval;
+    }
+
     void ChangeDirection()
     {
-        // Generar dirección aleatoria
         float randomAngle = Random.Range(0f, 360f);
         currentDirection = new Vector2(
             Mathf.Cos(randomAngle * Mathf.Deg2Rad),
             Mathf.Sin(randomAngle * Mathf.Deg2Rad)
         ).normalized;
 
-        // Programar próximo cambio
         float changeTime = Random.Range(minChangeDirectionTime, maxChangeDirectionTime);
         nextDirectionChangeTime = Time.time + changeTime;
-
-        Debug.Log($"Jefe cambia dirección: {currentDirection}");
     }
 
-    /// <summary>
-    /// Mantener al jefe dentro del área de vuelo
-    /// </summary>
     void KeepInBounds()
     {
         Vector3 pos = transform.position;
         Vector3 center = flyingArea.center;
         Vector3 extents = flyingArea.extents;
 
-        // Rebotar en los bordes
         if (pos.x < center.x - extents.x || pos.x > center.x + extents.x)
         {
             currentDirection.x = -currentDirection.x;
@@ -186,20 +203,13 @@ public class BossController : MonoBehaviour
         transform.position = pos;
     }
 
-    /// <summary>
-    /// Disparar proyectil hacia el player
-    /// </summary>
     void ShootProjectile()
     {
         if (projectilePrefab == null || player == null) return;
 
-        // Punto de spawn
         Vector3 spawnPosition = firePoint != null ? firePoint.position : transform.position;
-
-        // Crear proyectil
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
         
-        // Configurar proyectil
         BossProjectile bossProj = projectile.GetComponent<BossProjectile>();
         if (bossProj != null)
         {
@@ -207,38 +217,22 @@ public class BossController : MonoBehaviour
             bossProj.speed = projectileSpeed;
         }
 
-        // Sonido
         if (shootSound != null && audioSource != null)
-        {
             audioSource.PlayOneShot(shootSound);
-        }
-
-        Debug.Log("Jefe dispara proyectil");
     }
 
-    /// <summary>
-    /// Programar próximo disparo según la fase
-    /// </summary>
     void ScheduleNextShoot()
     {
         float interval = Random.Range(minShootInterval, maxShootInterval);
         
-        // Ajustar según fase
         if (currentPhase == 2)
-        {
-            interval *= 0.7f; // 30% más rápido
-        }
+            interval *= 0.7f;
         else if (currentPhase == 3)
-        {
-            interval *= 0.4f; // 60% más rápido
-        }
+            interval *= 0.4f;
 
         nextShootTime = Time.time + interval;
     }
 
-    /// <summary>
-    /// Recibir daño (llamado por proyectiles parriados)
-    /// </summary>
     public void TakeDamage(int damage)
     {
         if (isDead) return;
@@ -246,34 +240,50 @@ public class BossController : MonoBehaviour
         currentHealth -= damage;
         Debug.Log($"Jefe recibe {damage} de daño. Vida: {currentHealth}/{maxHealth}");
 
-        // Efecto visual
+        StartCoroutine(StunWithShake(6f));
         StartCoroutine(FlashEffect());
 
-        // Efecto de impacto
         if (hitEffectPrefab != null)
-        {
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
-        }
 
-        // Sonido
         if (hurtSound != null && audioSource != null)
-        {
             audioSource.PlayOneShot(hurtSound);
-        }
 
-        // Actualizar fase
         UpdatePhase();
 
-        // Morir
         if (currentHealth <= 0)
         {
             Die();
         }
     }
 
-    /// <summary>
-    /// Flash visual al recibir daño
-    /// </summary>
+    IEnumerator StunWithShake(float stunDuration)
+    {
+        float elapsed = 0f;
+        Vector3 originalPos = transform.position;
+        rb.velocity = Vector2.zero;
+        canShoot = false;
+        isStunned = true;
+        isPursuing = false;
+
+        while (elapsed < stunDuration)
+        {
+            float shakeStrength = 0.1f;
+            Vector3 offset = new Vector3(
+                Random.Range(-shakeStrength, shakeStrength),
+                Random.Range(-shakeStrength, shakeStrength),
+                0f
+            );
+            transform.position = originalPos + offset;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = originalPos;
+        isStunned = false;
+        canShoot = true;
+    }
+
     IEnumerator FlashEffect()
     {
         if (sr == null) yield break;
@@ -286,27 +296,17 @@ public class BossController : MonoBehaviour
         sr.color = originalColor;
     }
 
-    /// <summary>
-    /// Actualizar fase según vida restante
-    /// </summary>
     void UpdatePhase()
     {
         int oldPhase = currentPhase;
 
         if (currentHealth <= phase3HealthThreshold)
-        {
             currentPhase = 3;
-        }
         else if (currentHealth <= phase2HealthThreshold)
-        {
             currentPhase = 2;
-        }
         else
-        {
             currentPhase = 1;
-        }
 
-        // Cambiar color según fase
         if (sr != null)
         {
             if (currentPhase == 1)
@@ -317,103 +317,84 @@ public class BossController : MonoBehaviour
                 sr.color = phase3Color;
         }
 
-        // Notificar cambio de fase
         if (oldPhase != currentPhase)
         {
             Debug.Log($"¡Jefe entra en FASE {currentPhase}!");
             
-            // Aumentar velocidad en fases avanzadas
             if (currentPhase == 2)
-            {
                 moveSpeed *= 1.2f;
-            }
             else if (currentPhase == 3)
-            {
                 moveSpeed *= 1.3f;
-            }
         }
     }
 
-    /// <summary>
-    /// Morir
-    /// </summary>
     void Die()
     {
         if (isDead) return;
-        
         isDead = true;
-        rb.velocity = Vector2.zero;
-
-        Debug.Log("¡Jefe derrotado!");
-
-        // Efecto de muerte
-        if (deathEffectPrefab != null)
-        {
-            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
-        }
-
-        // Sonido
-        if (deathSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(deathSound);
-        }
-
-        // Aquí puedes agregar lógica de victoria
-        // Por ejemplo: mostrar pantalla de victoria, desbloquear siguiente nivel, etc.
-
-        // Destruir después de un delay
-        Destroy(gameObject, 2f);
+        StartCoroutine(DeathSequence());
     }
 
-    /// <summary>
-    /// Curar al jefe (por si quieres mechanic de regen)
-    /// </summary>
+    private IEnumerator DeathSequence()
+    {
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        canShoot = false;
+        isStunned = true;
+        isPursuing = false;
+
+        Debug.Log("¡Jefe derrotado! Iniciando secuencia de muerte...");
+
+        if (deathEffectPrefab != null)
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+
+        if (deathSound != null && audioSource != null)
+            audioSource.PlayOneShot(deathSound);
+
+        Vector3 targetPos = new Vector3(transform.position.x, deathFallY, transform.position.z);
+        
+        while (Mathf.Abs(transform.position.y - deathFallY) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, fallSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.position = targetPos;
+
+        yield return new WaitForSeconds(waitTimeBeforeCredits);
+
+        SceneManager.LoadScene("Scenes/Creditos/Creditos");
+    }
+
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         UpdatePhase();
     }
 
-    // Getters públicos
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
+    public int GetCurrentHealth() => currentHealth;
+    public int GetMaxHealth() => maxHealth;
+    public int GetCurrentPhase() => currentPhase;
+    public bool IsDead() => isDead;
 
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public int GetCurrentPhase()
-    {
-        return currentPhase;
-    }
-
-    public bool IsDead()
-    {
-        return isDead;
-    }
-
-    // Visualización en el editor
     void OnDrawGizmosSelected()
     {
-        // Dibujar área de vuelo
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(flyingArea.center, flyingArea.size);
 
-        // Dibujar punto de disparo
         if (firePoint != null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(firePoint.position, 0.3f);
         }
 
-        // Dibujar dirección actual
         if (Application.isPlaying)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, transform.position + (Vector3)currentDirection * 3f);
         }
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, stoppingDistance);
     }
 }
