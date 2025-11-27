@@ -31,6 +31,7 @@ public class GamePauseManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        SetPauseObjectsActive(false);
         Instance = this;
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;

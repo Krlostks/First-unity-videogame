@@ -65,7 +65,7 @@
             ]
         },
         {
-            "characterName": "Boss_Vacio",
+            "characterName": "boss",
             "dialogues": [
                 "¿Por qué sigues luchando… si sabes que terminas aquí… conmigo?",
                 "Tú y yo somos lo mismo. Yo soy lo que escondes… lo que te traga cuando estás solo.",
@@ -126,15 +126,6 @@
                 "Perdón… pensé que nadie quería cargar conmigo.",
                 "Sup supongo que… puedo intentar hablar.",
                 "No quiero volver a caer así."
-            ]
-        },
-        {
-            "characterName": "boss",
-            "dialogues": [
-                "¿Por qué pendejo?",
-                "pendejopendejo",
-                "jaja putoooo",
-                "nadie te quiere"
             ]
         }
     ]
