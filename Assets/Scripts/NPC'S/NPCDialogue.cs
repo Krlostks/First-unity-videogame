@@ -125,19 +125,45 @@ public class NPCDialogue : MonoBehaviour
     {
         string path = Path.Combine(Application.streamingAssetsPath, jsonFile);
 
+        Debug.Log("📁 Intentando cargar JSON desde: " + path);
+
         if (File.Exists(path))
         {
             string jsonData = File.ReadAllText(path);
+            Debug.Log("✅ Archivo JSON encontrado. Contenido: " + jsonData.Substring(0, Mathf.Min(100, jsonData.Length)) + "...");
+
             dialoguesData = JsonUtility.FromJson<dialoguesContenedor>(jsonData);
+
+            if (dialoguesData == null)
+            {
+                Debug.LogError("❌ Error al deserializar JSON - dialoguesData es null");
+                return;
+            }
+
+            if (dialoguesData.characters == null)
+            {
+                Debug.LogError("❌ dialoguesData.characters es null");
+                return;
+            }
+
+            Debug.Log($"📊 Total de personajes cargados: {dialoguesData.characters.Count}");
+
             foreach (CharacterDialogues character in dialoguesData.characters)
-    {
-        Debug.Log($"Personaje: {character.characterName}");
-        Debug.Log($"Cantidad de diálogos: " + character.dialogues.Length);                        
-    }
+            {
+                Debug.Log($"🎭 Personaje: '{character.characterName}' - Diálogos: {character.dialogues?.Length ?? 0}");
+
+                if (character.dialogues != null)
+                {
+                    for (int i = 0; i < character.dialogues.Length; i++)
+                    {
+                        Debug.Log($"   {i}: '{character.dialogues[i]}'");
+                    }
+                }
+            }
         }
         else
         {
-            Debug.LogError("No se encontró el archivo de diálogos en: " + path);
+            Debug.LogError("❌ No se encontró el archivo de diálogos en: " + path);
         }
     }
 
@@ -148,14 +174,21 @@ public class NPCDialogue : MonoBehaviour
             Debug.LogError("Los datos de diálogos no están cargados correctamente.");
             return null;
         }
+
+        Debug.Log("Buscando diálogos para NPC: '" + npcName + "'");
+        Debug.Log("Total de personajes en JSON: " + dialoguesData.characters.Count);
+
         foreach (var npc in dialoguesData.characters)
         {
+            Debug.Log("Personaje en JSON: '" + npc.characterName + "'");
             if (npc.characterName == npcName)
             {
-                Debug.Log("Diálogos encontrados para NPC: " + npcName + " Cantidad: " + npc.dialogues.Length);
+                Debug.Log("✅ Diálogos encontrados para NPC: " + npcName + " Cantidad: " + npc.dialogues.Length);
                 return npc.dialogues;
             }
         }
+
+        Debug.LogError("❌ NO se encontraron diálogos para NPC: '" + npcName + "'");
         return null;
     }
 

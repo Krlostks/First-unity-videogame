@@ -2,36 +2,130 @@
     "characters": [
         {
             "characterName": "npc1",
-            "dialogues": [                
-                "Vaya, no creí verte por aquí",
-                "Si...",
-                "Los sueños lucidos pueden ser muy extraños, bichos raros por aqui y allá",
-                "...",
-                "Una vez escuché...",
-                "Que los sueños tienen mas importancia en nuestra vida de lo que creemos",
-                "Y que son un reflejo de nuestro subconsciente",
-                "Asi que, viendo este lugar, no quiero ni imaginar por lo que estas pasando",
-                "Solo espero, que este sueño no termine en una pesadilla",
-                "pero no me hagas caso, al final, solo soy un producto tu mente JAJAJA"
-
+            "dialogues": [
+                "Te ves perdido.",
+                "Cuando la oscuridad es tan espesa, es fácil olvidar por dónde viniste… y más fácil aún olvidar hacia dónde vas.",
+                "Dices que estás solo… pero eso no significa que debas seguir caminando solo.",
+                "Tal vez.",
+                "Pero alguien estaría dispuesto a escuchar… si tú hablaras.",
+                "De la misma forma en la que llegaste",
+                "Encuentra mi [collectible nivel 1] y lo entenderás"
             ]
         },
         {
-            "characterName": "npc2",
+            "characterName": "NPC",
             "dialogues": [
-                "Buenos días",
-                "¿Necesitas ayuda con algo?",
-                "Tengo que irme, fue un placer",
-                "Cuídate mucho"
+                "Allá arriba vive algo que siempre me mira, y me da miedo",
+                "Cuando me mira… me siento mas pequeño.",
+                "Es fácil para ti decirlo. Huyes de él, te drogas para no sentir miedo.",
+                "A veces… enfrentar lo que te hace daño es la única forma de que deje de doler."
             ]
         },
         {
-            "characterName": "npc3",
+            "characterName": "npcKid",
             "dialogues": [
-                "¡Ey! ¿Qué tal?",
-                "La aventura nos espera",
-                "Confía en tus instintos",
-                "Hasta la próxima aventura"
+                "Aquí parece todo bonito… ¿verdad?",
+                "Hasta que miras hacia arriba… y sientes que algo te vigila.",
+                "Lo que te hace sentir pequeño… ¿no lo reconoces?",
+                "A veces tú también subes solo para no sentir. Pero cuando el efecto pasa… caes más fuerte.",
+                "Si sigues huyendo, nunca va a dejar de mirarte."
+            ]
+        },
+        {
+            "characterName": "NPC_Homeless1",
+            "dialogues": [
+                "¿Tú también escuchas el ruido… aunque no haya nada?",
+                "Todo se siente tan… lento… pero al mismo tiempo todo gira.",
+                "¿Sabes qué es lo peor? Pensar que finalmente estás bien… cuando en realidad solo estás más lejos de ti.",
+                "Lo entenderás cuando intentes dormir… pero no puedas callar tu mente."
+            ]
+        },
+        {
+            "characterName": "NPC_Homeless2",
+            "dialogues": [
+                "¿Ves estas luces? Antes me hacían sentir vivo.",
+                "Ahora solo me recuerdan que mañana volveré a sentirme vacío.",
+                "Entonces deja de repetir lo que sabes que te está matando de a poco."
+            ]
+        },
+        {
+            "characterName": "Boss_Mensajero",
+            "dialogues": [
+                "Subes… más y más… buscando algo que calme tu mente.",
+                "Pero nada dura. Nada llena ese hueco.",
+                "Yo solo traigo el mensaje que tú mismo escribiste.",
+                "¿Quieres dejar de sentir? Entonces déjame arrancarte todo.",
+                "Claro que me temes. Soy la forma más fácil. La salida rápida. La caída suave.",
+                "Vamos, deja que te lleve conmigo.",
+                "Así que… me rechazaste.",
+                "No escogiste huir esta vez… qué ironía.",
+                "Crees que ganaste… pero volverás. Siempre vuelven.",
+                "…Entonces, toma esto. No como recompensa… sino como recordatorio.",
+                "La falsa luz siempre regresa disfrazada de alivio."
+            ]
+        },
+        {
+            "characterName": "Boss_Vacio",
+            "dialogues": [
+                "¿Por qué sigues luchando… si sabes que terminas aquí… conmigo?",
+                "Tú y yo somos lo mismo. Yo soy lo que escondes… lo que te traga cuando estás solo.",
+                "Ya gané hace mucho.",
+                "¿Por qué te empeñas en cargar con todo?",
+                "Nadie se queda. Nadie entiende. Nadie escucha.",
+                "Entonces sigue escondiéndome. Yo creceré donde nadie te vea.",
+                "Estoy cansado…",
+                "¿Sabes lo que es despertar cada día sintiéndote un error?",
+                "Yo no vine de la nada… tú me creaste con cada golpe que te diste a ti mismo.",
+                "No pedí existir… pero tú tampoco pediste sentir todo esto solo.",
+                "Claro que me duele. Porque soy tú. Soy todo lo que tragaste sin decir palabra.",
+                "No puedes matarme… pero tampoco tienes que dejar que sea yo quien te controle.",
+                "…Eso es lo que he querido todo este tiempo."
+            ]
+        },
+        {
+            "characterName": "Hospital_Padre",
+            "dialogues": [
+                "Hijo… ¿Estas bien? Por un momento, crei que te perdía"
+            ]
+        },
+        {
+            "characterName": "Hospital_Amigo1",
+            "dialogues": [
+                "Tuviste una sobredosis, vinimos en cuantos nos enteramos",
+                "Por favor no vuelvas a hacer eso",
+                "Pudiste decirme algo… no tenías por qué pasarlo solo.",
+                "No importa si no sabías qué decir… yo hubiera escuchado."
+            ]
+        },
+        {
+            "characterName": "Hospital_Madre",
+            "dialogues": [
+                "No te preocupes hijo no estamos enojados. Estamos aquí. Siempre estuvimos.",
+                "No tienes que cargar nada tu solo, nunca más. Pide ayuda. Aquí estamos."
+            ]
+        },
+        {
+            "characterName": "Player_Responses",
+            "dialogues": [
+                "No entiendes. Nadie entiende.",
+                "Solo dime como salir de aqui.",
+                "Eso no ayuda mucho.",
+                "Entonces no lo mires",
+                "No se que le hayas hecho a ese niño",
+                "Pero yo no te tengo miedo",
+                "No te necesito",
+                "¿Qué es eso que te da miedo?",
+                "Hermano, no entiendo nada de lo que dices",
+                "Lo sé, por alguna razón lo entiendo",
+                "Dios, espero no terminar como tu",
+                "No voy a dejarte ganar.",
+                "Porque no quiero que me vean débil.",
+                "No sabía… que te dolía.",
+                "Entonces… hablemos.",
+                "Pero... ¿Que pasó?",
+                "Perdón… pensé que nadie quería cargar conmigo.",
+                "Sup supongo que… puedo intentar hablar.",
+                "No quiero volver a caer así."
             ]
         },
         {
