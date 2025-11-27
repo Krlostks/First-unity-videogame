@@ -49,7 +49,7 @@ public class BossController : MonoBehaviour
     public GameObject deathEffectPrefab;
 
     [Header("Death Settings")]
-    public float deathFallY = -8.4f;
+    public float deathFallY = -9f;
     public float fallSpeed = 2f;
     public float waitTimeBeforeCredits = 15f;
 
