@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class BossController : MonoBehaviour
@@ -46,6 +47,11 @@ public class BossController : MonoBehaviour
     [Header("Efectos")]
     public GameObject hitEffectPrefab;
     public GameObject deathEffectPrefab;
+
+    [Header("Death Settings")]
+    public float deathFallY = -8.4f;
+    public float fallSpeed = 2f;
+    public float waitTimeBeforeCredits = 15f;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -234,7 +240,7 @@ public class BossController : MonoBehaviour
         currentHealth -= damage;
         Debug.Log($"Jefe recibe {damage} de daño. Vida: {currentHealth}/{maxHealth}");
 
-        StartCoroutine(StunWithShake(100f));
+        StartCoroutine(StunWithShake(6f));
         StartCoroutine(FlashEffect());
 
         if (hitEffectPrefab != null)
@@ -246,7 +252,9 @@ public class BossController : MonoBehaviour
         UpdatePhase();
 
         if (currentHealth <= 0)
+        {
             Die();
+        }
     }
 
     IEnumerator StunWithShake(float stunDuration)
@@ -323,11 +331,19 @@ public class BossController : MonoBehaviour
     void Die()
     {
         if (isDead) return;
-        
         isDead = true;
-        rb.velocity = Vector2.zero;
+        StartCoroutine(DeathSequence());
+    }
 
-        Debug.Log("¡Jefe derrotado!");
+    private IEnumerator DeathSequence()
+    {
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        canShoot = false;
+        isStunned = true;
+        isPursuing = false;
+
+        Debug.Log("¡Jefe derrotado! Iniciando secuencia de muerte...");
 
         if (deathEffectPrefab != null)
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
@@ -335,7 +351,19 @@ public class BossController : MonoBehaviour
         if (deathSound != null && audioSource != null)
             audioSource.PlayOneShot(deathSound);
 
-        Destroy(gameObject, 2f);
+        Vector3 targetPos = new Vector3(transform.position.x, deathFallY, transform.position.z);
+        
+        while (Mathf.Abs(transform.position.y - deathFallY) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, fallSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.position = targetPos;
+
+        yield return new WaitForSeconds(waitTimeBeforeCredits);
+
+        SceneManager.LoadScene("Scenes/Creditos/Creditos");
     }
 
     public void Heal(int amount)

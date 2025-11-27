@@ -30019,7 +30019,7 @@ MonoBehaviour:
   maxChangeDirectionTime: 5
   flyingArea:
     m_Center: {x: 225, y: 1.96, z: 0}
-    m_Extent: {x: 24, y: 11.7, z: 0}
+    m_Extent: {x: 24, y: 12, z: 0}
   projectilePrefab: {fileID: 2733602793993246670, guid: 1ddae4faebc15cf499bc91ea33c7dfbb, type: 3}
   firePoint: {fileID: 837654141}
   minShootInterval: 3
@@ -30040,6 +30040,9 @@ MonoBehaviour:
   deathSound: {fileID: 0}
   hitEffectPrefab: {fileID: 0}
   deathEffectPrefab: {fileID: 0}
+  deathFallY: -7
+  fallSpeed: 2
+  waitTimeBeforeCredits: 15
 --- !u!61 &1439966278
 BoxCollider2D:
   m_ObjectHideFlags: 0
