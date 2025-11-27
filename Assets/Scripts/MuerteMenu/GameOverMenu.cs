@@ -11,27 +11,18 @@ public class GameOverMenu : MonoBehaviour
     public Text gameOverText;
 
     [Header("Configuración")]
-    public string menuSceneName = "Menu"; // Cambiado a "Menu"
-    public float showDelay = 1f; // Tiempo antes de mostrar el menú
+    public string menuSceneName = "Menu";
+    public float showDelay = 1f;
 
     private PlayerHealth playerHealth;
 
     void Start()
     {
-        // Ocultar el panel al inicio
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
 
-        // Buscar el PlayerHealth en la escena
         playerHealth = FindObjectOfType<PlayerHealth>();
 
-        if (playerHealth != null)
-        {
-            // Suscribirse al evento de muerte (necesitarás modificar PlayerHealth)
-            // Por ahora usaremos un enfoque alternativo
-        }
-
-        // Configurar botones
         if (restartButton != null)
             restartButton.onClick.AddListener(RestartGame);
 
@@ -41,7 +32,6 @@ public class GameOverMenu : MonoBehaviour
 
     void Update()
     {
-        // Verificar si el jugador ha muerto (en caso de que no uses eventos)
         if (playerHealth != null && playerHealth.GetCurrentHealth() <= 0)
         {
             ShowGameOverMenu();
@@ -52,6 +42,12 @@ public class GameOverMenu : MonoBehaviour
     {
         if (gameOverPanel != null && !gameOverPanel.activeInHierarchy)
         {
+            // DESACTIVAR el sistema de pausa cuando aparece Game Over
+            if (GamePauseManager.Instance != null)
+            {
+                GamePauseManager.Instance.SetPauseEnabled(false);
+            }
+
             StartCoroutine(ShowMenuWithDelay());
         }
     }
@@ -61,31 +57,41 @@ public class GameOverMenu : MonoBehaviour
         yield return new WaitForSeconds(showDelay);
 
         gameOverPanel.SetActive(true);
-
-        // Pausar el juego (opcional)
         Time.timeScale = 0f;
     }
 
     public void RestartGame()
     {
-        // Reanudar el tiempo si estaba pausado
-        Time.timeScale = 1f;
+        // REACTIVAR el sistema de pausa antes de cambiar de escena
+        if (GamePauseManager.Instance != null)
+        {
+            GamePauseManager.Instance.SetPauseEnabled(true);
+        }
 
-        // Recargar la escena actual
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GoToMainMenu()
     {
-        // Reanudar el tiempo si estaba pausado
-        Time.timeScale = 1f;
+        // REACTIVAR el sistema de pausa antes de cambiar de escena
+        if (GamePauseManager.Instance != null)
+        {
+            GamePauseManager.Instance.SetPauseEnabled(true);
+        }
 
-        // Cargar el menú principal - AHORA CARGA "Menu"
+        Time.timeScale = 1f;
         SceneManager.LoadScene(menuSceneName);
     }
 
-    public void ContinueGame() // Para cuando implementes sistema de vidas/continuaciones
+    public void ContinueGame()
     {
+        // REACTIVAR el sistema de pausa al continuar
+        if (GamePauseManager.Instance != null)
+        {
+            GamePauseManager.Instance.SetPauseEnabled(true);
+        }
+
         Time.timeScale = 1f;
         gameOverPanel.SetActive(false);
     }
