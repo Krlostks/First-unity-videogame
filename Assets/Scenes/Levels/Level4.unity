@@ -423,7 +423,10 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &411431781
 GameObject:
   m_ObjectHideFlags: 0
@@ -24384,7 +24387,10 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &638588511
 GameObject:
   m_ObjectHideFlags: 0
@@ -24939,6 +24945,9 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1 &969399168
 GameObject:
@@ -29980,9 +29989,15 @@ MonoBehaviour:
     m_Extent: {x: 24, y: 11.7, z: 0}
   projectilePrefab: {fileID: 2733602793993246670, guid: 1ddae4faebc15cf499bc91ea33c7dfbb, type: 3}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   firePoint: {fileID: 0}
   minShootInterval: 1
   maxShootInterval: 3
+=======
+  firePoint: {fileID: 837654141}
+  minShootInterval: 3
+  maxShootInterval: 5
+>>>>>>> Stashed changes
 =======
   firePoint: {fileID: 837654141}
   minShootInterval: 3
@@ -30095,6 +30110,9 @@ Transform:
 =======
   - {fileID: 837654141}
   - {fileID: 667063018}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30110,6 +30128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2582eb8af1aca844bbeb51ed657bb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   dialogueCanvas: {fileID: 2078275015}
   jsonFile: npcdialogos.json
@@ -30249,6 +30268,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.000030518}
   m_SizeDelta: {x: 461.3, y: 223.2}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+  dialogueCanvas: {fileID: 667063017}
+  jsonFile: npcdialogos.json
+  btnCargardialogues: {fileID: 0}
+  dialogueTMP: {fileID: 411431783}
+>>>>>>> Stashed changes
 =======
   dialogueCanvas: {fileID: 667063017}
   jsonFile: npcdialogos.json
