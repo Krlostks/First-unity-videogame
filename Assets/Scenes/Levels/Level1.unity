@@ -1109,7 +1109,7 @@ GameObject:
   - component: {fileID: 472683214}
   - component: {fileID: 472683213}
   - component: {fileID: 472683212}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enredaderas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6086,7 +6086,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561480245}
   - component: {fileID: 561480244}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6662,7 +6662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &778637560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8051,7 +8051,7 @@ GameObject:
   - component: {fileID: 1150092222}
   - component: {fileID: 1150092221}
   - component: {fileID: 1150092220}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30424,13 +30424,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403564051}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.047, y: -1.07, z: 0}
+  m_LocalRotation: {x: 0.06584235, y: -0, z: -0, w: 0.99783003}
+  m_LocalPosition: {x: -0.309999, y: -5.62, z: 0}
   m_LocalScale: {x: 2.6005821, y: 0.21150707, z: 6.125484}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1246689758}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 7.55, y: 0, z: 0}
 --- !u!1 &1406447804
 GameObject:
   m_ObjectHideFlags: 0
@@ -32301,7 +32301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2141226691
 RectTransform:
   m_ObjectHideFlags: 0

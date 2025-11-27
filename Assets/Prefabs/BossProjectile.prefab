@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2293106978680178855}
   - component: {fileID: 6649302371211316488}
   - component: {fileID: 8748431680824567161}
+  - component: {fileID: -4420445178772530722}
   m_Layer: 6
   m_Name: BossProjectile
   m_TagString: Untagged
@@ -29,13 +30,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2733602793993246670}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 260.91248, y: 20.9947, z: -0.1424638}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 1}
+  m_LocalRotation: {x: -0, y: 0.046827525, z: -0, w: 0.99890304}
+  m_LocalPosition: {x: 260.90652, y: 20.9947, z: -0.1319612}
+  m_LocalScale: {x: 1.5, y: -1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 5.368, z: 0}
 --- !u!212 &278994271703567773
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f229a6068af544179afd3692b7e58b3f, type: 3}
+  m_Sprite: {fileID: -1600208830, guid: a07a1c07746eaf644b41fa7cde1cbb64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,9 +148,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.07483928, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.5666402
 --- !u!114 &6649302371211316488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,11 +191,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  damageToPlayer: 1
-  damageToBoss: 1
+  damageToPlayer: 0
+  damageToBoss: 11
   lifetime: 10
   owner: {fileID: 0}
-  normalSprite: {fileID: 0}
-  parriedSprite: {fileID: 0}
+  normalSprite: {fileID: -1600208830, guid: a07a1c07746eaf644b41fa7cde1cbb64, type: 3}
+  parriedSprite: {fileID: -1600208830, guid: a07a1c07746eaf644b41fa7cde1cbb64, type: 3}
   parriedColor: {r: 0, g: 1, b: 1, a: 1}
   parriedSound: {fileID: 0}
+--- !u!95 &-4420445178772530722
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733602793993246670}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eaa4569d251928c459d944744f4c359b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

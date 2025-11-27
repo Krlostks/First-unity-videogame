@@ -1,0 +1,43 @@
+{
+    "characters": [
+        {
+            "characterName": "guionboss1",
+            "dialogues": [
+                "boss1-dg1",
+                "playerboss1-dg1",
+                "boss1-dg2"
+            ],
+            "canvas": "guionboss1"
+        },
+        {
+            "characterName": "boss1-dg1",
+            "dialogues": [
+                "¿Crees que puedes escapar de mí?",
+                "Tu mente es un laberinto del que no hay salida",
+                "Cada paso que das te acerca más a mí",
+                "No hay refugio, no hay paz, solo yo"
+            ],
+            "canvas": "DialogoInicio"
+            
+        },
+        {
+            "characterName": "playerboss1-dg1",
+            "dialogues": [
+                "Vaya, no creí verte por aquí",
+                "Si...",
+                "¡No te temo!"
+            ],
+            "canvas": "DialogoPlayer"
+        },
+        {
+            "characterName": "boss1-dg2",
+            "dialogues": [
+                "Subes… más y más…",
+                "Pero nada dura. Nada llena ese hueco.",
+                "Yo solo traigo el mensaje que tú mismo escribiste.",
+                "¿Quieres dejar de sentir? Entonces déjame arrancarte todo."
+            ],
+            "canvas": "DialogoInicio"
+        }
+    ]
+}
