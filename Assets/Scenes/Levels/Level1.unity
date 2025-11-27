@@ -31051,7 +31051,7 @@ GameObject:
   - component: {fileID: 1623604943}
   - component: {fileID: 1623604942}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasPause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32751,8 +32751,8 @@ SceneRoots:
   - {fileID: 1502586361}
   - {fileID: 1229763672}
   - {fileID: 1054058531}
+  - {fileID: 1346353777}
   - {fileID: 1530822604}
   - {fileID: 1623604945}
-  - {fileID: 1346353777}
   - {fileID: 778637563}
   - {fileID: 1880303369}

@@ -98,8 +98,6 @@ public class BossProjectile : MonoBehaviour
 
         hasBeenParried = true;
 
-        Debug.Log("¡Proyectil del jefe parriado! Regresando al owner");
-
         // Cambiar apariencia
         if (parriedSprite != null && sr != null)
         {
