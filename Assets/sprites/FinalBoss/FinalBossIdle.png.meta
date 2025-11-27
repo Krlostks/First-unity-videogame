@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,7 +108,280 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: FinalBossIdle_0
+      rect:
+        serializedVersion: 2
+        x: 2561
+        y: 230
+        width: 73
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56dd7775c0c344d5d8c51f121c6cf047
+      internalID: -561410507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_1
+      rect:
+        serializedVersion: 2
+        x: 2761
+        y: 230
+        width: 73
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 185bcc042ae3b49e9b37d4bf61d02701
+      internalID: 1928419844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_2
+      rect:
+        serializedVersion: 2
+        x: 2961
+        y: 230
+        width: 72
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74c0dfbdcd042448487cfd9851ae8897
+      internalID: 81970950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_3
+      rect:
+        serializedVersion: 2
+        x: 3161
+        y: 230
+        width: 72
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b1fefe2c7f7248d0a9e105ad1addee7
+      internalID: -1435073361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_4
+      rect:
+        serializedVersion: 2
+        x: 3360
+        y: 230
+        width: 73
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 680011539f61c4f5c95a3cb02ac8c90e
+      internalID: 1338035401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_5
+      rect:
+        serializedVersion: 2
+        x: 3560
+        y: 230
+        width: 73
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 673bd24540a9e46b6a337ceb4e3a61a3
+      internalID: 1162116064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_6
+      rect:
+        serializedVersion: 2
+        x: 3760
+        y: 230
+        width: 73
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c127f2cd3e994a9f90679b6fddeb021
+      internalID: 110906935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_7
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 230
+        width: 75
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c11350764995f4d43b15d9c8b486199c
+      internalID: -2130159900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_8
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 230
+        width: 75
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3fa74fc872be4466bf7e00dfa62588f
+      internalID: -87166966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_9
+      rect:
+        serializedVersion: 2
+        x: 4359
+        y: 230
+        width: 76
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da127770710504ed081bd9990cdb0d6f
+      internalID: -1576244658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_10
+      rect:
+        serializedVersion: 2
+        x: 4556
+        y: 230
+        width: 79
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48bc2c152d94f462ca3e0c99964a52d8
+      internalID: -815506189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_11
+      rect:
+        serializedVersion: 2
+        x: 4756
+        y: 230
+        width: 82
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e33d0d98262cb43bfb074a9ed3ba4444
+      internalID: 1433622514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FinalBossIdle_12
+      rect:
+        serializedVersion: 2
+        x: 4959
+        y: 230
+        width: 85
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ec845a3a081a4be3905bbaf3ecb0306
+      internalID: 1594498142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +392,20 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FinalBossIdle_0: -561410507
+      FinalBossIdle_1: 1928419844
+      FinalBossIdle_10: -815506189
+      FinalBossIdle_11: 1433622514
+      FinalBossIdle_12: 1594498142
+      FinalBossIdle_2: 81970950
+      FinalBossIdle_3: -1435073361
+      FinalBossIdle_4: 1338035401
+      FinalBossIdle_5: 1162116064
+      FinalBossIdle_6: 110906935
+      FinalBossIdle_7: -2130159900
+      FinalBossIdle_8: -87166966
+      FinalBossIdle_9: -1576244658
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

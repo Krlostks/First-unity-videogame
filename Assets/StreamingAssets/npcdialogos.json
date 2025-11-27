@@ -33,6 +33,15 @@
                 "Confía en tus instintos",
                 "Hasta la próxima aventura"
             ]
+        },
+        {
+            "characterName": "boss",
+            "dialogues": [
+                "¿Por qué pendejo?",
+                "pendejopendejo",
+                "jaja putoooo",
+                "nadie te quiere"
+            ]
         }
     ]
 }

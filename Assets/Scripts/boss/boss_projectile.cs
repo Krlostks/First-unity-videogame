@@ -134,7 +134,7 @@ public class BossProjectile : MonoBehaviour
         if (hasBeenParried)
         {
             // Proyectil parriado: daña al jefe
-            if (collision.gameObject == owner?.gameObject)
+            if (collision.gameObject.GetComponent<BossController>() != null)
             {
                 BossController boss = collision.GetComponent<BossController>();
                 if (boss != null)

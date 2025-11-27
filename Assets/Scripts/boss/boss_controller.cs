@@ -234,7 +234,7 @@ public class BossController : MonoBehaviour
         currentHealth -= damage;
         Debug.Log($"Jefe recibe {damage} de daño. Vida: {currentHealth}/{maxHealth}");
 
-        StartCoroutine(StunWithShake(5f));
+        StartCoroutine(StunWithShake(10f));
         StartCoroutine(FlashEffect());
 
         if (hitEffectPrefab != null)
