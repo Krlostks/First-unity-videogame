@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DialogueController : MonoBehaviour
 {
     [Header("Referencias")]
-    public NPCDialogue npcDialogue;
+    public NPCDialogue2 npcDialogue;
     public GameObject dialogueCanvas;
     public GameObject dialogueCanvas2;
     public TMP_Text dialogueText;
