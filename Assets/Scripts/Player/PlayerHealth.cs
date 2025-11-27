@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Sistema de Vida")]
@@ -24,6 +23,13 @@ public class PlayerHealth : MonoBehaviour
     public float blinkInterval = 0.1f;
     private SpriteRenderer sr;
 
+    [Header("Game Over")]
+    public GameOverMenu gameOverMenu;
+
+    // Referencia a tu script de movimiento
+    private movimiento playerMovement;
+    private ParrySystem parrySystem;
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -42,12 +48,17 @@ public class PlayerHealth : MonoBehaviour
         invincibilityTimer = 0f;
         if (sr != null)
             sr.color = Color.white;
+
+        // Reactivar componentes del jugador
+        ReactivarJugador();
     }
 
     void Start()
     {
         currentHealth = maxHealth;
         sr = GetComponent<SpriteRenderer>();
+        playerMovement = GetComponent<movimiento>();
+        parrySystem = GetComponent<ParrySystem>();
         ResetVidasVisuales();
     }
 
@@ -105,8 +116,85 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player ha muerto - Game Over");
-        currentHealth = maxHealth;
-        ResetVidasVisuales();
+
+        // Desactivar el control del jugador
+        DesactivarControlJugador();
+
+        // Mostrar menú de Game Over
+        if (gameOverMenu != null)
+        {
+            gameOverMenu.ShowGameOverMenu();
+        }
+        else
+        {
+            // Fallback: recargar escena después de un delay
+            Debug.LogWarning("GameOverMenu no asignado en PlayerHealth. Recargando escena...");
+            Invoke("ReloadScene", 2f);
+        }
+    }
+
+    private void DesactivarControlJugador()
+    {
+        // Desactivar movimiento
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
+        }
+
+        // Desactivar parry system
+        if (parrySystem != null)
+        {
+            parrySystem.enabled = false;
+            parrySystem.CancelParry();
+        }
+
+        // Desactivar Rigidbody2D si existe
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.simulated = false;
+        }
+
+        // Desactivar Collider2D si existe
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    private void ReactivarJugador()
+    {
+        // Reactivar movimiento
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = true;
+        }
+
+        // Reactivar parry system
+        if (parrySystem != null)
+        {
+            parrySystem.enabled = true;
+        }
+
+        // Reactivar Rigidbody2D si existe
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.simulated = true;
+        }
+
+        // Reactivar Collider2D si existe
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
+    }
+
+    private void ReloadScene()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -156,7 +244,6 @@ public class PlayerHealth : MonoBehaviour
                 if (vidaAnimators != null && vidaAnimators.Length > i && vidaAnimators[i] != null)
                 {
                     vidaAnimators[i].ResetTrigger("Broke");
-                    // Solo pon en Idle cuando curas, no cuando pierdes vida
                     vidaAnimators[i].Play("IdleVida" + i, -1, 0f);
                 }
             }
@@ -165,8 +252,7 @@ public class PlayerHealth : MonoBehaviour
                 if (vidaAnimators != null && vidaAnimators.Length > i && vidaAnimators[i] != null)
                 {
                     vidaAnimators[i].SetTrigger("Broke");
-                    // Desactiva la vida después de la animación
-                    StartCoroutine(DesactivarVidaDespuesAnimacion(vidas[i], 0.5f)); // Pon la duración real aquí
+                    StartCoroutine(DesactivarVidaDespuesAnimacion(vidas[i], 0.5f));
                 }
                 else
                 {
@@ -179,7 +265,8 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator DesactivarVidaDespuesAnimacion(GameObject vida, float duracion)
     {
         yield return new WaitForSeconds(duracion);
-        vida.SetActive(false);
+        if (vida != null)
+            vida.SetActive(false);
     }
 
     private void ResetVidasVisuales()
@@ -195,5 +282,18 @@ public class PlayerHealth : MonoBehaviour
                 vidaAnimators[i].Play("IdleVida" + i, -1, 0f);
             }
         }
+    }
+
+    // Método para revivir al jugador
+    public void Revive()
+    {
+        currentHealth = maxHealth;
+        ResetVidasVisuales();
+        isInvincible = false;
+
+        ReactivarJugador();
+
+        if (sr != null)
+            sr.color = Color.white;
     }
 }
