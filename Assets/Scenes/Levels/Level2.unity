@@ -21563,6 +21563,7 @@ GameObject:
   - component: {fileID: 244236061}
   - component: {fileID: 244236060}
   - component: {fileID: 244236063}
+  - component: {fileID: 244236065}
   - component: {fileID: 244236064}
   m_Layer: 0
   m_Name: NPC
@@ -21580,7 +21581,7 @@ Transform:
   m_GameObject: {fileID: 244236058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6387382, y: -2.99, z: 0.045622263}
+  m_LocalPosition: {x: 4.9, y: -2.9, z: 0.045622263}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21748,6 +21749,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7164286, y: 1.5607141}
   m_EdgeRadius: 0
+--- !u!114 &244236065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244236058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa9407af45c544398e297b08f8d768d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: Level3
+  interactKey: 101
+  playerInRange: 0
 --- !u!1 &289456876
 GameObject:
   m_ObjectHideFlags: 0
@@ -41894,3 +41910,11 @@ SceneRoots:
   - {fileID: 1994753113}
   - {fileID: 1740448815}
   - {fileID: 1898084200}
+  - {fileID: 152933889}
+  - {fileID: 244236059}
+  - {fileID: 489698846}
+  - {fileID: 598708953}
+  - {fileID: 637920792}
+  - {fileID: 1212781598}
+  - {fileID: 1414917101}
+  - {fileID: 1674655657}

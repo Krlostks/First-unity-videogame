@@ -33510,7 +33510,6 @@ GameObject:
   - component: {fileID: 2116897149}
   - component: {fileID: 2116897151}
   - component: {fileID: 2116897150}
-  - component: {fileID: 2116897151}
   m_Layer: 0
   m_Name: npc1
   m_TagString: Untagged
@@ -33602,7 +33601,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0013089478, y: 0.011100769}
+  m_Offset: {x: -0.4435544, y: 0.94684833}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -33613,7 +33612,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3970194, y: 2.4431338}
+  m_Size: {x: 2.2867458, y: 1.9829289}
   m_EdgeRadius: 0
 --- !u!4 &2116897147
 Transform:
@@ -33624,7 +33623,7 @@ Transform:
   m_GameObject: {fileID: 2116897144}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -1.91, z: -9.5608}
+  m_LocalPosition: {x: 75.43, y: -8.97, z: -9.5608}
   m_LocalScale: {x: 0.91530883, y: 0.91530883, z: 0.91530883}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -33673,7 +33672,22 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 842779488}
   jsonFile: npcdialogos.json
   btnCargardialogues: {fileID: 0}
-  dialogueTMP: {fileID: 729945985}
+  dialogueTMP: {fileID: 1823773034}
+--- !u!114 &2116897151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116897144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa9407af45c544398e297b08f8d768d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: Level2
+  interactKey: 101
+  playerInRange: 0
 --- !u!1 &2122554249
 GameObject:
   m_ObjectHideFlags: 0
@@ -33814,7 +33828,7 @@ Transform:
   m_GameObject: {fileID: 2122554249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.6934, y: -5.17, z: 0}
+  m_LocalPosition: {x: 22.3, y: -18.1, z: 0}
   m_LocalScale: {x: 6.240345, y: 12.516321, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
