@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.IO;
 using System;
@@ -17,32 +18,110 @@ public class CharacterDialogues
 {
     public string characterName;
     public string[] dialogues;
-    public string canvas;
 }
 
-
-
-/// <summary>
-/// NPCDialogue - Solo busca en el JSON
-/// El DialogueController maneja toda la lógica de conversación
-/// </summary>
 public class NPCDialogue : MonoBehaviour
 {
-    [Header("Configuración")]
+    public GameObject dialogueCanvas;
+    [Header("configuracion")]
     public string jsonFile = "npcdialogues.json";
-    public string currentCanvas;
-    
+    public Button btnCargardialogues;
     private dialoguesContenedor dialoguesData;
+    private bool inDialogue = false;
+    public TMP_Text dialogueTMP;
+    private bool playerInRange = false;
+    private int indexDialogue = 0;
+    private string[] dialogues;
 
     void Start()
     {
-        CargarDialogues();
+        dialogueCanvas.SetActive(false);
+        Obtenerdialogues();
+        
+        // Verificar componentes en Start
+        Debug.Log("=== VERIFICACIÓN DE COMPONENTES ===");
+        Debug.Log("Nombre del NPC: " + gameObject.name);
+        
+        Collider2D npcCollider = GetComponent<Collider2D>();
+        if (npcCollider != null)
+        {
+            Debug.Log("Collider2D encontrado en NPC: " + npcCollider.GetType());
+            Debug.Log("Is Trigger: " + npcCollider.isTrigger);
+            Debug.Log("Enabled: " + npcCollider.enabled);
+        }
+        else
+        {
+            Debug.LogError("NO hay Collider2D en el NPC!");
+        }
+        
+        Rigidbody2D npcRb = GetComponent<Rigidbody2D>();
+        if (npcRb != null)
+        {
+            Debug.Log("Rigidbody2D encontrado en NPC");
+        }
+        else
+        {
+            Debug.LogWarning("No hay Rigidbody2D en el NPC (puede ser necesario)");
+        }
     }
 
-    /// <summary>
-    /// Cargar datos del JSON
-    /// </summary>
-    private void CargarDialogues()
+    void Update()
+    {
+        // Para debuggear en tiempo real
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("=== ESTADO ACTUAL ===");
+            Debug.Log("playerInRange: " + playerInRange);
+            Debug.Log("inDialogue: " + inDialogue);
+            Debug.Log("indexDialogue: " + indexDialogue);
+        }
+        
+        if (playerInRange && Input.GetKeyDown(KeyCode.K))
+        {        
+            Debug.Log("Se presionó K - playerInRange: " + playerInRange);
+            
+            if (!inDialogue)
+            {
+                InciarDialogo();
+            }
+            else
+            {
+                AvanzarDialogo();
+            }     
+        }
+        
+        if (inDialogue && Input.GetKeyDown(KeyCode.Escape))
+        {
+            CerrarDialogo();            
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("OnTriggerEnter2D llamado con: " + other.gameObject.name);
+        Debug.Log("Tag del objeto: " + other.tag);
+        
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+            Debug.Log("¡Jugador EN RANGO! playerInRange = true");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("OnTriggerExit2D llamado con: " + other.gameObject.name);
+        
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            Debug.Log("Jugador FUERA DE RANGO! playerInRange = false");
+            CerrarDialogo();
+        }
+    }
+
+    // Resto de los métodos permanecen igual...
+    private void Obtenerdialogues()
     {
         string path = Path.Combine(Application.streamingAssetsPath, jsonFile);
 
@@ -51,27 +130,6 @@ public class NPCDialogue : MonoBehaviour
         if (File.Exists(path))
         {
             string jsonData = File.ReadAllText(path);
-<<<<<<< HEAD
-            
-            try
-            {
-                dialoguesData = JsonUtility.FromJson<dialoguesContenedor>(jsonData);
-                Debug.Log($"✓ JSON cargado correctamente ({dialoguesData.characters.Count} personajes)");
-                
-                foreach (CharacterDialogues character in dialoguesData.characters)
-                {
-                    Debug.Log($"  - {character.characterName}: {character.dialogues.Length} líneas");
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("✗ Error al parsear JSON: " + e.Message);
-            }
-        }
-        else
-        {
-            Debug.LogError("✗ No se encontró: " + path);
-=======
             Debug.Log("✅ Archivo JSON encontrado. Contenido: " + jsonData.Substring(0, Mathf.Min(100, jsonData.Length)) + "...");
 
             dialoguesData = JsonUtility.FromJson<dialoguesContenedor>(jsonData);
@@ -106,38 +164,17 @@ public class NPCDialogue : MonoBehaviour
         else
         {
             Debug.LogError("❌ No se encontró el archivo de diálogos en: " + path);
->>>>>>> main
         }
     }
 
-public string ObtenerCanvasActual()
-    {
-        Debug.Log("Canvas actual: " + currentCanvas);
-        return currentCanvas;
-    }
-    /// <summary>
-    /// Obtener diálogos por nombre de personaje
-    /// </summary>
-    public string[] ObtenerDialogos(string characterName)
+    public string[] ObtenerdialoguesPersonaje(string npcName)
     {
         if (dialoguesData == null || dialoguesData.characters == null)
         {
-            Debug.LogError("✗ Los datos no están cargados");
+            Debug.LogError("Los datos de diálogos no están cargados correctamente.");
             return null;
         }
 
-<<<<<<< HEAD
-        foreach (var character in dialoguesData.characters)
-        {
-            if (character.characterName == characterName)
-            {
-                currentCanvas = character.canvas;                
-                return character.dialogues;
-            }
-        }
-
-        Debug.LogWarning($"✗ No se encontró: '{characterName}'");
-=======
         Debug.Log("Buscando diálogos para NPC: '" + npcName + "'");
         Debug.Log("Total de personajes en JSON: " + dialoguesData.characters.Count);
 
@@ -152,36 +189,46 @@ public string ObtenerCanvasActual()
         }
 
         Debug.LogError("❌ NO se encontraron diálogos para NPC: '" + npcName + "'");
->>>>>>> main
         return null;
     }
 
-    /// <summary>
-    /// Obtener una línea específica de diálogos
-    /// </summary>
-    public string ObtenerLinea(string characterName, int index)
+    public void InciarDialogo()
     {
-        string[] dialogos = ObtenerDialogos(characterName);
-        
-        if (dialogos == null || index < 0 || index >= dialogos.Length)
-            return "";
+        dialogues= ObtenerdialoguesPersonaje(gameObject.name);
+        if (dialogues == null || dialogues.Length == 0)
+        {
+            Debug.Log("No se encontraron diálogos para el NPC: " + gameObject.name);
+            return;
+        }
+        inDialogue = true;
+        indexDialogue = 0;
+        dialogueTMP.text = dialogues[indexDialogue];
+        dialogueCanvas.SetActive(true);
 
-        return dialogos[index];
+        Debug.Log("Diálogo INICIADO: " + dialogues[indexDialogue]);
     }
 
-    /// <summary>
-    /// Verificar si existe un personaje
-    /// </summary>
-    public bool ExistePersonaje(string characterName)
+    public void AvanzarDialogo()
     {
-        if (dialoguesData == null) return false;
-
-        foreach (var character in dialoguesData.characters)
+        if (!inDialogue || dialogues == null) return;
+        
+        indexDialogue++;
+        if (indexDialogue < dialogues.Length)
         {
-            if (character.characterName == characterName)
-                return true;
+            dialogueTMP.text = dialogues[indexDialogue];
+            Debug.Log("Diálogo avanzado: " + dialogues[indexDialogue]);
         }
+        else
+        {
+            CerrarDialogo();
+        }
+    }
 
-        return false;
+    private void CerrarDialogo()
+    {
+        inDialogue = false;
+        indexDialogue = 0;
+        dialogueCanvas.SetActive(false);
+        Debug.Log("Diálogo CERRADO");
     }
 }

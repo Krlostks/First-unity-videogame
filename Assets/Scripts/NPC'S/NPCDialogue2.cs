@@ -7,13 +7,13 @@ using System.IO;
 using System;
 
 [System.Serializable]
-public class dialoguesContenedor
+public class dialoguesContenedor2
 {
-    public List<CharacterDialogues> characters;
+    public List<CharacterDialogues2> characters;
 }
 
 [System.Serializable]
-public class CharacterDialogues
+public class CharacterDialogues2
 {
     public string characterName;
     public string[] dialogues;
@@ -32,7 +32,7 @@ public class NPCDialogue2 : MonoBehaviour
     public string jsonFile = "npcdialogues.json";
     public string currentCanvas;
     
-    private dialoguesContenedor dialoguesData;
+    private dialoguesContenedor2 dialoguesData;
 
     void Start()
     {
@@ -52,10 +52,10 @@ public class NPCDialogue2 : MonoBehaviour
             
             try
             {
-                dialoguesData = JsonUtility.FromJson<dialoguesContenedor>(jsonData);
+                dialoguesData = JsonUtility.FromJson<dialoguesContenedor2>(jsonData);
                 Debug.Log($"✓ JSON cargado correctamente ({dialoguesData.characters.Count} personajes)");
                 
-                foreach (CharacterDialogues character in dialoguesData.characters)
+                foreach (CharacterDialogues2 character in dialoguesData.characters)
                 {
                     Debug.Log($"  - {character.characterName}: {character.dialogues.Length} líneas");
                 }

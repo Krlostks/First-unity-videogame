@@ -41,7 +41,7 @@ public class DialogueController : MonoBehaviour
         battleListener = GetComponent<BossDialogueEventListener>();   
 
         if (npcDialogue == null)
-            npcDialogue = GetComponent<NPCDialogue>();
+            npcDialogue = GetComponent<NPCDialogue2>();
     }
 
     void Update()
