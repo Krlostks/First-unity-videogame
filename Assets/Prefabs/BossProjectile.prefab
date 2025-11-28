@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2892607958846876300}
   - component: {fileID: 2293106978680178855}
   - component: {fileID: 6649302371211316488}
-  - component: {fileID: 8748431680824567161}
   - component: {fileID: -4420445178772530722}
+  - component: {fileID: -1317533308163561017}
   m_Layer: 6
   m_Name: BossProjectile
   m_TagString: Untagged
@@ -178,27 +178,6 @@ MonoBehaviour:
   OnParryEffectEnd:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8748431680824567161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2733602793993246670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9811bac3e67cf484885c7a7110a61d65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 8
-  damageToPlayer: 0
-  damageToBoss: 11
-  lifetime: 10
-  owner: {fileID: 0}
-  normalSprite: {fileID: -1600208830, guid: a07a1c07746eaf644b41fa7cde1cbb64, type: 3}
-  parriedSprite: {fileID: -1600208830, guid: a07a1c07746eaf644b41fa7cde1cbb64, type: 3}
-  parriedColor: {r: 0, g: 1, b: 1, a: 1}
-  parriedSound: {fileID: 0}
 --- !u!95 &-4420445178772530722
 Animator:
   serializedVersion: 5
@@ -220,3 +199,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1317533308163561017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733602793993246670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9811bac3e67cf484885c7a7110a61d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 8
+  damageToPlayer: 1
+  damageToBoss: 11
+  lifetime: 10
+  owner: {fileID: 0}
+  normalSprite: {fileID: 0}
+  parriedSprite: {fileID: 0}
+  parriedColor: {r: 0, g: 1, b: 1, a: 1}
+  parriedSound: {fileID: 0}

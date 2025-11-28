@@ -183,6 +183,8 @@ public class ParrySystem : MonoBehaviour
         if (instantiatedCursor != null)
         {
             instantiatedCursor.transform.position = transform.position + (Vector3)parryDirection * indicatorLength;
+            float angle = Mathf.Atan2(parryDirection.y, parryDirection.x) * Mathf.Rad2Deg;
+            instantiatedCursor.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 

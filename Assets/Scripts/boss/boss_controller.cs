@@ -57,6 +57,7 @@ public class BossController : MonoBehaviour
     private SpriteRenderer sr;
     private AudioSource audioSource;
     private GameObject player;
+    private GameObject Boss;
     
     private Vector2 currentDirection;
     private float nextDirectionChangeTime;
@@ -69,6 +70,9 @@ public class BossController : MonoBehaviour
     private float pursueTimer = 0f;
     private bool isPursuing = false;
     private float lastAttackTime = 0f;
+    public float delayAtaque = 2f; 
+    private bool puedeAtacar = false;
+    private bool puedeAtacarDelay = true;
 
     void Start()
     {
@@ -102,12 +106,26 @@ public class BossController : MonoBehaviour
 
         if (canShoot && !isStunned && !isPursuing && Time.time >= nextShootTime)
         {
+            if (puedeAtacarDelay)
+        {
+            StartCoroutine(AtacarConDelay());
+            }
+            else if (puedeAtacar)
+            {                
             ShootProjectile();
+            }
             ScheduleNextShoot();
         }
 
         HandlePursue();
         KeepInBounds();
+    }
+    private IEnumerator AtacarConDelay()
+    {
+        puedeAtacarDelay = false;            // Evita que se llame varias veces
+        yield return new WaitForSeconds(delayAtaque);
+        ShootProjectile();                       // Ejecuta el ataque real
+        puedeAtacar = true;                    // Permite que el ataque se realice            
     }
 
     void FixedUpdate()
@@ -239,8 +257,15 @@ public class BossController : MonoBehaviour
 
         currentHealth -= damage;
         Debug.Log($"Jefe recibe {damage} de daño. Vida: {currentHealth}/{maxHealth}");
-
-        StartCoroutine(StunWithShake(6f));
+        Boss = GameObject.FindGameObjectWithTag("Boss1");
+        if (Boss != null)
+        {
+            StartCoroutine(StunWithShake(1.5f));                
+        }
+        else
+        {
+        StartCoroutine(StunWithShake(6f));            
+        }
         StartCoroutine(FlashEffect());
 
         if (hitEffectPrefab != null)
