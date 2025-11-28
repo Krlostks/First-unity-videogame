@@ -50,6 +50,8 @@ public class ParrySystem : MonoBehaviour
     // Referencias privadas
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+
+    private BoxCollider2D bx;
     private AudioSource audioSource;
     
     // Estado del sistema
@@ -67,6 +69,7 @@ public class ParrySystem : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        bx = GetComponent<BoxCollider2D>();
         audioSource = GetComponent<AudioSource>();
         originalFixedDeltaTime = Time.fixedDeltaTime;
     }
@@ -121,7 +124,8 @@ public class ParrySystem : MonoBehaviour
 
             if (nearestEnemy != null)
             {
-                ActivateParryMode();
+
+                ActivateParryMode(nearestEnemy);
             }
         }
         else
@@ -130,10 +134,11 @@ public class ParrySystem : MonoBehaviour
         }
     }
 
-    void ActivateParryMode()
-    {
-        isInParryMode = true;
-        
+    void ActivateParryMode(GameObject enemy)
+    {   
+        bx.enabled = false;
+        isInParryMode = true;                
+        rb.position =  enemy.transform.position;
         // Congelar el tiempo
         Time.timeScale = frozenTimeScale;
         Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
@@ -184,7 +189,7 @@ public class ParrySystem : MonoBehaviour
         {
             instantiatedCursor.transform.position = transform.position + (Vector3)parryDirection * indicatorLength;
             float angle = Mathf.Atan2(parryDirection.y, parryDirection.x) * Mathf.Rad2Deg;
-            instantiatedCursor.transform.rotation = Quaternion.Euler(0, 0, angle);
+            instantiatedCursor.transform.rotation = Quaternion.Euler(0, 0, angle - 45f);
         }
     }
 
@@ -193,8 +198,7 @@ public class ParrySystem : MonoBehaviour
         if (!isInParryMode) return;
 
         // Aplicar impulso al player
-        rb.velocity = Vector2.zero; // Reset velocity
-        rb.AddForce(parryDirection * dashForce, ForceMode2D.Impulse);
+        rb.velocity = parryDirection * dashForce;
 
         // Aplicar knockback al objeto parriable
         if (nearestEnemy != null)
@@ -250,7 +254,7 @@ public class ParrySystem : MonoBehaviour
         
         // Restaurar tiempo gradualmente para una transición suave
         float elapsed = 0f;
-        float duration = 0.1f;
+        float duration = 0.2f;
 
         while (elapsed < duration)
         {
@@ -264,6 +268,7 @@ public class ParrySystem : MonoBehaviour
         // Asegurar que vuelva a 1
         Time.timeScale = 1f;
         Time.fixedDeltaTime = originalFixedDeltaTime;
+        bx.enabled = true;
     }
 
     // Cancelar parry si algo sale mal

@@ -39,6 +39,7 @@ public class movimiento : MonoBehaviour, IPausable
     // contadores
     float coyoteCounter;
     float jumpBufferCounter;
+    
 
 
     void Awake()
@@ -114,11 +115,10 @@ public class movimiento : MonoBehaviour, IPausable
         if (Input.GetButtonDown("Jump")) jumpBufferCounter = jumpBufferTime;
         else jumpBufferCounter -= Time.deltaTime;
 
-        if (jumpBufferCounter > 0f && coyoteCounter > 0f && isGrounded)
+        if (jumpBufferCounter > 0f && coyoteCounter > 0f)
         {
             Jump();
             jumpBufferCounter = 0f;
-            coyoteCounter = 0f;
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
@@ -146,9 +146,13 @@ public class movimiento : MonoBehaviour, IPausable
 
     void FixedUpdate()
     {
+        Debug.Log("grounded de Movimiento: " + isGrounded);
         if (GamePauseManager.Instance != null && GamePauseManager.Instance.IsPaused())
+            return;        
+        if (!isGrounded)
             return;
-    
+
+    // solo caminar si está en el suelo        
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }
 
