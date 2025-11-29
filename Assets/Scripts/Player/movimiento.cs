@@ -145,8 +145,7 @@ public class movimiento : MonoBehaviour, IPausable
     }
 
     void FixedUpdate()
-    {
-        Debug.Log("grounded de Movimiento: " + isGrounded);
+    {       
         if (GamePauseManager.Instance != null && GamePauseManager.Instance.IsPaused())
             return;        
         if (!isGrounded)

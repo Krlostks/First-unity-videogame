@@ -159,7 +159,7 @@ public class ParrySystem : MonoBehaviour
         }
 
         Debug.Log("Modo Parry activado - Apunta la dirección");
-    }
+        }
 
     void UpdateParryDirection()
     {
@@ -198,7 +198,7 @@ public class ParrySystem : MonoBehaviour
         if (!isInParryMode) return;
 
         // Aplicar impulso al player
-        rb.velocity = parryDirection * dashForce;
+        rb.velocity = parryDirection.normalized * dashForce;
 
         // Aplicar knockback al objeto parriable
         if (nearestEnemy != null)
