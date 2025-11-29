@@ -96,6 +96,12 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void hacerInvencible(float duration)
+    {
+        isInvincible = true;
+        invincibilityTimer = duration;
+    }
+
     System.Collections.IEnumerator BlinkEffect()
     {
         if (sr == null) yield break;

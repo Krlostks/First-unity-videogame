@@ -147,9 +147,7 @@ public class movimiento : MonoBehaviour, IPausable
     void FixedUpdate()
     {       
         if (GamePauseManager.Instance != null && GamePauseManager.Instance.IsPaused())
-            return;        
-        if (!isGrounded)
-            return;
+            return;     
 
     // solo caminar si está en el suelo        
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);

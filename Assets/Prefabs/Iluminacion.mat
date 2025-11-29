@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Iluminacion
-  m_Shader: {fileID: 4800000, guid: 1d1fdf09b9c335b4c9b8a12d92e61d5f, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6e6c70c0d49970048bc6c58bf88002ae, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -68,9 +68,12 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Glow: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Outline: 0
+    - _OutlineAlpha: 0
     - _OutlineIntensity: 0
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
