@@ -23179,7 +23179,7 @@ GameObject:
   - component: {fileID: 514352925}
   - component: {fileID: 514352924}
   - component: {fileID: 514352923}
-  - component: {fileID: 514352922}
+  - component: {fileID: 514352930}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Player
@@ -23187,49 +23187,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &514352922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514352921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9816d696be7c99043bb952aac67f4e04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parryDetectionRange: 2.5
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 192
-  parryKey: 112
-  dashDistance: 6
-  enemyKnockbackForce: 10
-  freezeTimeDuration: 0.3
-  frozenTimeScale: 0.002
-  directionIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
-  indicatorLength: 3
-  directionCursor: {fileID: 642510868}
-  teleportBeamLength: 8
-  dashBeamLength: 4
-  beamWidth: 0.8
-  beamFadeDuration: 0.5
-  outlineFlashDuration: 0.3
-  outlineIntensity: 1.5
-  outlineColor: {r: 1, g: 1, b: 1, a: 0.77254903}
-  parryCooldown: 0.1
-  teleportDetectionRadius: 0.4
-  reboundDistance: 2
-  reboundForce: 15
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  numberOfRays: 3
-  skinWidth: 0.1
-  raySpacing: 0.2
-  parrySound: {fileID: 0}
-  dashSound: {fileID: 0}
 --- !u!114 &514352923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23434,7 +23391,7 @@ Transform:
   m_GameObject: {fileID: 514352921}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.08, y: 0.37, z: 0}
+  m_LocalPosition: {x: -11.8, y: 2.7, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: -10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23443,6 +23400,39 @@ Transform:
   - {fileID: 404584619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &514352930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514352921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9816d696be7c99043bb952aac67f4e04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parryDetectionRange: 2.5
+  parryKey: 304
+  dashDistance: 5
+  enemyKnockbackForce: 10
+  parryCooldown: 0.5
+  freezeTimeDuration: 0.5
+  frozenTimeScale: 0.05
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  numberOfRays: 3
+  skinWidth: 0.1
+  directionCursor: {fileID: 642510868}
+  indicatorLength: 2
+  outlineColor: {r: 0, g: 1, b: 1, a: 1}
+  outlineIntensity: 1.5
+  parrySound: {fileID: 0}
+  dashSound: {fileID: 0}
 --- !u!1 &538692228
 GameObject:
   m_ObjectHideFlags: 0
@@ -24201,8 +24191,8 @@ Transform:
   m_GameObject: {fileID: 793412452}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 42, y: 13, z: 31.482098}
-  m_LocalScale: {x: 5.3882627, y: 7.6938004, z: 73.76993}
+  m_LocalPosition: {x: 340.6, y: -23.2, z: 31.482098}
+  m_LocalScale: {x: 134.70656, y: 192.345, z: 73.76993}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 179211775}
@@ -24867,8 +24857,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 38, y: 44}
-  m_SizeDelta: {x: 368.4, y: 187.4}
+  m_AnchoredPosition: {x: 348.3, y: 16.2}
+  m_SizeDelta: {x: 461.3, y: 223.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &981213057
 MonoBehaviour:
@@ -42220,6 +42210,9 @@ GameObject:
   - component: {fileID: 1414917100}
   - component: {fileID: 1414917099}
   - component: {fileID: 1414917098}
+  - component: {fileID: 1414917104}
+  - component: {fileID: 1414917103}
+  - component: {fileID: 1414917102}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -42354,6 +42347,88 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1414917102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414917097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150afdcfc78f8462290901e249619ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!66 &1414917103
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414917097}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 1414917097}
+--- !u!50 &1414917104
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414917097}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1455317704
 GameObject:
   m_ObjectHideFlags: 0
