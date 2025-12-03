@@ -754,7 +754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc5dd038f57b09429312ccb8fca545e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicaMenu: {fileID: 8300000, guid: 0d9dda6e3b8109e419d1cb0062b12fa7, type: 3}
+  musicaMenu: {fileID: 8300000, guid: cfb8b80dca8504ee8b792b638a7f2ba2, type: 3}
 --- !u!114 &546747437
 MonoBehaviour:
   m_ObjectHideFlags: 0
