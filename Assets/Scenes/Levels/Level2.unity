@@ -23452,7 +23452,7 @@ Transform:
   m_GameObject: {fileID: 514352921}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.3, y: -0, z: 0}
+  m_LocalPosition: {x: -10.8, y: 0.9, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23474,12 +23474,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryDetectionRange: 2.5
-  parryKey: 112
-  dashDistance: 5
+  parryMouseButton: 0
+  requireMouseClickAndHold: 1
+  dashDistance: 8
   enemyKnockbackForce: 10
-  parryCooldown: 0.5
+  parryCooldown: 0.1
   freezeTimeDuration: 0.5
-  frozenTimeScale: 0.05
+  frozenTimeScale: 0.001
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -23492,7 +23493,8 @@ MonoBehaviour:
   indicatorLength: 2
   outlineColor: {r: 0, g: 1, b: 1, a: 1}
   outlineIntensity: 1.5
-  teleportBeamLength: 8
+  showMouseDirectionLine: 1
+  teleportBeamLength: 1
   teleportBeamWidth: 0.3
   teleportBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
   teleportBeamEndColor: {r: 1, g: 1, b: 1, a: 1}

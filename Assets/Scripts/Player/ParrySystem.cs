@@ -6,7 +6,12 @@ public class ParrySystem : MonoBehaviour
 {
     [Header("Configuración Básica")]
     [SerializeField] private float parryDetectionRange = 2.5f;
-    [SerializeField] private KeyCode parryKey = KeyCode.LeftShift;
+    
+    [Header("Controles - Mouse")]
+    [SerializeField] private MouseButton parryMouseButton = MouseButton.Right;
+    [SerializeField] private bool requireMouseClickAndHold = true; // Click y mantener vs solo click
+    
+    [Header("Parry Settings")]
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private float enemyKnockbackForce = 10f;
     [SerializeField] private float parryCooldown = 0.5f;
@@ -26,6 +31,7 @@ public class ParrySystem : MonoBehaviour
     [SerializeField] private float indicatorLength = 2f;
     [SerializeField] private Color outlineColor = new Color(0, 1, 1, 1);
     [SerializeField] private float outlineIntensity = 1.5f;
+    [SerializeField] private bool showMouseDirectionLine = true;
     
     [Header("Efectos de Haz - Teleport")]
     [SerializeField] private float teleportBeamLength = 8f;
@@ -61,6 +67,7 @@ public class ParrySystem : MonoBehaviour
     private AudioSource audioSource;
     private PlayerHealth playerHealth;
     private MaterialPropertyBlock propertyBlock;
+    private Camera mainCamera;
     
     // Estado
     private bool isInParryMode = false;
@@ -75,6 +82,10 @@ public class ParrySystem : MonoBehaviour
     private Coroutine flashCoroutine;
     private Coroutine restoreTimeCoroutine;
 
+    // Mouse tracking
+    private Vector2 mouseWorldPosition;
+    private bool isMouseButtonDown = false;
+
     void Awake()
     {
         // Inicializar layers si no están configuradas
@@ -83,6 +94,7 @@ public class ParrySystem : MonoBehaviour
         
         CacheComponents();
         InitializeTimeSettings();
+        mainCamera = Camera.main;
     }
 
     void Update()
@@ -93,21 +105,27 @@ public class ParrySystem : MonoBehaviour
             canParry = true;
         }
 
-        // Detectar input
-        if (Input.GetKeyDown(parryKey) && canParry && !isInParryMode)
-        {
-            TryActivateParry();
-        }
+        // Actualizar posición del mouse en mundo
+        UpdateMousePosition();
+
+        // Detectar input del mouse
+        HandleMouseInput();
 
         // Actualizar dirección en modo parry
         if (isInParryMode)
         {
-            UpdateParryDirection();
+            UpdateParryDirectionFromMouse();
             
-            if (Input.GetKeyUp(parryKey))
+            // Ejecutar parry según configuración
+            if (requireMouseClickAndHold)
             {
-                ExecuteParry();
+                // Soltar botón para ejecutar
+                if (!isMouseButtonDown)
+                {
+                    ExecuteParry();
+                }
             }
+            // Si no requiere hold, se ejecuta inmediatamente al entrar en modo parry
         }
     }
 
@@ -141,6 +159,52 @@ public class ParrySystem : MonoBehaviour
     private void InitializeTimeSettings()
     {
         originalFixedDeltaTime = Time.fixedDeltaTime;
+    }
+
+    private void UpdateMousePosition()
+    {
+        if (mainCamera == null) 
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null) return;
+        }
+        
+        Vector3 mouseScreenPos = Input.mousePosition;
+        mouseScreenPos.z = Mathf.Abs(mainCamera.transform.position.z); // Distancia de la cámara al plano
+        mouseWorldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPos);
+    }
+
+    private void HandleMouseInput()
+    {
+        bool mouseButtonPressed = false;
+        
+        switch (parryMouseButton)
+        {
+            case MouseButton.Left:
+                mouseButtonPressed = Input.GetMouseButtonDown(0);
+                isMouseButtonDown = Input.GetMouseButton(0);
+                break;
+            case MouseButton.Right:
+                mouseButtonPressed = Input.GetMouseButtonDown(1);
+                isMouseButtonDown = Input.GetMouseButton(1);
+                break;
+            case MouseButton.Middle:
+                mouseButtonPressed = Input.GetMouseButtonDown(2);
+                isMouseButtonDown = Input.GetMouseButton(2);
+                break;
+        }
+
+        // Activar parry al presionar
+        if (mouseButtonPressed && canParry && !isInParryMode)
+        {
+            TryActivateParry();
+        }
+        
+        // Si no requiere hold, ejecutar inmediatamente al entrar
+        if (!requireMouseClickAndHold && isInParryMode)
+        {
+            ExecuteParry();
+        }
     }
 
     #endregion
@@ -183,12 +247,11 @@ public class ParrySystem : MonoBehaviour
         CleanupCoroutines();
         ForceCancelRestoreTime();
 
-        
         SetupParryTeleport();
         SetupVisualEffects();
         SetupTimeFreeze();
 
-        Debug.Log("Modo Parry activado");
+        Debug.Log("Modo Parry activado (Mouse: " + parryMouseButton + ")");
     }
 
     private void SetupParryTeleport()
@@ -230,6 +293,8 @@ public class ParrySystem : MonoBehaviour
         if (!isInParryMode) return;
 
         Vector3 originalPosition = transform.position;
+        
+        // La dirección ya está actualizada por UpdateParryDirectionFromMouse()
         Vector2 normalizedDirection = parryDirection.normalized;
 
         float safeDistance = CalculateSafeDashDistance(originalPosition, normalizedDirection);
@@ -240,32 +305,32 @@ public class ParrySystem : MonoBehaviour
         CleanupParryState();
         StartRestoreTimeCoroutine();
 
-        Debug.Log($"Parry ejecutado - Distancia: {safeDistance:F2}");
+        Debug.Log($"Parry ejecutado hacia {parryDirection} - Distancia: {safeDistance:F2}");
     }
 
     #endregion
 
-    #region Dirección y Aiming
+    #region Dirección desde Mouse
 
-    private void UpdateParryDirection()
+    private void UpdateParryDirectionFromMouse()
     {
-        // Obtener input
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        if (mainCamera == null) return;
         
-        if (horizontal != 0 || vertical != 0)
+        // Calcular dirección desde player hacia mouse
+        Vector2 playerPosition = transform.position;
+        parryDirection = (mouseWorldPosition - playerPosition).normalized;
+        
+        // Si el mouse está muy cerca, usar dirección por defecto
+        if (parryDirection.magnitude < 0.1f)
         {
-            parryDirection = new Vector2(horizontal, vertical).normalized;
-        }
-        else if (nearestEnemy != null)
-        {
-            // Dirección opuesta al enemigo por defecto
-            parryDirection = ((Vector2)transform.position - (Vector2)nearestEnemy.transform.position).normalized;
-        }
-        else
-        {
-            // Dirección basada en flip del sprite
-            parryDirection = sr.flipX ? Vector2.left : Vector2.right;
+            if (nearestEnemy != null)
+            {
+                parryDirection = ((Vector2)transform.position - (Vector2)nearestEnemy.transform.position).normalized;
+            }
+            else
+            {
+                parryDirection = sr.flipX ? Vector2.left : Vector2.right;
+            }
         }
 
         UpdateDirectionCursor();
@@ -275,7 +340,10 @@ public class ParrySystem : MonoBehaviour
     {
         if (instantiatedCursor == null) return;
         
+        // Posicionar cursor en la dirección del mouse
         instantiatedCursor.transform.position = transform.position + (Vector3)parryDirection * indicatorLength;
+        
+        // Rotar cursor para apuntar hacia el mouse
         float angle = Mathf.Atan2(parryDirection.y, parryDirection.x) * Mathf.Rad2Deg;
         instantiatedCursor.transform.rotation = Quaternion.Euler(0, 0, angle - 45f);
     }
@@ -374,6 +442,8 @@ public class ParrySystem : MonoBehaviour
             Destroy(instantiatedCursor);
             instantiatedCursor = null;
         }
+        
+        isMouseButtonDown = false;
     }
 
     private void CleanupCoroutines()
@@ -420,6 +490,8 @@ public class ParrySystem : MonoBehaviour
             Destroy(instantiatedCursor);
             instantiatedCursor = null;
         }
+        
+        isMouseButtonDown = false;
     }
 
     #endregion
@@ -438,7 +510,6 @@ public class ParrySystem : MonoBehaviour
 
         while (elapsed < duration)
         {
-            // ✅ Usar Time.unscaledDeltaTime
             elapsed += Time.unscaledDeltaTime;
             float t = elapsed / duration;
             
@@ -448,8 +519,7 @@ public class ParrySystem : MonoBehaviour
             float outlineAlpha = Mathf.Lerp(outlineIntensity, 0f, t);
             SetOutlineEffect(outlineAlpha, Mathf.Lerp(0.8f, 0f, t));
             
-            // ✅ CAMBIADO: Usar WaitForSecondsRealtime en lugar de yield return null
-            yield return new WaitForSecondsRealtime(0.016f); // ~60 FPS
+            yield return new WaitForSecondsRealtime(0.016f);
         }
 
         Time.timeScale = 1f;
@@ -477,7 +547,6 @@ public class ParrySystem : MonoBehaviour
                 isVisible ? 0.8f : 0.3f
             );
             
-            // ✅ CAMBIADO: Usar WaitForSecondsRealtime en lugar de yield return null
             yield return new WaitForSecondsRealtime(flashInterval);
         }
         
@@ -640,9 +709,18 @@ public class ParrySystem : MonoBehaviour
         // Indicador de dirección durante parry
         if (isInParryMode && Application.isPlaying)
         {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(transform.position, transform.position + (Vector3)parryDirection * indicatorLength);
-            Gizmos.DrawWireSphere(transform.position + (Vector3)parryDirection * indicatorLength, 0.2f);
+            // Línea hacia el mouse
+            if (showMouseDirectionLine)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawLine(transform.position, transform.position + (Vector3)parryDirection * indicatorLength);
+                Gizmos.DrawWireSphere(transform.position + (Vector3)parryDirection * indicatorLength, 0.2f);
+            }
+            
+            // Mostrar posición del mouse
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(mouseWorldPosition, 0.3f);
+            Gizmos.DrawLine(transform.position, mouseWorldPosition);
             
             // Área de dash proyectada
             if (bx != null)
@@ -662,6 +740,13 @@ public class ParrySystem : MonoBehaviour
 
     public bool IsInParryMode() => isInParryMode;
     public bool CanParry() => canParry;
+    
+    public enum MouseButton
+    {
+        Left = 0,
+        Right = 1,
+        Middle = 2
+    }
 
     #endregion
 }
