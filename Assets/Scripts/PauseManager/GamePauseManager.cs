@@ -45,9 +45,22 @@ public class GamePauseManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ForceResume();
-        allowPause = !scene.name.Contains("Menu") && scene.name != "Menu";
+
+        // Definir escenas donde NO se permite pausa
+        string sceneName = scene.name.ToLower();
+        bool isMenuScene = sceneName.Contains("menu");
+        bool isSettingsScene = sceneName.Contains("ajustes") || sceneName.Contains("settings");
+
+        allowPause = !(isMenuScene || isSettingsScene);
+
+        // Si estamos en una escena que no permite pausa, asegurarnos de que no esté pausada
+        if (!allowPause && isPaused)
+        {
+            ForceResume();
+        }
+
         FindUIReferencesInScene();
-        ConfigurePauseButtons(); // CONFIGURAR BOTONES AL CARGAR ESCENA
+        ConfigurePauseButtons();
 
         Debug.Log($"[GamePauseManager] Escena cargada: {scene.name}, Pausa permitida: {allowPause}");
     }
