@@ -92,8 +92,7 @@ public class ParrySystem : MonoBehaviour
     
     // Variables para los efectos
     private Coroutine flashCoroutine;
-    private Coroutine restoreTimeCoroutine;  // ✅ Guardar referencia de restauración
-    // ✅ CAMBIO: Removida beamCoroutine (los beams se destruyen solos)
+    private Coroutine restoreTimeCoroutine;  
 
     //referencia a healt
     private PlayerHealth playerHealth;
@@ -174,14 +173,12 @@ public class ParrySystem : MonoBehaviour
     }
     private void ForceCancelRestoreTime()
     {
-        // ✅ CAMBIO: Detener la corrutina de restauración si existe
         if (restoreTimeCoroutine != null)
         {
             StopCoroutine(restoreTimeCoroutine);
             restoreTimeCoroutine = null;
         }
 
-        // ✅ CAMBIO: Asegurar que el tiempo esté congelado inmediatamente
         Time.timeScale = frozenTimeScale;
         Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
 
@@ -191,8 +188,7 @@ public class ParrySystem : MonoBehaviour
 
 
     void ActivateParryMode(GameObject enemy)
-    {   
-        // ✅ CAMBIO: Detener TODAS las corutinas de forma correcta
+    {    
         if (flashCoroutine != null) 
         { 
             StopCoroutine(flashCoroutine); 
@@ -289,9 +285,9 @@ public class ParrySystem : MonoBehaviour
         // Aplicar impulso normalizado al player
         Vector2 normalizedDirection = parryDirection.normalized;
         Vector3 newPosition = originalPosition + (Vector3)normalizedDirection * dashDistance;
+        bx.enabled = true;
         rb.position = newPosition;
         rb.velocity = Vector2.zero;
-        bx.enabled = true;
         playerHealth.hacerInvencible(0.5f);
 
         // Aplicar knockback al objeto parriable
