@@ -2,500 +2,457 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(BoxCollider2D))]
 public class ParrySystem : MonoBehaviour
 {
-    [Header("Configuración del Parry")]
-    [Tooltip("Rango de detección para parry")]
-    public float parryDetectionRange = 2.5f;
+    [Header("Configuración")]
+    [SerializeField] private float parryDetectionRange = 2.5f;
+    [SerializeField] private KeyCode parryKey = KeyCode.LeftShift;
+    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float enemyKnockbackForce = 10f;
+    [SerializeField] private float parryCooldown = 0.5f;
     
-    [Tooltip("Layer de los enemigos")]
-    public LayerMask enemyLayer;
-    
-    [Tooltip("Tecla para hacer parry (por defecto: Left Shift)")]
-    public KeyCode parryKey = KeyCode.LeftShift;
-
-    [Header("Configuración de Impulso")]
-    [Tooltip("Fuerza del impulso del player (distancia de dash normalizada)")]
-    public float dashDistance = 5f;
-    
-    [Tooltip("Fuerza del retroceso del enemigo")]
-    public float enemyKnockbackForce = 10f;
-
     [Header("Time Freeze")]
-    [Tooltip("Duración del tiempo congelado")]
-    public float freezeTimeDuration = 0.5f;
+    [SerializeField] private float freezeTimeDuration = 0.5f;
+    [SerializeField] private float frozenTimeScale = 0.05f;
     
-    [Tooltip("Escala de tiempo durante el freeze (0 = completamente parado)")]
-    public float frozenTimeScale = 0.05f;
-
+    [Header("Raycast Detection")]
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField, Range(3, 7)] private int numberOfRays = 3;
+    [SerializeField, Range(0.05f, 0.3f)] private float skinWidth = 0.1f;
+    
     [Header("Visual Feedback")]
-    [Tooltip("Color del indicador de dirección")]
-    public Color directionIndicatorColor = Color.cyan;
+    [SerializeField] private GameObject directionCursor;
+    [SerializeField] private float indicatorLength = 2f;
+    [SerializeField] private Color outlineColor = new Color(0, 1, 1, 1);
+    [SerializeField] private float outlineIntensity = 1.5f;
     
-    [Tooltip("Longitud de la línea indicadora")]
-    public float indicatorLength = 2f;
+    [Header("Audio")]
+    [SerializeField] private AudioClip parrySound;
+    [SerializeField] private AudioClip dashSound;
     
-    [Tooltip("Sprite del cursor de dirección (opcional)")]
-    public GameObject directionCursor;
-
-    [Header("Efectos de Luz")]
-    [Tooltip("Longitud del haz de luz del teleporte")]
-    public float teleportBeamLength = 8f;
-    
-    [Tooltip("Longitud del haz de luz del dash")]
-    public float dashBeamLength = 3f;
-    
-    [Tooltip("Ancho del haz de luz")]
-    public float beamWidth = 0.3f;
-    
-    [Tooltip("Duración del fade del haz de luz")]
-    public float beamFadeDuration = 0.5f;
-    
-    [Tooltip("Duración del parpadeo del contorno")]
-    public float outlineFlashDuration = 0.3f;
-    
-    [Tooltip("Intensidad del contorno")]
-    public float outlineIntensity = 1.5f;
-    
-    [Tooltip("Color del contorno")]
-    public Color outlineColor = new Color(0, 1, 1, 1);
-
-    [Header("Cooldown")]
-    [Tooltip("Tiempo de enfriamiento entre parrys")]
-    public float parryCooldown = 0.5f;
-    
-    [Header("Audio (Opcional)")]
-    public AudioClip parrySound;
-    public AudioClip dashSound;
-
-    // Referencias privadas
+    // Component references
     private Rigidbody2D rb;
+    private bool isInParryMode;
     private SpriteRenderer sr;
     private BoxCollider2D bx;
     private AudioSource audioSource;
+    private PlayerHealth playerHealth;
     
-    // Material Property Block - Modifica el material sin crear uno nuevo
-    private MaterialPropertyBlock propertyBlock;
+    // State management
+    private enum ParryState { Ready, Aiming, Cooldown }
+    private ParryState currentState = ParryState.Ready;
     
-    // Estado del sistema
-    private bool isInParryMode = false;
-    private bool isRestoringTime = false;
-    private bool canParry = true;
-    private float nextParryTime = 0f;
+    // Runtime variables
     private Vector2 parryDirection;
     private GameObject nearestEnemy;
     private GameObject instantiatedCursor;
-    
-    // Variables para smooth camera
+    private float nextParryTime;
     private float originalFixedDeltaTime;
+    private MaterialPropertyBlock propertyBlock;
     
-    // Variables para los efectos
+    // Coroutine references
     private Coroutine flashCoroutine;
-    private Coroutine restoreTimeCoroutine;  
-
-    //referencia a healt
-    private PlayerHealth playerHealth;
-
-    void Start()
+    private Coroutine restoreTimeCoroutine;
+    
+    // Constants
+    private const float MIN_DASH_DISTANCE = 0.1f;
+    private const float BEAM_FADE_DURATION = 0.5f;
+    private const float OUTLINE_FLASH_INTERVAL = 0.1f;
+    
+    #region Unity Lifecycle
+    
+    void Awake()
+    {
+        InitializeLayers();
+        CacheComponents();
+        InitializeTimeSettings();
+    }
+    
+    void Update()
+    {
+        HandleParryInput();
+        HandleAiming();
+    }
+    
+    void OnDestroy()
+    {
+        RestoreTimeScale();
+    }
+    
+    #endregion
+    
+    #region Initialization
+    
+    private void InitializeLayers()
+    {
+        if (obstacleLayer.value == 0) obstacleLayer = LayerMask.GetMask("Ground", "Obstaculo");
+        if (enemyLayer.value == 0) enemyLayer = LayerMask.GetMask("Enemy");
+    }
+    
+    private void CacheComponents()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         bx = GetComponent<BoxCollider2D>();
         playerHealth = GetComponent<PlayerHealth>();
         audioSource = GetComponent<AudioSource>();
-        originalFixedDeltaTime = Time.fixedDeltaTime;
         
-        // Inicializar Property Block
         propertyBlock = new MaterialPropertyBlock();
-        
-        // Asegurar que el material sea instancia única para este renderer
-        sr.material = new Material(sr.material);
+        if (sr.material != null) sr.material = new Material(sr.material);
     }
-
-    void Update()
+    
+    private void InitializeTimeSettings()
     {
-        // Solo permitir parry si está fuera de cooldown
-        if (!canParry && Time.unscaledTime >= nextParryTime)
+        originalFixedDeltaTime = Time.fixedDeltaTime;
+    }
+    
+    #endregion
+    
+    #region Input Handling
+    
+    private void HandleParryInput()
+    {
+        if (currentState == ParryState.Cooldown && Time.unscaledTime >= nextParryTime)
         {
-            canParry = true;
+            currentState = ParryState.Ready;
         }
-
-        // Detectar input de parry
-        if (Input.GetKeyDown(parryKey) && canParry && !isInParryMode)
+        
+        if (Input.GetKeyDown(parryKey) && currentState == ParryState.Ready)
         {
             TryActivateParry();
         }
-
-        // Si está en modo parry, actualizar la dirección
-        if (isInParryMode)
-        {
-            UpdateParryDirection();
-            
-            // Ejecutar el dash cuando se suelta la tecla
-            if (Input.GetKeyUp(parryKey))
-            {
-                ExecuteParry();
-            }
-        }
-    }
-
-    void TryActivateParry()
-    {
-        // Buscar enemigos cercanos
-        Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, parryDetectionRange, enemyLayer);
         
-        if (nearbyEnemies.Length > 0)
+        if (currentState == ParryState.Aiming && Input.GetKeyUp(parryKey))
         {
-            // Encontrar el enemigo más cercano
-            float closestDistance = Mathf.Infinity;
-            nearestEnemy = null;
-
-            foreach (Collider2D enemyCollider in nearbyEnemies)
-            {
-                float distance = Vector2.Distance(transform.position, enemyCollider.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    nearestEnemy = enemyCollider.gameObject;
-                }
-            }
-
-            if (nearestEnemy != null)
-            {
-                ActivateParryMode(nearestEnemy);
-            }
-        }
-        else
-        {
-            Debug.Log("No hay enemigos cerca para hacer parry");
+            ExecuteParry();
         }
     }
-    private void ForceCancelRestoreTime()
+    
+    private void HandleAiming()
     {
-        if (restoreTimeCoroutine != null)
-        {
-            StopCoroutine(restoreTimeCoroutine);
-            restoreTimeCoroutine = null;
-        }
-
-        Time.timeScale = frozenTimeScale;
-        Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
-
-        // Limpiar outline
-        SetOutlineEffect(0f, 0f);
+        if (currentState != ParryState.Aiming) return;
+        
+        UpdateParryDirection();
+        UpdateDirectionCursor();
     }
-
-
-    void ActivateParryMode(GameObject enemy)
-    {    
-        if (flashCoroutine != null) 
-        { 
-            StopCoroutine(flashCoroutine); 
-            flashCoroutine = null; 
+    
+    #endregion
+    
+    #region Parry Logic
+    
+    private void TryActivateParry()
+    {
+        
+        nearestEnemy = FindNearestEnemy();
+        if (nearestEnemy != null)
+        {
+            ActivateParryMode();
         }
-        if (restoreTimeCoroutine != null) 
-        { 
-            StopCoroutine(restoreTimeCoroutine); 
-            restoreTimeCoroutine = null; 
+    }
+    
+    private GameObject FindNearestEnemy()
+    {
+        Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, parryDetectionRange, enemyLayer);
+        if (nearbyEnemies.Length == 0) return null;
+        
+        GameObject closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+        
+        foreach (Collider2D enemy in nearbyEnemies)
+        {
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy.gameObject;
+            }
         }
-
-        // ✅ CAMBIO: Cancelar cualquier restauración de tiempo en progreso
-        ForceCancelRestoreTime();
-
-        bx.enabled = false; 
-        playerHealth.hacerInvencible(0.2f);
-
+        
+        return closestEnemy;
+    }
+    
+    private void ActivateParryMode()
+    {
         isInParryMode = true;
+        CleanupCoroutines();
+        ForceCancelRestoreTime();
+        
+        SetupParryTeleport();
+        SetupTimeFreeze();
+        SetupVisualEffects();
+        
+        currentState = ParryState.Aiming;
+        Debug.Log("Modo Parry activado - Apunta la dirección");
+    }
+    
+    private void SetupParryTeleport()
+    {
+        bx.enabled = false;
+        playerHealth.hacerInvencible(0.2f);
         
         Vector3 originalPosition = transform.position;
-        
-        rb.position = enemy.transform.position;
-        
-        // Congelar el tiempo
-        Time.timeScale = frozenTimeScale;
-        Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
-        
-        // Detener el movimiento del player
+        rb.position = nearestEnemy.transform.position;
         rb.velocity = Vector2.zero;
         
-        // Reproducir sonido
-        if (parrySound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(parrySound);
-        }
-
-        // Crear cursor visual si existe
+        PlaySound(parrySound);
+        CreateTeleportBeam(originalPosition, transform.position);
+    }
+    
+    private void SetupTimeFreeze()
+    {
+        Time.timeScale = frozenTimeScale;
+        Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
+    }
+    
+    private void SetupVisualEffects()
+    {
         if (directionCursor != null && instantiatedCursor == null)
         {
             instantiatedCursor = Instantiate(directionCursor, transform.position, Quaternion.identity);
         }
         
-        // Crear haz de teleporte desde la posición original
-        CreateTeleportBeam(originalPosition, transform.position);
-        
-        // Iniciar parpadeo del contorno
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-        }
-        flashCoroutine = StartCoroutine(FlashOutlineWhileFrozen());
-
-        Debug.Log("Modo Parry activado - Apunta la dirección");
+        flashCoroutine = StartCoroutine(FlashOutlineRoutine());
     }
-
-    void UpdateParryDirection()
+    
+    #endregion
+    
+    #region Aiming & Direction
+    
+    private void UpdateParryDirection()
     {
-        // Obtener dirección desde el input
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        Vector2 inputDirection = GetInputDirection();
         
-        // Si no hay input, apuntar dirección por defecto (hacia el enemigo opuesto)
-        if (horizontal == 0 && vertical == 0 && nearestEnemy != null)
+        if (inputDirection.magnitude > 0.1f)
         {
-            Vector2 awayFromEnemy = (transform.position - nearestEnemy.transform.position).normalized;
-            parryDirection = awayFromEnemy;
+            parryDirection = inputDirection.normalized;
+        }
+        else if (nearestEnemy != null)
+        {
+            parryDirection = ((Vector2)transform.position - (Vector2)nearestEnemy.transform.position).normalized;
         }
         else
         {
-            parryDirection = new Vector2(horizontal, vertical).normalized;
-        }
-
-        // Si la dirección sigue siendo cero, usar dirección derecha por defecto
-        if (parryDirection.magnitude < 0.1f)
-        {
             parryDirection = sr.flipX ? Vector2.left : Vector2.right;
         }
+    }
+    
+    private Vector2 GetInputDirection()
+    {
+        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    }
+    
+    private void UpdateDirectionCursor()
+    {
+        if (instantiatedCursor == null) return;
+        
+        instantiatedCursor.transform.position = transform.position + (Vector3)parryDirection * indicatorLength;
+        float angle = Mathf.Atan2(parryDirection.y, parryDirection.x) * Mathf.Rad2Deg;
+        instantiatedCursor.transform.rotation = Quaternion.Euler(0, 0, angle - 45f);
+    }
+    
+    #endregion
+    
+    #region Dash Execution
+    
+    private void ExecuteParry()
+    {
+        if (currentState != ParryState.Aiming) return;
+        
+        Vector3 originalPosition = transform.position;
+        Vector2 normalizedDirection = parryDirection.normalized;
+        
+        float safeDistance = CalculateSafeDashDistance(originalPosition, normalizedDirection);
+        Vector3 dashPosition = originalPosition + (Vector3)normalizedDirection * safeDistance;
+        
+        PerformDash(dashPosition, normalizedDirection);
+        ApplyEnemyKnockback(normalizedDirection);
+        
+        CleanupParryState();
+        StartRestoreTimeCoroutine();
 
-        // Actualizar posición del cursor visual
-        if (instantiatedCursor != null)
+        
+        Debug.Log($"Parry ejecutado hacia {dashPosition} - Distancia: {safeDistance:F2}");
+    }
+    
+    private float CalculateSafeDashDistance(Vector3 startPos, Vector2 direction)
+    {
+        if (bx == null) return dashDistance;
+        
+        float minDistance = dashDistance;
+        Vector2[] rayOrigins = GetRaycastOrigins(startPos);
+        
+        foreach (Vector2 origin in rayOrigins)
         {
-            instantiatedCursor.transform.position = transform.position + (Vector3)parryDirection * indicatorLength;
-            float angle = Mathf.Atan2(parryDirection.y, parryDirection.x) * Mathf.Rad2Deg;
-            instantiatedCursor.transform.rotation = Quaternion.Euler(0, 0, angle - 45f);
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, dashDistance, obstacleLayer);
+            Debug.DrawRay(origin, direction * dashDistance, Color.red, 2f);
+            
+            if (hit.collider != null)
+            {
+                float safeDistance = Mathf.Max(hit.distance - skinWidth, MIN_DASH_DISTANCE);
+                minDistance = Mathf.Min(minDistance, safeDistance);
+            }
+        }
+        
+        return Mathf.Max(minDistance, MIN_DASH_DISTANCE);
+    }
+    
+    private Vector2[] GetRaycastOrigins(Vector3 startPos)
+    {
+        if (bx == null) return new Vector2[] { startPos };
+        
+        Bounds bounds = bx.bounds;
+        Vector2[] origins = new Vector2[numberOfRays];
+        
+        origins[0] = startPos; // Center
+        
+        if (numberOfRays > 1) origins[1] = startPos + Vector3.up * (bounds.size.y / 2 - skinWidth);
+        if (numberOfRays > 2) origins[2] = startPos + Vector3.down * (bounds.size.y / 2 - skinWidth);
+        if (numberOfRays > 3) origins[3] = startPos + Vector3.right * (bounds.size.x / 4);
+        if (numberOfRays > 4) origins[4] = startPos + Vector3.left * (bounds.size.x / 4);
+        
+        return origins;
+    }
+    
+    private void PerformDash(Vector3 targetPosition, Vector2 direction)
+    {
+        bx.enabled = true;
+        playerHealth.hacerInvencible(0.5f);
+        
+        rb.position = targetPosition;
+        rb.velocity = Vector2.zero;
+        
+        PlaySound(dashSound);
+        CreateDashBeam(transform.position, targetPosition);
+    }
+    
+    private void ApplyEnemyKnockback(Vector2 direction)
+    {
+        if (nearestEnemy == null) return;
+        
+        Vector2 knockbackDirection = -direction;
+        ParryableObject parryable = nearestEnemy.GetComponent<ParryableObject>();
+        
+        if (parryable != null && parryable.CanBeParried())
+        {
+            parryable.OnParry(knockbackDirection, enemyKnockbackForce);
+        }
+        else
+        {
+            Rigidbody2D enemyRb = nearestEnemy.GetComponent<Rigidbody2D>();
+            if (enemyRb != null)
+            {
+                enemyRb.velocity = Vector2.zero;
+                enemyRb.AddForce(knockbackDirection * enemyKnockbackForce, ForceMode2D.Impulse);
+            }
         }
     }
-
-    void ExecuteParry()
+    
+    #endregion
+    
+    #region Cleanup & State Management
+    
+    private void CleanupParryState()
     {
-        if (!isInParryMode) return;
-
-        Vector3 originalPosition = transform.position;
-
-        // Aplicar impulso normalizado al player
-        Vector2 normalizedDirection = parryDirection.normalized;
-        Vector3 newPosition = originalPosition + (Vector3)normalizedDirection * dashDistance;
-        bx.enabled = true;
-        rb.position = newPosition;
-        rb.velocity = Vector2.zero;
-        playerHealth.hacerInvencible(0.5f);
-
-        // Aplicar knockback al objeto parriable
-        if (nearestEnemy != null)
-        {
-            Vector2 knockbackDirection = -normalizedDirection;
-            
-            // Buscar componente ParryableObject
-            ParryableObject parryable = nearestEnemy.GetComponent<ParryableObject>();
-            if (parryable != null && parryable.CanBeParried())
-            {
-                parryable.OnParry(knockbackDirection, enemyKnockbackForce);
-            }
-            else
-            {
-                // Fallback: aplicar knockback directo si no tiene ParryableObject
-                Rigidbody2D enemyRb = nearestEnemy.GetComponent<Rigidbody2D>();
-                if (enemyRb != null)
-                {
-                    enemyRb.velocity = Vector2.zero;
-                    enemyRb.AddForce(knockbackDirection * enemyKnockbackForce, ForceMode2D.Impulse);
-                }
-            }
-        }
-
-        // Reproducir sonido de dash
-        if (dashSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(dashSound);
-        }
-
-        // Crear haz de dash más corto
-        CreateDashBeam(originalPosition, newPosition);
-        
-        // Detener parpadeo y comenzar fade
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
-        
-        // ✅ CAMBIO: Guardar referencia de la corrutina y restaurar el tiempo
-        if (restoreTimeCoroutine != null)
-        {
-            StopCoroutine(restoreTimeCoroutine);
-        }
-        restoreTimeCoroutine = StartCoroutine(RestoreTimeScaleWithFade());
-
-        // Limpiar
-        isInParryMode = false;
-        canParry = false;
+        currentState = ParryState.Cooldown;
         nextParryTime = Time.unscaledTime + parryCooldown;
         
-        // Destruir cursor visual
+        StopCoroutineIfRunning(ref flashCoroutine);
+        SetOutlineEffect(0f, 0f);
+        
         if (instantiatedCursor != null)
         {
             Destroy(instantiatedCursor);
             instantiatedCursor = null;
         }
-
-        Debug.Log($"Parry ejecutado hacia {normalizedDirection} - Distancia: {dashDistance}");
     }
-
-    void CreateTeleportBeam(Vector3 from, Vector3 to)
+    
+    private void CleanupCoroutines()
     {
-        // ✅ CAMBIO: NO detener beams anteriores
-        // Dejar que se destruyan solos cuando termine la animación
-        StartCoroutine(AnimateTeleportBeam(from, to));
+        StopCoroutineIfRunning(ref flashCoroutine);
+        StopCoroutineIfRunning(ref restoreTimeCoroutine);
     }
-
-    void CreateDashBeam(Vector3 from, Vector3 to)
+    
+    private void StopCoroutineIfRunning(ref Coroutine coroutine)
     {
-        // ✅ CAMBIO: NO detener beams anteriores
-        // Dejar que se destruyan solos cuando termine la animación
-        StartCoroutine(AnimateDashBeam(from, to));
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
     }
-
-    IEnumerator AnimateTeleportBeam(Vector3 from, Vector3 to)
+    
+    private void ForceCancelRestoreTime()
     {
-        // Crear objeto para el haz
-        GameObject beamObj = CreateBeamObject(from, to, teleportBeamLength, true);
+        StopCoroutineIfRunning(ref restoreTimeCoroutine);
         
+        Time.timeScale = frozenTimeScale;
+        Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
+        SetOutlineEffect(0f, 0f);
+    }
+    
+    public void CancelParry()
+    {
+        if (currentState != ParryState.Aiming) return;
+        
+        currentState = ParryState.Ready;
+        RestoreTimeScale();
+        CleanupCoroutines();
+        
+        if (instantiatedCursor != null)
+        {
+            Destroy(instantiatedCursor);
+            instantiatedCursor = null;
+        }
+        
+        SetOutlineEffect(0f, 0f);
+    }
+    
+    #endregion
+    
+    #region Time Management
+    
+    private void StartRestoreTimeCoroutine()
+    {
+        restoreTimeCoroutine = StartCoroutine(RestoreTimeScaleRoutine());
+    }
+    
+    private IEnumerator RestoreTimeScaleRoutine()
+    {
         float elapsed = 0f;
-        LineRenderer lineRenderer = beamObj.GetComponent<LineRenderer>();
+        float duration = 0.4f;
         
-        // Fade in rápido
-        while (elapsed < 0.1f)
+        while (elapsed < duration)
         {
             elapsed += Time.unscaledDeltaTime;
-            float alpha = Mathf.Clamp01(elapsed / 0.1f);
-            SetLineRendererAlpha(lineRenderer, alpha);
+            float t = elapsed / duration;
+            
+            Time.timeScale = Mathf.Lerp(frozenTimeScale, 1f, t);
+            Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
+            
+            float outlineAlpha = Mathf.Lerp(outlineIntensity, 0f, t);
+            SetOutlineEffect(outlineAlpha, Mathf.Lerp(0.8f, 0f, t));
+            
             yield return null;
         }
         
-        // Mantener visible durante el freeze
-        yield return new WaitForSecondsRealtime(freezeTimeDuration);
-        
-        // Fade out
-        elapsed = 0f;
-        while (elapsed < beamFadeDuration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float alpha = Mathf.Clamp01(1f - (elapsed / beamFadeDuration));
-            SetLineRendererAlpha(lineRenderer, alpha);
-            yield return null;
-        }
-        
-        Destroy(beamObj);
+        RestoreTimeScale();
+        restoreTimeCoroutine = null;
+        isInParryMode = false;
     }
-
-    IEnumerator AnimateDashBeam(Vector3 from, Vector3 to)
+    
+    private void RestoreTimeScale()
     {
-        // Crear objeto para el haz
-        GameObject beamObj = CreateBeamObject(from, to, dashBeamLength, false);
-        
-        float elapsed = 0f;
-        LineRenderer lineRenderer = beamObj.GetComponent<LineRenderer>();
-        
-        // Fade in
-        while (elapsed < 0.05f)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float alpha = Mathf.Clamp01(elapsed / 0.05f);
-            SetLineRendererAlpha(lineRenderer, alpha);
-            yield return null;
-        }
-        
-        // Mantener visible
-        yield return new WaitForSecondsRealtime(0.3f);
-        
-        // Fade out rápido
-        elapsed = 0f;
-        while (elapsed < 0.3f)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float alpha = Mathf.Clamp01(1f - (elapsed / 0.3f));
-            SetLineRendererAlpha(lineRenderer, alpha);
-            yield return null;
-        }
-        
-        Destroy(beamObj);
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = originalFixedDeltaTime;
     }
-
-    GameObject CreateBeamObject(Vector3 from, Vector3 to, float length, bool isTeleport)
-    {
-        GameObject beamObj = new GameObject(isTeleport ? "TeleportBeam" : "DashBeam");
-        beamObj.transform.position = from;
-        
-        LineRenderer lr = beamObj.AddComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Sprites/Default"));
-        
-        // Configurar gradient para el glow
-        Gradient gradient = new Gradient();
-        if (isTeleport)
-        {
-            // Teleport: Cyan más intenso
-            gradient.SetKeys(
-                new GradientColorKey[] { 
-                    new GradientColorKey(new Color(1, 0, 0, 1), 0f),     
-                    new GradientColorKey(new Color(1,1,1,1), 1f)
-                },
-                new GradientAlphaKey[] { 
-                    new GradientAlphaKey(1.5f, 0f),
-                    new GradientAlphaKey(1.5f, 1f)
-                }
-            );
-        }
-        else
-        {
-            // Dash: Cyan más suave
-            gradient.SetKeys(
-                new GradientColorKey[] { 
-                    new GradientColorKey(new Color(1, 0, 0, 1), 0f),     
-                    new GradientColorKey(new Color(1,1,1,1), 1f)                    
-                },
-                new GradientAlphaKey[] { 
-                    new GradientAlphaKey(0.8f, 0f),
-                    new GradientAlphaKey(0.3f, 1f)
-                }
-            );
-        }
-        
-        lr.colorGradient = gradient;
-        lr.startWidth = beamWidth;
-        lr.endWidth = beamWidth * 0.5f;
-        
-        Vector3 direction = (to - from).normalized;
-        Vector3 end = from + direction * length;
-        
-        lr.SetPosition(0, from);
-        lr.SetPosition(1, end);
-        
-        return beamObj;
-    }
-
-    void SetLineRendererAlpha(LineRenderer lr, float alpha)
-    {
-        Gradient grad = lr.colorGradient;
-        GradientAlphaKey[] alphaKeys = grad.alphaKeys;
-        for (int i = 0; i < alphaKeys.Length; i++)
-        {
-            alphaKeys[i].alpha *= alpha;
-        }
-        grad.SetKeys(grad.colorKeys, alphaKeys);
-        lr.colorGradient = grad;
-    }
-
-    IEnumerator FlashOutlineWhileFrozen()
+    
+    #endregion
+    
+    #region Visual Effects
+    
+    IEnumerator FlashOutlineRoutine()
     {
         float flashInterval = 0.1f;
         bool isVisible = true;
@@ -506,132 +463,162 @@ public class ParrySystem : MonoBehaviour
             
             if (isVisible)
             {
-                // Contorno brillante
                 SetOutlineEffect(outlineIntensity, 0.8f);
             }
             else
             {
-                // Contorno tenue
                 SetOutlineEffect(outlineIntensity * 0.5f, 0.3f);
             }
             
             yield return new WaitForSecondsRealtime(flashInterval);
         }
         
-        // Asegurar que se limpie
         SetOutlineEffect(0f, 0f);
     }
-
-    IEnumerator RestoreTimeScaleWithFade()
-    {
-        isRestoringTime = true;
-        
-        // Esperar un frame
-        yield return null;
-        
-        // Restaurar tiempo gradualmente y hacer fade del contorno
-        float elapsed = 0f;
-        float duration = 0.4f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float t = elapsed / duration;
-            
-            // Restaurar timeScale
-            Time.timeScale = Mathf.Lerp(frozenTimeScale, 1f, t);
-            Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
-            
-            // Fade del contorno
-            float outlineAlpha = Mathf.Lerp(outlineIntensity, 0f, t);
-            SetOutlineEffect(outlineAlpha, Mathf.Lerp(0.8f, 0f, t));
-            
-            yield return null;
-        }
-
-        // Asegurar que vuelva a 1
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = originalFixedDeltaTime;
-        SetOutlineEffect(0f, 0f);
-        
-        restoreTimeCoroutine = null;
-    }
-
-    /// <summary>
-    /// Modifica el efecto de contorno usando Material Property Block
-    /// Esto afecta directamente el sprite del player sin crear GameObjects hijo
-    /// </summary>
-    void SetOutlineEffect(float outlineIntensity, float alpha)
+    
+    private void SetOutlineEffect(float intensity, float alpha)
     {
         if (sr == null) return;
         
         propertyBlock.Clear();
         sr.GetPropertyBlock(propertyBlock);
-        
-        // Establecer propiedades del shader
-        propertyBlock.SetFloat("_Outline", outlineIntensity);
+        propertyBlock.SetFloat("_Outline", intensity);
         propertyBlock.SetFloat("_OutlineAlpha", alpha);
         propertyBlock.SetColor("_OutlineColor", outlineColor);
-        propertyBlock.SetFloat("_Glow", outlineIntensity * 1.2f);
+        propertyBlock.SetFloat("_Glow", intensity * 1.2f);
         
         sr.SetPropertyBlock(propertyBlock);
     }
-
-    // Cancelar parry si algo sale mal
-    public void CancelParry()
+    
+    private void CreateTeleportBeam(Vector3 from, Vector3 to)
     {
-        if (isInParryMode)
+        StartCoroutine(AnimateBeam(from, to, 8f, true));
+    }
+    
+    private void CreateDashBeam(Vector3 from, Vector3 to)
+    {
+        StartCoroutine(AnimateBeam(from, to, 3f, false));
+    }
+    
+    private IEnumerator AnimateBeam(Vector3 from, Vector3 to, float length, bool isTeleport)
+    {
+        GameObject beam = CreateBeamObject(from, to, length, isTeleport);
+        LineRenderer lineRenderer = beam.GetComponent<LineRenderer>();
+        
+        // Fade in
+        yield return FadeLineRenderer(lineRenderer, 0f, 1f, 0.1f);
+        
+        // Wait
+        yield return new WaitForSecondsRealtime(isTeleport ? freezeTimeDuration : 0.3f);
+        
+        // Fade out
+        yield return FadeLineRenderer(lineRenderer, 1f, 0f, BEAM_FADE_DURATION);
+        
+        Destroy(beam);
+    }
+    
+    private IEnumerator FadeLineRenderer(LineRenderer lr, float startAlpha, float endAlpha, float duration)
+    {
+        float elapsed = 0f;
+        
+        while (elapsed < duration)
         {
-            isInParryMode = false;
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = originalFixedDeltaTime;
-            
-            if (instantiatedCursor != null)
-            {
-                Destroy(instantiatedCursor);
-                instantiatedCursor = null;
-            }
-            
-            if (flashCoroutine != null)
-            {
-                StopCoroutine(flashCoroutine);
-                flashCoroutine = null;
-            }
-            
-            if (restoreTimeCoroutine != null)
-            {
-                StopCoroutine(restoreTimeCoroutine);
-                restoreTimeCoroutine = null;
-            }
-            
-            SetOutlineEffect(0f, 0f);
+            elapsed += Time.unscaledDeltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
+            SetLineRendererAlpha(lr, alpha);
+            yield return null;
         }
     }
-
-    // Visualización en el editor
+    
+    private GameObject CreateBeamObject(Vector3 from, Vector3 to, float length, bool isTeleport)
+    {
+        GameObject beam = new GameObject(isTeleport ? "TeleportBeam" : "DashBeam");
+        beam.transform.position = from;
+        
+        LineRenderer lr = beam.AddComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Sprites/Default"));
+        lr.startWidth = 0.3f;
+        lr.endWidth = 0.15f;
+        
+        Vector3 direction = (to - from).normalized;
+        Vector3 end = from + direction * length;
+        lr.SetPositions(new Vector3[] { from, end });
+        
+        // Simple gradient - puedes personalizar esto
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { 
+                new GradientColorKey(Color.red, 0f),     
+                new GradientColorKey(Color.white, 1f)
+            },
+            new GradientAlphaKey[] { 
+                new GradientAlphaKey(isTeleport ? 1.5f : 0.8f, 0f),
+                new GradientAlphaKey(isTeleport ? 1.5f : 0.3f, 1f)
+            }
+        );
+        
+        lr.colorGradient = gradient;
+        return beam;
+    }
+    
+    private void SetLineRendererAlpha(LineRenderer lr, float alpha)
+    {
+        Gradient gradient = lr.colorGradient;
+        GradientAlphaKey[] alphaKeys = gradient.alphaKeys;
+        
+        for (int i = 0; i < alphaKeys.Length; i++)
+        {
+            alphaKeys[i].alpha *= alpha;
+        }
+        
+        gradient.SetKeys(gradient.colorKeys, alphaKeys);
+        lr.colorGradient = gradient;
+    }
+    
+    #endregion
+    
+    #region Audio
+    
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+    
+    #endregion
+    
+    #region Public API
+    
+    public bool IsInParryMode() => currentState == ParryState.Aiming;
+    public bool CanParry() => currentState == ParryState.Ready;
+    
+    #endregion
+    
+    #region Debug
+    
     void OnDrawGizmosSelected()
     {
-        // Dibujar rango de detección
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, parryDetectionRange);
-
-        // Dibujar indicador de dirección cuando está en modo parry
-        if (isInParryMode && Application.isPlaying)
+        
+        if (currentState == ParryState.Aiming)
         {
-            Gizmos.color = directionIndicatorColor;
+            Gizmos.color = Color.cyan;
             Gizmos.DrawLine(transform.position, transform.position + (Vector3)parryDirection * indicatorLength);
-            Gizmos.DrawWireSphere(transform.position + (Vector3)parryDirection * indicatorLength, 0.2f);
+            
+            // Draw raycast debug
+            if (bx != null)
+            {
+                Gizmos.color = new Color(1, 0.5f, 0, 0.3f);
+                Gizmos.DrawWireCube(
+                    transform.position + (Vector3)parryDirection * dashDistance/2,
+                    bx.bounds.size
+                );
+            }
         }
     }
-
-    // Getters públicos
-    public bool IsInParryMode()
-    {
-        return isInParryMode;
-    }
-
-    public bool CanParry()
-    {
-        return canParry;
-    }
+    
+    #endregion
 }
