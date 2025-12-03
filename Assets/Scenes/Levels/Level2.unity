@@ -122,6 +122,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &15236877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15236880}
+  - component: {fileID: 15236879}
+  - component: {fileID: 15236878}
+  m_Layer: 0
+  m_Name: AudioSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &15236878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15236877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618ff2893a1942e45aa2ce35b7be7246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicaNivelNormal: {fileID: 8300000, guid: cfb8b80dca8504ee8b792b638a7f2ba2, type: 3}
+  musicaBatallaBoss: {fileID: 8300000, guid: c9384feb7bf3fbf479105508bd562766, type: 3}
+  duracionFade: 1.5
+--- !u!114 &15236879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15236877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c2f71a8d8c99454ab0f79aea622e598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 0}
+--- !u!4 &15236880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15236877}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 177.16582, y: 50.780704, z: 0.21357688}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &87953610
 GameObject:
   m_ObjectHideFlags: 0
@@ -21844,7 +21905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 514352929}
-  offset: {x: 4, y: 3, z: -10}
+  offset: {x: 4, y: 3, z: 0}
   smoothSpeed: 0.12
 --- !u!81 &221304743
 AudioListener:
@@ -21915,7 +21976,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.2, y: 2.6, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: -10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -22031,13 +22092,13 @@ GameObject:
   - component: {fileID: 244236063}
   - component: {fileID: 244236065}
   - component: {fileID: 244236064}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &244236059
 Transform:
   m_ObjectHideFlags: 0
@@ -22556,7 +22617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -8.98, y: 2.46}
+  m_AnchoredPosition: {x: -11.1, y: 13.2}
   m_SizeDelta: {x: 544, y: 306.9513}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &404584620
@@ -22637,7 +22698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &430098201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23391,8 +23452,8 @@ Transform:
   m_GameObject: {fileID: 514352921}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.8, y: 2.7, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: -10}
+  m_LocalPosition: {x: 164.6, y: 49.1, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1228770651}
@@ -23413,7 +23474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryDetectionRange: 2.5
-  parryKey: 304
+  parryKey: 112
   dashDistance: 5
   enemyKnockbackForce: 10
   parryCooldown: 0.5
@@ -23424,13 +23485,32 @@ MonoBehaviour:
     m_Bits: 192
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3072
   numberOfRays: 3
   skinWidth: 0.1
   directionCursor: {fileID: 642510868}
   indicatorLength: 2
   outlineColor: {r: 0, g: 1, b: 1, a: 1}
   outlineIntensity: 1.5
+  teleportBeamLength: 8
+  teleportBeamWidth: 0.3
+  teleportBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  teleportBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  teleportBeamStartAlpha: 1.5
+  teleportBeamEndAlpha: 1.5
+  teleportBeamFadeInDuration: 0.1
+  teleportBeamFadeOutDuration: 0.5
+  destroyTeleportBeam: 0
+  dashBeamLength: 3
+  dashBeamWidth: 0.3
+  dashBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  dashBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  dashBeamStartAlpha: 0.8
+  dashBeamEndAlpha: 0.3
+  dashBeamFadeInDuration: 0.05
+  dashBeamFadeOutDuration: 0.3
+  dashBeamWaitDuration: 0.3
+  destroyDashBeam: 1
   parrySound: {fileID: 0}
   dashSound: {fileID: 0}
 --- !u!1 &538692228
@@ -24192,7 +24272,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 340.6, y: -23.2, z: 31.482098}
-  m_LocalScale: {x: 134.70656, y: 192.345, z: 73.76993}
+  m_LocalScale: {x: 5.2943, y: 7.559633, z: 2.8993402}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 179211775}
@@ -24857,7 +24937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 348.3, y: 16.2}
+  m_AnchoredPosition: {x: 340, y: 21}
   m_SizeDelta: {x: 461.3, y: 223.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &981213057
@@ -42580,9 +42660,10 @@ GameObject:
   - component: {fileID: 1473184646}
   - component: {fileID: 1473184647}
   - component: {fileID: 1473184648}
-  m_Layer: 6
+  - component: {fileID: 1473184649}
+  m_Layer: 13
   m_Name: boss1
-  m_TagString: Boss
+  m_TagString: Boss1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42652,6 +42733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  bossType: 1
   moveSpeed: 8
   minChangeDirectionTime: 2
   maxChangeDirectionTime: 6
@@ -42681,6 +42763,10 @@ MonoBehaviour:
   deathFallY: -9
   fallSpeed: 2
   waitTimeBeforeCredits: 15
+  creditsSceneName: Scenes/Creditos/Creditos
+  fadeOutDuration: 2
+  waitAfterFade: 3
+  bossEventListener: {fileID: 1473184647}
   delayAtaque: 2
 --- !u!61 &1473184639
 BoxCollider2D:
@@ -42735,7 +42821,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473184636}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -42753,7 +42839,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!4 &1473184641
 Transform:
   m_ObjectHideFlags: 0
@@ -42826,6 +42912,8 @@ MonoBehaviour:
   bossController: {fileID: 1473184638}
   dialogueController: {fileID: 1473184646}
   cameraDirector: {fileID: 221304746}
+  npcGameObject: {fileID: 244236058}
+  npcLayerName: NPC
   bossCameraPosition: {x: 130, y: 56, z: -10}
   bossCameraZoom: 12
   cameraTransitionTime: 0.7
@@ -42843,6 +42931,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jsonFile: npcdialogues.json
   currentCanvas: 
+--- !u!114 &1473184649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473184636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b937f693545ffe45b00cc6403333ab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeParried: 0
+  parryEffectDuration: 1.5
+  canMoveWhenParried: 0
+  parriedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  useBlinkEffect: 1
+  blinkSpeed: 4
+  parryParticles: {fileID: 0}
+  parrySound: {fileID: 0}
+  parryEffectPrefab: {fileID: 0}
+  OnParried:
+    m_PersistentCalls:
+      m_Calls: []
+  OnParryEffectEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1484808055
 GameObject:
   m_ObjectHideFlags: 0
@@ -44377,7 +44492,6 @@ Transform:
   m_Children:
   - {fileID: 1621395780}
   - {fileID: 2064075846}
-  - {fileID: 2096454092}
   - {fileID: 868868142}
   - {fileID: 2100085381}
   m_Father: {fileID: 0}
@@ -45264,11 +45378,11 @@ Transform:
   m_GameObject: {fileID: 2096454091}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: -0.7761, y: 5.7046, z: 6.91}
-  m_LocalScale: {x: 3.7720501, y: 1, z: 4.0265265}
+  m_LocalPosition: {x: 2.948502, y: 6.105478, z: 10.59}
+  m_LocalScale: {x: 3.772052, y: 1, z: 4.0265274}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1942919041}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: -180, z: 0}
 --- !u!23 &2096454093
 MeshRenderer:
@@ -45420,7 +45534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2121157429
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45602,6 +45716,7 @@ SceneRoots:
   - {fileID: 485713685}
   - {fileID: 715197980}
   - {fileID: 1767859622}
+  - {fileID: 2096454092}
   - {fileID: 1272783801}
   - {fileID: 289456881}
   - {fileID: 1113852108}
@@ -45626,3 +45741,4 @@ SceneRoots:
   - {fileID: 1257111827}
   - {fileID: 1503856659}
   - {fileID: 127080959}
+  - {fileID: 15236880}

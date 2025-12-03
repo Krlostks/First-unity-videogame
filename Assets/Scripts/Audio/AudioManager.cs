@@ -8,13 +8,11 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // Patr�n Singleton para persistencia entre escenas
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // Inicializar el audio source si no existe
             if (musicSource == null)
             {
                 musicSource = gameObject.AddComponent<AudioSource>();
@@ -22,7 +20,6 @@ public class AudioManager : MonoBehaviour
                 musicSource.playOnAwake = true;
             }
 
-            // Cargar volumen guardado o usar 80% por defecto
             CargarVolumen();
         }
         else
@@ -33,7 +30,7 @@ public class AudioManager : MonoBehaviour
 
     private void CargarVolumen()
     {
-        float volumen = PlayerPrefs.GetFloat("Volumen", 0.8f); // 80% por defecto
+        float volumen = PlayerPrefs.GetFloat("Volumen", 0.8f);
         musicSource.volume = volumen;
     }
 
@@ -56,5 +53,40 @@ public class AudioManager : MonoBehaviour
     public void DetenerMusica()
     {
         musicSource.Stop();
+    }
+
+    // ✅ NUEVO: Método para cambiar música con fade
+    public void CambiarMusicaConFade(AudioClip nuevoClip, float duracionFade = 1.5f)
+    {
+        StartCoroutine(FadeMusica(nuevoClip, duracionFade));
+    }
+
+    // ✅ NUEVO: Corrutina para fade
+    private System.Collections.IEnumerator FadeMusica(AudioClip nuevoClip, float duracionFade)
+    {
+        // Fade out
+        float volumenOriginal = musicSource.volume;
+        float tiempo = 0f;
+        
+        while (tiempo < duracionFade)
+        {
+            tiempo += Time.deltaTime;
+            musicSource.volume = Mathf.Lerp(volumenOriginal, 0f, tiempo / duracionFade);
+            yield return null;
+        }
+        
+        // Cambiar clip
+        ReproducirMusica(nuevoClip);
+        
+        // Fade in
+        tiempo = 0f;
+        while (tiempo < duracionFade)
+        {
+            tiempo += Time.deltaTime;
+            musicSource.volume = Mathf.Lerp(0f, volumenOriginal, tiempo / duracionFade);
+            yield return null;
+        }
+        
+        musicSource.volume = volumenOriginal;
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Vida
   - Boss
   - Projectile
+  - Boss1
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Dialogue
   - Ground
   - Obstaculo
-  - 
-  - 
+  - NPC
+  - Boss1
   - 
   - 
   - 

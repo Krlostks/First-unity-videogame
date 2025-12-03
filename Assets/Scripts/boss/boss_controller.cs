@@ -9,6 +9,10 @@ public class BossController : MonoBehaviour
     public int maxHealth = 5;
     private int currentHealth;
 
+    public enum BossType { FinalBoss, MiniBoss }
+    [Header("Sistema de Muerte")]
+    [SerializeField] private BossType bossType = BossType.MiniBoss;
+    
     [Header("Movimiento Aleatorio")]
     public float moveSpeed = 3f;
     public float minChangeDirectionTime = 2f;
@@ -48,10 +52,18 @@ public class BossController : MonoBehaviour
     public GameObject hitEffectPrefab;
     public GameObject deathEffectPrefab;
 
-    [Header("Death Settings")]
+    [Header("Death Settings - Final Boss (Créditos)")]
     public float deathFallY = -9f;
     public float fallSpeed = 2f;
     public float waitTimeBeforeCredits = 15f;
+    public string creditsSceneName = "Scenes/Creditos/Creditos";
+
+    [Header("Death Settings - Mini Boss (Desvanecimiento)")]
+    public float fadeOutDuration = 2f;
+    public float waitAfterFade = 3f;
+
+    [Header("Eventos")]
+    [SerializeField] private BossDialogueEventListener bossEventListener;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -91,7 +103,17 @@ public class BossController : MonoBehaviour
         ScheduleNextPursue();
         UpdatePhase();
         
-        Debug.Log($"Jefe iniciado con {maxHealth} de vida");
+        // Buscar BossEventListener si no está asignado
+        if (bossEventListener == null)
+        {
+            bossEventListener = GetComponent<BossDialogueEventListener>();
+            if (bossEventListener == null)
+            {
+                bossEventListener = FindObjectOfType<BossDialogueEventListener>();
+            }
+        }
+        
+        Debug.Log($"Jefe iniciado con {maxHealth} de vida - Tipo: {bossType}");
     }
 
     void Update()
@@ -107,12 +129,12 @@ public class BossController : MonoBehaviour
         if (canShoot && !isStunned && !isPursuing && Time.time >= nextShootTime)
         {
             if (puedeAtacarDelay)
-        {
-            StartCoroutine(AtacarConDelay());
+            {
+                StartCoroutine(AtacarConDelay());
             }
             else if (puedeAtacar)
             {                
-            ShootProjectile();
+                ShootProjectile();
             }
             ScheduleNextShoot();
         }
@@ -120,12 +142,13 @@ public class BossController : MonoBehaviour
         HandlePursue();
         KeepInBounds();
     }
+    
     private IEnumerator AtacarConDelay()
     {
-        puedeAtacarDelay = false;            // Evita que se llame varias veces
+        puedeAtacarDelay = false;
         yield return new WaitForSeconds(delayAtaque);
-        ShootProjectile();                       // Ejecuta el ataque real
-        puedeAtacar = true;                    // Permite que el ataque se realice            
+        ShootProjectile();
+        puedeAtacar = true;
     }
 
     void FixedUpdate()
@@ -257,15 +280,17 @@ public class BossController : MonoBehaviour
 
         currentHealth -= damage;
         Debug.Log($"Jefe recibe {damage} de daño. Vida: {currentHealth}/{maxHealth}");
-        Boss = GameObject.FindGameObjectWithTag("Boss1");
-        if (Boss != null)
+        
+        GameObject boss1 = GameObject.FindGameObjectWithTag("Boss1");
+        if (boss1 != null && boss1 == this.gameObject)
         {
             StartCoroutine(StunWithShake(1.5f));                
         }
         else
         {
-        StartCoroutine(StunWithShake(6f));            
+            StartCoroutine(StunWithShake(6f));            
         }
+        
         StartCoroutine(FlashEffect());
 
         if (hitEffectPrefab != null)
@@ -357,10 +382,21 @@ public class BossController : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-        StartCoroutine(DeathSequence());
+        
+        // Elegir secuencia de muerte según el tipo de boss
+        switch (bossType)
+        {
+            case BossType.FinalBoss:
+                StartCoroutine(DeathSequenceFinalBoss());
+                break;
+            case BossType.MiniBoss:
+                StartCoroutine(DeathSequenceMiniBoss());
+                break;
+        }
     }
 
-    private IEnumerator DeathSequence()
+    // SECUENCIA PARA EL BOSS FINAL (Carga créditos)
+    private IEnumerator DeathSequenceFinalBoss()
     {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
@@ -368,7 +404,7 @@ public class BossController : MonoBehaviour
         isStunned = true;
         isPursuing = false;
 
-        Debug.Log("¡Jefe derrotado! Iniciando secuencia de muerte...");
+        Debug.Log("¡Boss FINAL derrotado! Iniciando secuencia de muerte...");
 
         if (deathEffectPrefab != null)
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
@@ -388,7 +424,76 @@ public class BossController : MonoBehaviour
 
         yield return new WaitForSeconds(waitTimeBeforeCredits);
 
-        SceneManager.LoadScene("Scenes/Creditos/Creditos");
+        SceneManager.LoadScene(creditsSceneName);
+    }
+
+    // SECUENCIA PARA EL MINI BOSS (Se desvanece)
+    private IEnumerator DeathSequenceMiniBoss()
+    {
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0;
+        canShoot = false;
+        isStunned = true;
+        isPursuing = false;
+
+        Debug.Log("¡Mini Boss derrotado! Iniciando secuencia de desvanecimiento...");
+
+        // 1. Efectos de muerte
+        if (deathEffectPrefab != null)
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+
+        if (deathSound != null && audioSource != null)
+            audioSource.PlayOneShot(deathSound);
+
+        // 2. Desactivar colisiones
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+
+        // 3. Desvanecimiento (fade out)
+        yield return StartCoroutine(FadeOutSprite(fadeOutDuration));
+
+        // 4. Notificar al BossEventListener (si existe)
+        if (bossEventListener != null)
+        {
+            bossEventListener.OnBossDied();
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró BossEventListener para notificar la muerte.");
+            // Fallback: Buscar cámara y restaurarla
+            CameraDirector director = Camera.main?.GetComponent<CameraDirector>();
+            if (director != null)
+            {
+                director.RestoreFollow();
+            }
+        }
+
+        // 5. Esperar un momento antes de destruir
+        yield return new WaitForSeconds(waitAfterFade);
+
+        // 6. Destruir el objeto
+        Destroy(gameObject);
+    }
+
+    // Método para fade out del sprite
+    private IEnumerator FadeOutSprite(float duration)
+    {
+        if (sr == null) yield break;
+        
+        Color startColor = sr.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        
+        float elapsed = 0f;
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            sr.color = Color.Lerp(startColor, endColor, t);
+            yield return null;
+        }
+        
+        sr.color = endColor;
     }
 
     public void Heal(int amount)
@@ -401,6 +506,7 @@ public class BossController : MonoBehaviour
     public int GetMaxHealth() => maxHealth;
     public int GetCurrentPhase() => currentPhase;
     public bool IsDead() => isDead;
+    public BossType GetBossType() => bossType;
 
     void OnDrawGizmosSelected()
     {

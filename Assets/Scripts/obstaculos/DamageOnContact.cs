@@ -7,12 +7,12 @@ public class DamageOnContact : MonoBehaviour
     public int damage = 1;
     public Vector2 knockback = new Vector2(5f, 6f);
     public string playerTag = "Player";
-    public bool isTrigger = true;
+    public bool isTrigger = false;
 
     void Reset()
     {
         var col = GetComponent<Collider2D>();
-        col.isTrigger = true;
+        col.isTrigger = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)

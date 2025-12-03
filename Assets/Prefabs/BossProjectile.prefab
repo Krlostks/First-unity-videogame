@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canBeParried: 1
   parryEffectDuration: 0.3
-  canMoveWhenParried: 1
+  canMoveWhenParried: 0
   parriedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   useBlinkEffect: 1
   blinkSpeed: 6
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   damageToPlayer: 1
-  damageToBoss: 11
+  damageToBoss: 2
   lifetime: 10
   owner: {fileID: 0}
   normalSprite: {fileID: 0}
