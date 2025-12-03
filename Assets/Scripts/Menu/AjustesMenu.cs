@@ -18,7 +18,7 @@ public class AjustesMenu : MonoBehaviour
         // Configurar resoluciones disponibles
         ConfigurarResoluciones();
 
-        // Configurar listeners después de cargar los valores iniciales
+        // Configurar listeners despuï¿½s de cargar los valores iniciales
         ConfigurarListeners();
 
         // Cargar valores guardados
@@ -29,7 +29,7 @@ public class AjustesMenu : MonoBehaviour
     {
         if (resolucionesDropdown == null)
         {
-            Debug.LogError("resolucionesDropdown no está asignado en el Inspector");
+            Debug.LogError("resolucionesDropdown no estï¿½ asignado en el Inspector");
             return;
         }
 
@@ -51,7 +51,7 @@ public class AjustesMenu : MonoBehaviour
                 string opcion = res.width + " x " + res.height;
                 opciones.Add(opcion);
 
-                // Verificar si esta es la resolución actual
+                // Verificar si esta es la resoluciï¿½n actual
                 if (res.width == Screen.currentResolution.width &&
                     res.height == Screen.currentResolution.height)
                 {
@@ -153,7 +153,7 @@ public class AjustesMenu : MonoBehaviour
             Screen.fullScreen = esPantallaCompleta;
         }
 
-        // Cargar resolución guardada
+        // Cargar resoluciï¿½n guardada
         if (resolucionesDropdown != null)
         {
             int resolucionGuardada = PlayerPrefs.GetInt("ResolucionIndex", 0);
@@ -200,7 +200,7 @@ public class AjustesMenu : MonoBehaviour
         PlayerPrefs.SetInt("PantallaCompleta", esPantallaCompleta ? 1 : 0);
         PlayerPrefs.Save();
 
-        // Si se sale del modo pantalla completa, restaurar la resolución guardada
+        // Si se sale del modo pantalla completa, restaurar la resoluciï¿½n guardada
         if (!esPantallaCompleta)
         {
             int resolucionIndex = PlayerPrefs.GetInt("ResolucionIndex", 0);
@@ -215,7 +215,7 @@ public class AjustesMenu : MonoBehaviour
 
         AplicarResolucion(index);
 
-        // Guardar la resolución seleccionada
+        // Guardar la resoluciï¿½n seleccionada
         PlayerPrefs.SetInt("ResolucionIndex", index);
         PlayerPrefs.Save();
     }
@@ -227,9 +227,9 @@ public class AjustesMenu : MonoBehaviour
 
         Resolution resolucion = resolucionesDisponibles[index];
 
-        // Aplicar la resolución
+        // Aplicar la resoluciï¿½n
         Screen.SetResolution(resolucion.width, resolucion.height, Screen.fullScreen);
 
-        Debug.Log("Resolución cambiada a: " + resolucion.width + " x " + resolucion.height);
+        Debug.Log("Resoluciï¿½n cambiada a: " + resolucion.width + " x " + resolucion.height);
     }
 }
