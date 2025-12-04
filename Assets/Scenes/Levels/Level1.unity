@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -4141,7 +4142,7 @@ MonoBehaviour:
   damage: 1
   knockback: {x: 5, y: 6}
   playerTag: Player
-  isTrigger: 1
+  damageCooldown: 0.5
 --- !u!66 &472683213
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -4171,7 +4172,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5678,26 +5679,6 @@ CompositeCollider2D:
       - {x: -1.0000293, y: -7}
       - {x: -3, y: -7.0000296}
       - {x: -2.999971, y: -7.625}
-    - - {x: -70.562515, y: -15}
-      - {x: -70.375, y: -14.812589}
-      - {x: -70.37497, y: -15}
-      - {x: -69, y: -14.999971}
-      - {x: -68.99992, y: -14.875154}
-      - {x: -68.93748, y: -15}
-      - {x: -68, y: -14.999971}
-      - {x: -68.00003, y: -13}
-      - {x: -68.43751, y: -13.000004}
-      - {x: -69, y: -13.374937}
-      - {x: -69.00003, y: -13.125}
-      - {x: -69.31251, y: -13.124998}
-      - {x: -69.68751, y: -13}
-      - {x: -70, y: -13.00003}
-      - {x: -70.00008, y: -13.2498455}
-      - {x: -70.062515, y: -13.124997}
-      - {x: -70.50001, y: -13}
-      - {x: -70.93751, y: -13.000015}
-      - {x: -71, y: -13.125006}
-      - {x: -70.99997, y: -15}
     - - {x: 17.187489, y: -15}
       - {x: 17.375, y: -14.75}
       - {x: 17.687502, y: -14.437589}
@@ -5711,62 +5692,6 @@ CompositeCollider2D:
       - {x: 16, y: -13.375014}
       - {x: 16.000004, y: -14.875005}
       - {x: 16.062515, y: -15}
-    - - {x: 5.999971, y: -15}
-      - {x: 5.999971, y: -13}
-      - {x: 5.562494, y: -13.000004}
-      - {x: 5, y: -13.374937}
-      - {x: 4.999971, y: -13.125}
-      - {x: 4.687496, y: -13.124998}
-      - {x: 4.312496, y: -13}
-      - {x: 4, y: -13.00003}
-      - {x: 3.9999232, y: -13.2498455}
-      - {x: 3.9374888, y: -13.124997}
-      - {x: 3.499996, y: -13}
-      - {x: 3.0624924, y: -13.000015}
-      - {x: 3, y: -13.125006}
-      - {x: 3.0000293, y: -15}
-    - - {x: -65.562515, y: -15}
-      - {x: -65.375, y: -14.812589}
-      - {x: -65.37497, y: -15}
-      - {x: -62, y: -14.999971}
-      - {x: -61.999924, y: -14.875154}
-      - {x: -61.93748, y: -15}
-      - {x: -61, y: -14.999971}
-      - {x: -60.999924, y: -14.875154}
-      - {x: -60.93748, y: -15}
-      - {x: -60, y: -14.999971}
-      - {x: -59.999924, y: -14.875154}
-      - {x: -59.93748, y: -15}
-      - {x: -59, y: -14.999971}
-      - {x: -58.999924, y: -14.875154}
-      - {x: -58.93748, y: -15}
-      - {x: -58, y: -14.999971}
-      - {x: -58.000015, y: -13.374992}
-      - {x: -58.312508, y: -13.124998}
-      - {x: -58.875004, y: -13}
-      - {x: -60.437504, y: -13.000004}
-      - {x: -61, y: -13.374937}
-      - {x: -61.000034, y: -13}
-      - {x: -61.437504, y: -13.000004}
-      - {x: -62, y: -13.374937}
-      - {x: -62.000034, y: -13.125}
-      - {x: -62.312508, y: -13.124998}
-      - {x: -62.687508, y: -13}
-      - {x: -63, y: -13.00003}
-      - {x: -63.000034, y: -13.125}
-      - {x: -63.312508, y: -13.124998}
-      - {x: -63.687508, y: -13}
-      - {x: -64, y: -13.00003}
-      - {x: -64.00003, y: -13.125}
-      - {x: -64.31251, y: -13.124998}
-      - {x: -64.68751, y: -13}
-      - {x: -65, y: -13.00003}
-      - {x: -65.00003, y: -13.125}
-      - {x: -65.37501, y: -13.125004}
-      - {x: -65.8125, y: -13.375015}
-      - {x: -65.81253, y: -14}
-      - {x: -66, y: -14.000029}
-      - {x: -65.99997, y: -15}
     - - {x: -13.00003, y: -15}
       - {x: -13.000009, y: -14.062491}
       - {x: -13.062413, y: -14}
@@ -5865,6 +5790,20 @@ CompositeCollider2D:
       - {x: -49.812527, y: -14}
       - {x: -50, y: -14.000029}
       - {x: -49.999973, y: -15}
+    - - {x: 5.999971, y: -15}
+      - {x: 5.999971, y: -13}
+      - {x: 5.562494, y: -13.000004}
+      - {x: 5, y: -13.374937}
+      - {x: 4.999971, y: -13.125}
+      - {x: 4.687496, y: -13.124998}
+      - {x: 4.312496, y: -13}
+      - {x: 4, y: -13.00003}
+      - {x: 3.9999232, y: -13.2498455}
+      - {x: 3.9374888, y: -13.124997}
+      - {x: 3.499996, y: -13}
+      - {x: 3.0624924, y: -13.000015}
+      - {x: 3, y: -13.125006}
+      - {x: 3.0000293, y: -15}
     - - {x: -0.000029300001, y: -15}
       - {x: 0.0000294, y: -14}
       - {x: 1, y: -13.999971}
@@ -5893,6 +5832,68 @@ CompositeCollider2D:
       - {x: -10.437507, y: -13.000004}
       - {x: -11, y: -13.375014}
       - {x: -10.99997, y: -15}
+    - - {x: -70.562515, y: -15}
+      - {x: -70.375, y: -14.812589}
+      - {x: -70.37497, y: -15}
+      - {x: -69, y: -14.999971}
+      - {x: -68.99992, y: -14.875154}
+      - {x: -68.93748, y: -15}
+      - {x: -68, y: -14.999971}
+      - {x: -68.00003, y: -13}
+      - {x: -68.43751, y: -13.000004}
+      - {x: -69, y: -13.374937}
+      - {x: -69.00003, y: -13.125}
+      - {x: -69.31251, y: -13.124998}
+      - {x: -69.68751, y: -13}
+      - {x: -70, y: -13.00003}
+      - {x: -70.00008, y: -13.2498455}
+      - {x: -70.062515, y: -13.124997}
+      - {x: -70.50001, y: -13}
+      - {x: -70.93751, y: -13.000015}
+      - {x: -71, y: -13.125006}
+      - {x: -70.99997, y: -15}
+    - - {x: -65.562515, y: -15}
+      - {x: -65.375, y: -14.812589}
+      - {x: -65.37497, y: -15}
+      - {x: -62, y: -14.999971}
+      - {x: -61.999924, y: -14.875154}
+      - {x: -61.93748, y: -15}
+      - {x: -61, y: -14.999971}
+      - {x: -60.999924, y: -14.875154}
+      - {x: -60.93748, y: -15}
+      - {x: -60, y: -14.999971}
+      - {x: -59.999924, y: -14.875154}
+      - {x: -59.93748, y: -15}
+      - {x: -59, y: -14.999971}
+      - {x: -58.999924, y: -14.875154}
+      - {x: -58.93748, y: -15}
+      - {x: -58, y: -14.999971}
+      - {x: -58.000015, y: -13.374992}
+      - {x: -58.312508, y: -13.124998}
+      - {x: -58.875004, y: -13}
+      - {x: -60.437504, y: -13.000004}
+      - {x: -61, y: -13.374937}
+      - {x: -61.000034, y: -13}
+      - {x: -61.437504, y: -13.000004}
+      - {x: -62, y: -13.374937}
+      - {x: -62.000034, y: -13.125}
+      - {x: -62.312508, y: -13.124998}
+      - {x: -62.687508, y: -13}
+      - {x: -63, y: -13.00003}
+      - {x: -63.000034, y: -13.125}
+      - {x: -63.312508, y: -13.124998}
+      - {x: -63.687508, y: -13}
+      - {x: -64, y: -13.00003}
+      - {x: -64.00003, y: -13.125}
+      - {x: -64.31251, y: -13.124998}
+      - {x: -64.68751, y: -13}
+      - {x: -65, y: -13.00003}
+      - {x: -65.00003, y: -13.125}
+      - {x: -65.37501, y: -13.125004}
+      - {x: -65.8125, y: -13.375015}
+      - {x: -65.81253, y: -14}
+      - {x: -66, y: -14.000029}
+      - {x: -65.99997, y: -15}
     - - {x: -14, y: -14.062411}
       - {x: -14.062411, y: -14}
       - {x: -14, y: -14.000029}
@@ -6538,6 +6539,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571688711}
   m_CullTransparentMesh: 1
+--- !u!1 &595092750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 595092752}
+  - component: {fileID: 595092751}
+  m_Layer: 0
+  m_Name: 'ScenePersistenceManager '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &595092751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595092750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb108bd7aa1c8540b6e760ac960023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &595092752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595092750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 60.772423, y: 34.76523, z: -0.32125095}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &650954141
 GameObject:
   m_ObjectHideFlags: 0
@@ -6727,6 +6772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -8072,6 +8118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f186dba2232104f9d8de5b6e9384702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectiblesParent: {fileID: 0}
   totalToCollect: 5
 --- !u!4 &961908731
 Transform:
@@ -8561,6 +8608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -30548,6 +30596,8 @@ GameObject:
   - component: {fileID: 1246689760}
   - component: {fileID: 1246689762}
   - component: {fileID: 1246689763}
+  - component: {fileID: 1246689765}
+  - component: {fileID: 1246689764}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Player
@@ -30781,27 +30831,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryDetectionRange: 2.5
+  parryMouseButton: 1
+  requireMouseClickAndHold: 1
+  dashDistance: 6
+  enemyKnockbackForce: 10
+  parryCooldown: 0.1
+  freezeTimeDuration: 0.3
+  frozenTimeScale: 0.002
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  parryKey: 112
-  dashDistance: 6
-  enemyKnockbackForce: 10
-  freezeTimeDuration: 0.3
-  frozenTimeScale: 0.002
-  directionIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
-  indicatorLength: 3
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  numberOfRays: 3
+  skinWidth: 0.1
   directionCursor: {fileID: 2013916794}
-  teleportBeamLength: 8
-  dashBeamLength: 4
-  beamWidth: 0.8
-  beamFadeDuration: 0.5
-  outlineFlashDuration: 0.3
-  outlineIntensity: 1.5
+  indicatorLength: 3
   outlineColor: {r: 1, g: 1, b: 1, a: 0.77254903}
-  parryCooldown: 0.1
+  outlineIntensity: 1.5
+  showMouseDirectionLine: 1
+  teleportBeamLength: 8
+  teleportBeamWidth: 0.3
+  teleportBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  teleportBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  teleportBeamStartAlpha: 1.5
+  teleportBeamEndAlpha: 1.5
+  teleportBeamFadeInDuration: 0.1
+  teleportBeamFadeOutDuration: 0.5
+  destroyTeleportBeam: 0
+  dashBeamLength: 4
+  dashBeamWidth: 0.3
+  dashBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  dashBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  dashBeamStartAlpha: 0.8
+  dashBeamEndAlpha: 0.3
+  dashBeamFadeInDuration: 0.05
+  dashBeamFadeOutDuration: 0.3
+  dashBeamWaitDuration: 0.3
+  destroyDashBeam: 1
   parrySound: {fileID: 0}
   dashSound: {fileID: 0}
+--- !u!114 &1246689764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246689754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ddea87d7d80d5741ba055fe2a1c7762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1246689765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246689754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f8becdf1fbe7646a8718c3d2df4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1264383664
 GameObject:
   m_ObjectHideFlags: 0
@@ -30833,6 +30927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -33018,6 +33113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -34445,6 +34541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f186dba2232104f9d8de5b6e9384702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectiblesParent: {fileID: 0}
   totalToCollect: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -34484,3 +34581,4 @@ SceneRoots:
   - {fileID: 409080426}
   - {fileID: 411125785}
   - {fileID: 1067394534}
+  - {fileID: 595092752}

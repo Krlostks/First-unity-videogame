@@ -476,6 +476,50 @@ Transform:
   - {fileID: 1164096940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &356429656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 356429658}
+  - component: {fileID: 356429657}
+  m_Layer: 0
+  m_Name: ScenePersistenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &356429657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356429656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb108bd7aa1c8540b6e760ac960023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &356429658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356429656}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.128683, y: 9.456579, z: -0.19690326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &375255461
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -25414,6 +25459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -25895,6 +25941,8 @@ GameObject:
   - component: {fileID: 1037094047}
   - component: {fileID: 1037094046}
   - component: {fileID: 1037094045}
+  - component: {fileID: 1037094054}
+  - component: {fileID: 1037094053}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Player
@@ -25915,7 +25963,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryDetectionRange: 2.5
-  parryKey: 112
+  parryMouseButton: 1
+  requireMouseClickAndHold: 1
   dashDistance: 6
   enemyKnockbackForce: 10
   parryCooldown: 0.1
@@ -25933,6 +25982,26 @@ MonoBehaviour:
   indicatorLength: 3
   outlineColor: {r: 1, g: 1, b: 1, a: 0.77254903}
   outlineIntensity: 1.5
+  showMouseDirectionLine: 1
+  teleportBeamLength: 8
+  teleportBeamWidth: 0.3
+  teleportBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  teleportBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  teleportBeamStartAlpha: 1.5
+  teleportBeamEndAlpha: 1.5
+  teleportBeamFadeInDuration: 0.1
+  teleportBeamFadeOutDuration: 0.5
+  destroyTeleportBeam: 0
+  dashBeamLength: 3
+  dashBeamWidth: 0.3
+  dashBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  dashBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  dashBeamStartAlpha: 0.8
+  dashBeamEndAlpha: 0.3
+  dashBeamFadeInDuration: 0.05
+  dashBeamFadeOutDuration: 0.3
+  dashBeamWaitDuration: 0.3
+  destroyDashBeam: 1
   parrySound: {fileID: 0}
   dashSound: {fileID: 0}
 --- !u!114 &1037094046
@@ -26148,6 +26217,30 @@ Transform:
   - {fileID: 128924895}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1037094053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037094044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ddea87d7d80d5741ba055fe2a1c7762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1037094054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037094044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f8becdf1fbe7646a8718c3d2df4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1060524799
 GameObject:
   m_ObjectHideFlags: 0
@@ -26524,6 +26617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -31023,7 +31117,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -34090,7 +34184,7 @@ MonoBehaviour:
   damage: 3
   knockback: {x: 5, y: 6}
   playerTag: Player
-  isTrigger: 1
+  damageCooldown: 0.5
 --- !u!1 &1354828927
 GameObject:
   m_ObjectHideFlags: 0
@@ -34460,6 +34554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  bossType: 1
   moveSpeed: 2
   minChangeDirectionTime: 2
   maxChangeDirectionTime: 5
@@ -34489,6 +34584,10 @@ MonoBehaviour:
   deathFallY: -7
   fallSpeed: 2
   waitTimeBeforeCredits: 15
+  creditsSceneName: Scenes/Creditos/Creditos
+  fadeOutDuration: 2
+  waitAfterFade: 3
+  bossEventListener: {fileID: 0}
   delayAtaque: 2
 --- !u!61 &1439966278
 BoxCollider2D:
@@ -35281,6 +35380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f186dba2232104f9d8de5b6e9384702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectiblesParent: {fileID: 0}
   totalToCollect: 3
 --- !u!4 &1829262833
 Transform:
@@ -36000,7 +36100,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -39067,7 +39167,7 @@ MonoBehaviour:
   damage: 3
   knockback: {x: 5, y: 6}
   playerTag: Player
-  isTrigger: 1
+  damageCooldown: 0.5
 --- !u!483693784 &1965838799
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -43393,3 +43493,4 @@ SceneRoots:
   - {fileID: 265226831}
   - {fileID: 794871577}
   - {fileID: 1037094052}
+  - {fileID: 356429658}

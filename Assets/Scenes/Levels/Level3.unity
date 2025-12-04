@@ -2776,6 +2776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -5875,6 +5876,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716618125}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &725003659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 725003661}
+  - component: {fileID: 725003660}
+  m_Layer: 0
+  m_Name: 'ScenePersistenceManager '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &725003660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725003659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb108bd7aa1c8540b6e760ac960023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &725003661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725003659}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.5263815, y: -4.075309, z: -0.24530515}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &732633076
 GameObject:
   m_ObjectHideFlags: 0
@@ -6028,6 +6073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -6164,6 +6210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -6402,6 +6449,8 @@ GameObject:
   - component: {fileID: 822677874}
   - component: {fileID: 822677873}
   - component: {fileID: 822677872}
+  - component: {fileID: 822677881}
+  - component: {fileID: 822677880}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Player
@@ -6422,7 +6471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryDetectionRange: 2.5
-  parryKey: 112
+  parryMouseButton: 1
+  requireMouseClickAndHold: 1
   dashDistance: 6
   enemyKnockbackForce: 10
   parryCooldown: 0.1
@@ -6440,6 +6490,26 @@ MonoBehaviour:
   indicatorLength: 3
   outlineColor: {r: 1, g: 1, b: 1, a: 0.77254903}
   outlineIntensity: 1.5
+  showMouseDirectionLine: 1
+  teleportBeamLength: 8
+  teleportBeamWidth: 0.3
+  teleportBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  teleportBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  teleportBeamStartAlpha: 1.5
+  teleportBeamEndAlpha: 1.5
+  teleportBeamFadeInDuration: 0.1
+  teleportBeamFadeOutDuration: 0.5
+  destroyTeleportBeam: 0
+  dashBeamLength: 3
+  dashBeamWidth: 0.3
+  dashBeamStartColor: {r: 1, g: 0, b: 0, a: 1}
+  dashBeamEndColor: {r: 1, g: 1, b: 1, a: 1}
+  dashBeamStartAlpha: 0.8
+  dashBeamEndAlpha: 0.3
+  dashBeamFadeInDuration: 0.05
+  dashBeamFadeOutDuration: 0.3
+  dashBeamWaitDuration: 0.3
+  destroyDashBeam: 1
   parrySound: {fileID: 0}
   dashSound: {fileID: 0}
 --- !u!114 &822677873
@@ -6655,6 +6725,30 @@ Transform:
   - {fileID: 1778393387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &822677880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822677871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ddea87d7d80d5741ba055fe2a1c7762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &822677881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822677871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f8becdf1fbe7646a8718c3d2df4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &880647398
 GameObject:
   m_ObjectHideFlags: 0
@@ -6701,6 +6795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -7337,6 +7432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f186dba2232104f9d8de5b6e9384702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectiblesParent: {fileID: 0}
   totalToCollect: 5
 --- !u!114 &1055522693
 MonoBehaviour:
@@ -7442,7 +7538,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -7621,7 +7717,7 @@ MonoBehaviour:
   damage: 3
   knockback: {x: 5, y: 6}
   playerTag: Player
-  isTrigger: 1
+  damageCooldown: 0.5
 --- !u!1839735485 &1076767151
 Tilemap:
   m_ObjectHideFlags: 0
@@ -10314,6 +10410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb87c50f1c60947bba275635ff7fe6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleID: 
   value: 1
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
@@ -12317,6 +12414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f186dba2232104f9d8de5b6e9384702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectiblesParent: {fileID: 0}
   totalToCollect: 5
 --- !u!4 &1653952554
 Transform:
@@ -27825,3 +27923,4 @@ SceneRoots:
   - {fileID: 1316938890}
   - {fileID: 822677879}
   - {fileID: 1458637467}
+  - {fileID: 725003661}
