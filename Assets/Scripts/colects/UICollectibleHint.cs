@@ -7,7 +7,7 @@ public class UICollectibleHint : MonoBehaviour
     public static UICollectibleHint Instance { get; private set; }
 
     [Header("Referencias UI")]
-    public TextMeshProUGUI messageText; // si usas TextMeshPro cambia a TMP y type
+    public TextMeshProUGUI messageText;
     public TextMeshProUGUI counterText;
     public float messageDuration = 2f;
 
@@ -15,7 +15,11 @@ public class UICollectibleHint : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(gameObject); 
+            return; 
+        }
         Instance = this;
     }
 
@@ -25,9 +29,22 @@ public class UICollectibleHint : MonoBehaviour
         {
             GameManagerCollectibles.Instance.OnCollectChanged += UpdateCounter;
             GameManagerCollectibles.Instance.OnAllCollected += OnAllCollected;
-            UpdateCounter(GameManagerCollectibles.Instance.GetCollected(), GameManagerCollectibles.Instance.GetTotalToCollect());
+            
+            // Actualizar contador al iniciar
+            UpdateCounter(
+                GameManagerCollectibles.Instance.GetCollected(), 
+                GameManagerCollectibles.Instance.GetTotalToCollect()
+            );
+            
+            Debug.Log($"[UICollectibleHint] Suscrito a eventos. Total: {GameManagerCollectibles.Instance.GetTotalToCollect()}");
         }
-        if (messageText != null) messageText.gameObject.SetActive(false);
+        else
+        {
+            Debug.LogWarning("[UICollectibleHint] GameManagerCollectibles.Instance es null");
+        }
+        
+        if (messageText != null) 
+            messageText.gameObject.SetActive(false);
     }
 
     void OnDestroy()
@@ -58,11 +75,19 @@ public class UICollectibleHint : MonoBehaviour
     void UpdateCounter(int col, int total)
     {
         if (counterText != null)
+        {
             counterText.text = $"{col}/{total}";
+            Debug.Log($"[UICollectibleHint] Counter actualizado: {col}/{total}");
+        }
+        else
+        {
+            Debug.LogWarning("[UICollectibleHint] counterText es null");
+        }
     }
 
     void OnAllCollected()
     {
+        Debug.Log("[UICollectibleHint] ¡Todos los collectibles recogidos!");
         ShowTemporaryMessage("¡Puerta desbloqueada!");
     }
 }

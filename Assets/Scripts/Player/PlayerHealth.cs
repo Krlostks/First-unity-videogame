@@ -51,6 +51,32 @@ public class PlayerHealth : MonoBehaviour
 
         // Reactivar componentes del jugador
         ReactivarJugador();
+
+        // Teletransportar al spawn point si existe (con delay para asegurar que todo esté inicializado)
+        StartCoroutine(TeletransportToSpawnPoint());
+    }
+
+    System.Collections.IEnumerator TeletransportToSpawnPoint()
+    {
+        // Esperar un frame para asegurar que todo esté inicializado
+        yield return null;
+
+        if (SpawnPointManager.Instance != null && SpawnPointManager.Instance.HasSpawnPoint())
+        {
+            Vector3 spawnPos = SpawnPointManager.Instance.GetSpawnPosition();
+            transform.position = spawnPos;
+            
+            // Resetear velocidad del rigidbody
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+                rb.velocity = Vector2.zero;
+            
+            Debug.Log($"[PlayerHealth] Player teletransportado a: {spawnPos}");
+        }
+        else
+        {
+            Debug.Log("[PlayerHealth] No hay spawn point disponible, usando posición inicial.");
+        }
     }
 
     void Start()
@@ -296,6 +322,14 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         ResetVidasVisuales();
         isInvincible = false;
+
+        // Teletransportar al spawn point si existe
+        if (SpawnPointManager.Instance != null && SpawnPointManager.Instance.HasSpawnPoint())
+        {
+            Vector3 spawnPos = SpawnPointManager.Instance.GetSpawnPosition();
+            transform.position = spawnPos;
+            Debug.Log($"[PlayerHealth] Player revivido en: {spawnPos}");
+        }
 
         ReactivarJugador();
 

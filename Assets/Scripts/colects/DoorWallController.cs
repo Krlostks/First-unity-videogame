@@ -22,6 +22,14 @@ public class DoorWallController : MonoBehaviour
         if (GameManagerCollectibles.Instance != null)
         {
             GameManagerCollectibles.Instance.OnAllCollected += UnlockDoor;
+            Debug.Log("[DoorWallController] Suscrito al evento OnAllCollected");
+            
+            // Verificar si ya todos los collectibles fueron recogidos en una sesión anterior
+            if (GameManagerCollectibles.Instance.GetCollected() >= GameManagerCollectibles.Instance.GetTotalToCollect()
+                && GameManagerCollectibles.Instance.GetTotalToCollect() > 0)
+            {
+                UnlockDoor();
+            }
         }
     }
 
@@ -60,9 +68,10 @@ public class DoorWallController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        if (locked)
+        if (locked && GameManagerCollectibles.Instance != null)
         {
-            UICollectibleHint.Instance?.ShowTemporaryMessage($"Faltan {GameManagerCollectibles.Instance.GetTotalToCollect() - GameManagerCollectibles.Instance.GetCollected()} objetos");
+            int faltantes = GameManagerCollectibles.Instance.GetTotalToCollect() - GameManagerCollectibles.Instance.GetCollected();
+            UICollectibleHint.Instance?.ShowTemporaryMessage($"Faltan {faltantes} objetos");
         }
     }
 }

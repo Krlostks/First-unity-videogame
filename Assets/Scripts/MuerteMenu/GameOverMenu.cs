@@ -10,7 +10,7 @@ public class GameOverMenu : MonoBehaviour
     public Button mainMenuButton;
     public Text gameOverText;
 
-    [Header("Configuraci�n")]
+    [Header("Configuración")]
     public string menuSceneName = "Menu";
     public float showDelay = 1f;
 
@@ -69,6 +69,7 @@ public class GameOverMenu : MonoBehaviour
         }
 
         Time.timeScale = 1f;
+        // No limpiamos collectibles aquí - deben persistir
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -81,6 +82,13 @@ public class GameOverMenu : MonoBehaviour
         }
 
         Time.timeScale = 1f;
+        
+        // Limpiar collectibles al volver al menú
+        if (CollectibleManager.Instance != null)
+        {
+            CollectibleManager.Instance.ClearAllCollected();
+        }
+        
         SceneManager.LoadScene(menuSceneName);
     }
 
