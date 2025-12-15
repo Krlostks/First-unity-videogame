@@ -213,8 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   damageToPlayer: 1
-  damageToBoss: 2
-  lifetime: 10
+  damageToBoss: 3
+  lifetime: 5
   owner: {fileID: 0}
   normalSprite: {fileID: 0}
   parriedSprite: {fileID: 0}

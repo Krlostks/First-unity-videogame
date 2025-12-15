@@ -6,6 +6,7 @@ public class BossDialogueEventListener : MonoBehaviour
     [SerializeField] private BossController bossController;
     [SerializeField] private DialogueController dialogueController;
     [SerializeField] private CameraDirector cameraDirector;
+    [SerializeField] private BossBattleManager battleManager;
     
     [Header("NPC Management")]
     [SerializeField] private GameObject npcGameObject; // Referencia al NPC
@@ -41,6 +42,14 @@ public class BossDialogueEventListener : MonoBehaviour
             if (npcGameObject != null)
             {
                 Debug.Log($"NPC encontrado automáticamente: {npcGameObject.name}");
+            }
+        }
+        if (battleManager == null)
+        {
+            battleManager = GetComponent<BossBattleManager>();
+            if (battleManager == null)
+            {
+                battleManager = FindObjectOfType<BossBattleManager>();
             }
         }
 
@@ -109,6 +118,27 @@ public class BossDialogueEventListener : MonoBehaviour
             // Por ahora usaremos OnBossDied() que llamaremos desde BossController
             Debug.Log("Boss activado.");
         }
+
+        if (battleManager != null)
+            {
+                battleManager.StartBattle();
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró BossBattleManager!");
+            }
+
+            // 4. Iniciar cinemática
+            if (cameraDirector != null)
+            {
+                Debug.Log("Moviendo cámara a cinemática del boss...");
+                
+                cameraDirector.MoveToPosition(
+                    bossCameraPosition,
+                    cameraTransitionTime,
+                    bossCameraZoom
+                );
+            }
 
         // 3. Iniciar cinemática
         if (cameraDirector != null)

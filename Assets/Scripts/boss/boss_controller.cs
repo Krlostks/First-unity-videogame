@@ -65,6 +65,9 @@ public class BossController : MonoBehaviour
     [Header("Eventos")]
     [SerializeField] private BossDialogueEventListener bossEventListener;
 
+    [Header("Referencias UI")]
+    [SerializeField] private BossBattleManager battleManager;
+
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private AudioSource audioSource;
@@ -382,6 +385,11 @@ public class BossController : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+
+        if (battleManager != null)
+        {
+            battleManager.EndBattle();
+        }
         
         // Elegir secuencia de muerte según el tipo de boss
         switch (bossType)
